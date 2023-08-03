@@ -1,3 +1,10 @@
+check_points/
+processed_data/
+*.err
+*.out
+*.sbatch
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
