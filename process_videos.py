@@ -3,7 +3,7 @@ import cv2 as cv
 import numpy as np
 import mediapipe as mp
 import face_recognition
-from constants import *
+from data_constants import *
 
 
 class VideoBodyParts():
