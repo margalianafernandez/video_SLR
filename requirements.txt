@@ -1,1 +1,3 @@
 # pip3.9 install -U scikit-learn scipy matplotlib
+matplotlib 
+seaborn
