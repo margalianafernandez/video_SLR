@@ -1,3 +1,4 @@
+import os
 import torch
 import json
 import datetime
@@ -17,6 +18,25 @@ model_filename = '{}/slow_fast_2023-08-04 11:17:50.pth'.format(CHECKPOINTS_PATH)
 conf_matrix_filename = "{}/confusion_matrix_{}.png".format(CHECKPOINTS_PATH, current_datetime_str)
 
 
+def get_labels():
+    content = json.load(open(DATASET_FILE))
+    labels = content[TRAIN].keys()
+    return list(labels)
+
+
+def get_mapping_labels(test_loader):
+    mapping = {}
+
+    for video_path, num_label in test_loader.dataset._labeled_videos._paths_and_labels:
+        str_label = os.path.basename(os.path.dirname(video_path))
+
+        if str_label in mapping: continue
+
+        mapping[num_label] =  str_label
+
+    return mapping
+
+
 def get_data_loaders():
     
     test_transform = get_test_transform()
@@ -26,16 +46,9 @@ def get_data_loaders():
     test_data = labeled_video_dataset('{}/test'.format(DATA_PATH),
                                     make_clip_sampler('constant_clips_per_video', CLIP_DURATION, 1),
                                     transform=test_transform, decode_audio=False)
-
     test_loader = DataLoader(test_data, batch_size=BATCH_SIZE, num_workers=8)
 
     return test_loader
-
-
-def get_labels():
-    content = json.load(open(DATASET_FILE))
-    labels = content[TRAIN]
-    return labels
 
 
 def load_model():
@@ -46,7 +59,7 @@ def load_model():
     return model
 
 
-def plot_confussion_matrix(labels, preds):
+def store_confussion_matrix(labels, preds):
     labels_name = get_labels()
     
     # Calculate confusion matrix
@@ -61,6 +74,12 @@ def plot_confussion_matrix(labels, preds):
 
     # Save the plot as an image
     plt.savefig(conf_matrix_filename)  
+
+
+def show_accuracy(labels, preds):
+    correct_predictions = sum([int(label == pred) for label, pred in zip(labels, preds)])
+    accuracy = 100  * correct_predictions / len(labels) 
+    print(f'Accuracy: {accuracy:.2f}%')
 
 
 def evaluate_model(model, test_loader):
@@ -78,8 +97,13 @@ def evaluate_model(model, test_loader):
             labels += label.tolist()  # Convert tensor to a list of integers
             predictions += pred.argmax(dim=-1).tolist()  # Convert tensor to a list of integers
 
-
-    plot_confussion_matrix(labels, predictions)
+    # Mapping numeric labels to their origin name
+    mapping = get_mapping_labels(test_loader)
+    preds_name = [mapping[num_label] for num_label in predictions]
+    labels_name = [mapping[num_label] for num_label in labels]
+    
+    store_confussion_matrix(labels_name, preds_name)
+    show_accuracy(labels, predictions)
 
 
 if __name__ == "__main__":
