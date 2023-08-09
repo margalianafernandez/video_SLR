@@ -57,7 +57,21 @@ def store_loss_function(train_losses, val_losses):
     plt.savefig(LOSS_FUNC_FILENAME)
 
 
-def train_one_epoch(model, train_loader, optimizer, loss_criterion, epoch):
+def get_sample_batch_data(batch, model_type):
+
+    if CUDA_ACTIVATED:
+        if model_type == Models.SLOWFAST:
+            video, label = [i.cuda()
+                            for i in batch['video']], batch['label'].cuda()
+        else:
+            video, label = batch['video'].cuda(), batch['label'].cuda()
+    else:
+        video, label = batch['video'], batch['label']
+
+    return video, label
+
+
+def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, epoch):
     train_losses = []
 
     model.train()
@@ -68,10 +82,7 @@ def train_one_epoch(model, train_loader, optimizer, loss_criterion, epoch):
         num_videos / BATCH_SIZE), dynamic_ncols=True)
 
     for batch in train_bar:
-        if CUDA_ACTIVATED:
-            video, label = batch['video'].to('cuda'), batch['label'].to('cuda')
-        else:
-            video, label = batch['video'], batch['label']
+        video, label = get_sample_batch_data(batch, model_type)
 
         optimizer.zero_grad()
         pred = model(video)
@@ -93,7 +104,7 @@ def train_one_epoch(model, train_loader, optimizer, loss_criterion, epoch):
     return loss, acc, np.array(train_losses).mean()
 
 
-def validate_one_epoch(model, val_loader, loss_criterion, epoch):
+def validate_one_epoch(model, model_type, val_loader, loss_criterion, epoch):
     val_losses = []
 
     model.eval()
@@ -106,11 +117,7 @@ def validate_one_epoch(model, val_loader, loss_criterion, epoch):
             num_videos / BATCH_SIZE), dynamic_ncols=True)
 
         for batch in test_bar:
-            if CUDA_ACTIVATED:
-                video, label = batch['video'].to(
-                    'cuda'), batch['label'].to('cuda')
-            else:
-                video, label = batch['video'], batch['label']
+            video, label = get_sample_batch_data(batch, model_type)
 
             preds = model(video)
             loss = loss_criterion(preds, label)
@@ -131,7 +138,7 @@ def validate_one_epoch(model, val_loader, loss_criterion, epoch):
     return top_1, top_5, np.array(val_losses).mean()
 
 
-def train_model(train_loader, val_loader, model, loss_criterion, optimizer):
+def train_model(train_loader, val_loader, model, model_type, loss_criterion, optimizer):
 
     # training loop
     results = {'loss': [], 'acc': [], 'top-1': [], 'top-5': []}
@@ -145,13 +152,13 @@ def train_model(train_loader, val_loader, model, loss_criterion, optimizer):
     for epoch in range(1, EPOCHS + 1):
 
         loss, acc, train_losses = train_one_epoch(
-            model, train_loader, optimizer, loss_criterion, epoch)
+            model, model_type, train_loader, optimizer, loss_criterion, epoch)
 
         results['loss'].append(loss)
         results['acc'].append(acc * 100)
 
         top_1, top_5, val_losses = validate_one_epoch(
-            model, val_loader, loss_criterion, epoch)
+            model, model_type, val_loader, loss_criterion, epoch)
 
         results['top-1'].append(top_1 * 100)
         results['top-5'].append(top_5 * 100)
@@ -177,7 +184,7 @@ def train_model(train_loader, val_loader, model, loss_criterion, optimizer):
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Train video classification model.")
-    parser.add_argument("--model", type=Models, default=Models.CNN_3D,
+    parser.add_argument("--model", type=Models, default=Models.SLOWFAST,
                         help="Name of the model to train: " + Models.SLOWFAST.value + " or " +
                         Models.CNN_3D.value)
     parser.add_argument("--eval", type=bool, default=False,
@@ -205,8 +212,8 @@ if __name__ == "__main__":
         train_loader, val_loader = get_3dcnn_data_loaders()
         model, loss_criterion, optimizer = get_3dcnn_model(NUM_LABELS)
 
-    train_model(train_loader, val_loader, model, loss_criterion, optimizer)
+    train_model(train_loader, val_loader, model,
+                args.model, loss_criterion, optimizer)
 
     if args.eval:
-        model_name = os.path.basename(MODEL_FILENAME)
-        evaluate_model(args.model, model_name)
+        evaluate_model(args.model, MODEL_FILENAME)

@@ -1,5 +1,6 @@
 check_points/
 processed_data/
+processed_data_bh/
 videos/
 *.err
 *.out

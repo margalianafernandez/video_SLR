@@ -84,10 +84,16 @@ def get_slowfast_data_loaders(is_eval=False):
 def get_slowfast_model(num_labels):
 
     # model define, loss setup and optimizer config
-    model = torch.hub.load('facebookresearch/pytorchvideo:main',
-                           model='slowfast_r50', pretrained=True).cuda()
-    model.blocks[6].proj = torch.nn.Linear(
-        in_features=2304, out_features=num_labels, bias=True).cuda()
+    if CUDA_ACTIVATED:
+        model = torch.hub.load('facebookresearch/pytorchvideo:main',
+                               model='slowfast_r50', pretrained=True).cuda()
+        model.blocks[6].proj = torch.nn.Linear(
+            in_features=2304, out_features=num_labels, bias=True).cuda()
+    else:
+        model = torch.hub.load('facebookresearch/pytorchvideo:main',
+                               model='slowfast_r50', pretrained=True)
+        model.blocks[6].proj = torch.nn.Linear(
+            in_features=2304, out_features=num_labels, bias=True)
 
     loss_criterion = CrossEntropyLoss()
     optimizer = SGD(model.parameters(), lr=LEARNING_RATE,

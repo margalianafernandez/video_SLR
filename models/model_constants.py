@@ -1,3 +1,4 @@
+import torch
 from enum import Enum
 from os.path import join
 
@@ -10,7 +11,7 @@ class Models(Enum):
 
 
 # Environent parameters
-CUDA_ACTIVATED = True
+CUDA_ACTIVATED = torch.cuda.is_available()
 
 # Data processing parameters
 SIDE_SIZE = 336
@@ -37,5 +38,5 @@ CURRENT_MODEL = Models.SLOWFAST
 # Paths
 
 ROOT_PATH = join("/dcs", "pg22", "u2288875", "Documents", "TFM")
-DATA_PATH = join(ROOT_PATH, "processed_data")
+DATA_PATH = join(ROOT_PATH, "processed_data_bh")
 CHECKPOINTS_PATH = join(ROOT_PATH, "check_points")

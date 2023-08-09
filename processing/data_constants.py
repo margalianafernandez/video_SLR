@@ -8,7 +8,7 @@ class ProcessingType(Enum):
     FACE_HANDS = "face_and_hands"
     BODY_HANDS = "body_and_hands"
     ALL = "all"
-    
+
 
 # Parameters
 NUM_LABELS = 20
@@ -32,4 +32,4 @@ CONFIG_PATH = join(CURRENT_PATH, "config")
 VIDEOS_FOLDER = join(CURRENT_PATH, "videos")
 DATASET_FILE = join(CONFIG_PATH, "dataset.json")
 WLASL_FILE = join(CONFIG_PATH, "WLASL_v0.3.json")
-PROCESSED_VIDEO_FOLDER = os.path.join(CURRENT_PATH, "processed_data")
+PROCESSED_VIDEO_FOLDER = os.path.join(CURRENT_PATH, "processed_data_bh")
