@@ -57,15 +57,16 @@ def get_slowfast_data_loaders(is_eval=False):
                                           make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
             transform=transformations, decode_audio=False)
-        
+
         test_loader = DataLoader(
             test_data, batch_size=BATCH_SIZE, num_workers=8)
 
         return test_loader
 
     else:
-        train_data = labeled_video_dataset('{}/train'.format(DATA_PATH), 
-                                           make_clip_sampler('random', CLIP_DURATION),
+        train_data = labeled_video_dataset('{}/train'.format(DATA_PATH),
+                                           make_clip_sampler(
+                                               'random', CLIP_DURATION),
                                            transform=transformations, decode_audio=False)
 
         val_data = labeled_video_dataset('{}/val'.format(DATA_PATH),
@@ -73,7 +74,8 @@ def get_slowfast_data_loaders(is_eval=False):
             'constant_clips_per_video', CLIP_DURATION, 1),
             transform=transformations, decode_audio=False)
 
-        train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, num_workers=8)
+        train_loader = DataLoader(
+            train_data, batch_size=BATCH_SIZE, num_workers=8)
         val_loader = DataLoader(val_data, batch_size=BATCH_SIZE, num_workers=8)
 
         return train_loader, val_loader
