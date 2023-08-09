@@ -114,6 +114,10 @@
             {
                 "video_id": "38525",
                 "signer_id": 36
+            },
+            {
+                "video_id": "38533",
+                "signer_id": 10
             }
         ],
         "walk": [
@@ -1492,10 +1496,6 @@
             {
                 "video_id": "69411",
                 "signer_id": 118
-            },
-            {
-                "video_id": "38533",
-                "signer_id": 10
             }
         ],
         "walk": [
