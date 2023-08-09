@@ -1,21 +1,26 @@
 import os
-import torch
 import json
+import torch
 import datetime
+import argparse
 import seaborn as sns
 import matplotlib.pyplot as plt
-from slowfast_constants import *
-from slowfast import get_test_transform
-from torch.utils.data import DataLoader
+from models.model_constants import *
 from sklearn.metrics import confusion_matrix
-from data_constants import DATASET_FILE, TRAIN
-from pytorchvideo.data import make_clip_sampler, labeled_video_dataset
+from models.cnn3d_model import get_3dcnn_data_loaders
+from processing.data_constants import DATASET_FILE, TRAIN
+from models.slowfast_model import get_slowfast_data_loaders
 
-current_datetime = datetime.datetime.now()
-current_datetime_str = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+MODEL_FILENAME = '{}/slow_fast_2023-08-07 13:27:10.pth'.format(CHECKPOINTS_PATH)
 
-model_filename = '{}/slow_fast_2023-08-04 11:17:50.pth'.format(CHECKPOINTS_PATH)
-conf_matrix_filename = "{}/confusion_matrix_{}.png".format(CHECKPOINTS_PATH, current_datetime_str)
+
+def define_file_names(model_name):
+    global CONF_MATRIX_FILENAME
+
+    current_datetime = datetime.datetime.now()
+    current_datetime_str = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+
+    CONF_MATRIX_FILENAME = f"{CHECKPOINTS_PATH}/{model_name}_conf_matrix_{current_datetime_str}.csv"
 
 
 def get_labels():
@@ -37,16 +42,12 @@ def get_mapping_labels(test_loader):
     return mapping
 
 
-def get_data_loaders():
+def get_data_loaders(model_type):
     
-    test_transform = get_test_transform()
-
-    # data prepare
-
-    test_data = labeled_video_dataset('{}/test'.format(DATA_PATH),
-                                    make_clip_sampler('constant_clips_per_video', CLIP_DURATION, 1),
-                                    transform=test_transform, decode_audio=False)
-    test_loader = DataLoader(test_data, batch_size=BATCH_SIZE, num_workers=8)
+    if model_type == Models.SLOWFAST:
+        test_loader = get_slowfast_data_loaders(is_eval=True)
+    else:
+        test_loader = get_3dcnn_data_loaders(is_eval=True)
 
     return test_loader
 
@@ -54,7 +55,7 @@ def get_data_loaders():
 def load_model():
 
     # Load the saved model
-    model = torch.load(model_filename, map_location=torch.device('cpu'))
+    model = torch.load(MODEL_FILENAME, map_location=torch.device('cpu'))
     
     return model
 
@@ -73,7 +74,7 @@ def store_confussion_matrix(labels, preds):
     plt.title('Confusion Matrix')
 
     # Save the plot as an image
-    plt.savefig(conf_matrix_filename)  
+    plt.savefig(CONF_MATRIX_FILENAME)  
 
 
 def show_accuracy(labels, preds):
@@ -82,9 +83,14 @@ def show_accuracy(labels, preds):
     print(f'Accuracy: {accuracy:.2f}%')
 
 
-def evaluate_model(model, test_loader):
-
+def evaluate_model(model_type):
+    
     labels, predictions = [], []
+
+    define_file_names(model_type)
+    
+    test_loader = get_data_loaders(model_type)
+    model = load_model()
 
     # Set the model in evaluation mode
     model.eval()
@@ -106,8 +112,19 @@ def evaluate_model(model, test_loader):
     show_accuracy(labels, predictions)
 
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        description="Evaluate video classification model.")
+    parser.add_argument("--model", type=Models, default=Models.CNN_3D,
+                        help="Name of the model to train: SLOWFAST or CNN_3D")
+
+    args = parser.parse_args()
+
+    return args.model
+
+
 if __name__ == "__main__":
+
+    model_type = parse_arguments()
     
-    test_loader = get_data_loaders()
-    model = load_model()
-    evaluate_model(model, test_loader)
+    evaluate_model(model_type)
