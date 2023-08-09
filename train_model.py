@@ -21,7 +21,8 @@ def define_file_names(model_name):
     global METRICS_FILENAME, LOSS_FUNC_FILENAME, MODEL_FILENAME
 
     current_datetime = datetime.datetime.now()
-    current_datetime_str = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+    current_datetime_str = current_datetime.strftime(
+        '%Y-%m-%d %H:%M:%S').replace(" ", "_")
 
     METRICS_FILENAME = f"{CHECKPOINTS_PATH}/{model_name}_metrics_{current_datetime_str}.csv"
     LOSS_FUNC_FILENAME = f"{CHECKPOINTS_PATH}/{model_name}_loss_func_{current_datetime_str}.png"
@@ -66,8 +67,10 @@ def train_one_epoch(model, train_loader, optimizer, loss_criterion, epoch):
         num_videos / BATCH_SIZE), dynamic_ncols=True)
 
     for batch in train_bar:
-        # video, label = [i.cuda() for i in batch['video']], batch['label'].cuda()
-        video, label = [i for i in batch['video']], batch['label']
+        if CUDA_ACTIVATED:
+            video, label = batch['video'].to('cuda'), batch['label'].to('cuda')
+        else:
+            video, label = batch['video'], batch['label']
 
         optimizer.zero_grad()
         pred = model(video)
@@ -102,7 +105,11 @@ def validate_one_epoch(model, val_loader, loss_criterion, epoch):
             num_videos / BATCH_SIZE), dynamic_ncols=True)
 
         for batch in test_bar:
-            video, label = [i.cuda() for i in batch['video']], batch['label'].cuda()
+            if CUDA_ACTIVATED:
+                video, label = batch['video'].to(
+                    'cuda'), batch['label'].to('cuda')
+            else:
+                video, label = batch['video'], batch['label']
 
             preds = model(video)
             loss = loss_criterion(preds, label)
@@ -170,7 +177,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Train video classification model.")
     parser.add_argument("--model", type=Models, default=Models.CNN_3D,
-                        help="Name of the model to train: " + Models.SLOWFAST.value + " or " + 
+                        help="Name of the model to train: " + Models.SLOWFAST.value + " or " +
                         Models.CNN_3D.value)
     parser.add_argument("--eval", type=bool, default=False,
                         help="True if the evaluate_model script also needs to be executed, otherwise False.")
@@ -180,8 +187,9 @@ def parse_arguments():
 
 if __name__ == "__main__":
 
-    enable_cuda_launch_blocking()
-    torch.cuda.empty_cache()
+    if CUDA_ACTIVATED:
+        enable_cuda_launch_blocking()
+        torch.cuda.empty_cache()
 
     args = parse_arguments()
 
@@ -199,4 +207,5 @@ if __name__ == "__main__":
     train_model(train_loader, val_loader, model, loss_criterion, optimizer)
 
     if args.eval:
-        evaluate_model(args.model)
+        model_name = os.path.basename(MODEL_FILENAME)
+        evaluate_model(args.model, model_name)

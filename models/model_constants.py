@@ -1,18 +1,18 @@
-import datetime
 from enum import Enum
 from os.path import join
 
 
-# MODELS
+# Type of models
+
 class Models(Enum):
     SLOWFAST = "slowfast"
     CNN_3D = "3dcnn"
 
 
-CURRENT_MODEL = Models.SLOWFAST
+# Environent parameters
+CUDA_ACTIVATED = True
 
-# DATA PROCESSING PARAMETERS
-
+# Data processing parameters
 SIDE_SIZE = 336
 MAX_SIZE = 368
 MEAN = [0.45, 0.45, 0.45]
@@ -28,17 +28,14 @@ CLIP_DURATION = (NUM_FRAMES * SAMPLING_RATE) / FPS
 
 EPOCHS = 50
 MOMENTUM = 0.9
-WEIGHT_DECAY=0.001
-BATCH_SIZE = 5 # 10
+WEIGHT_DECAY = 0.001
+BATCH_SIZE = 5  # 10
 LEARNING_RATE = 0.02
+CURRENT_MODEL = Models.SLOWFAST
 
 
-# PATHS
+# Paths
 
 ROOT_PATH = join("/dcs", "pg22", "u2288875", "Documents", "TFM")
 DATA_PATH = join(ROOT_PATH, "processed_data")
-CHECKPOINTS_PATH = join(ROOT_PATH, "check_points") 
-
-
-current_datetime = datetime.datetime.now()
-current_datetime_str = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+CHECKPOINTS_PATH = join(ROOT_PATH, "check_points")
