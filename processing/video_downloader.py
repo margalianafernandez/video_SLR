@@ -7,7 +7,7 @@ import random
 import logging
 import subprocess
 import urllib.request
-from data_constants import *
+from processing.data_constants import *
 from os.path import join
 
 

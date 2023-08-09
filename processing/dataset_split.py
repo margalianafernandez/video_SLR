@@ -1,7 +1,7 @@
 import json
 import itertools
 from collections import Counter
-from data_constants import DATASET_FILE, TRAIN, TEST, VALIDATION
+from processing.data_constants import DATASET_FILE, TRAIN, TEST, VALIDATION
 
 sets = [TRAIN, TEST, VALIDATION]
 
