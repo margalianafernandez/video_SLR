@@ -7,6 +7,7 @@ import face_recognition
 # from processing.data_constants import *
 from data_constants import *
 
+
 class VideoBodyParts():
     """
     This class will detect the face and the hands of the input frame and store it
@@ -72,7 +73,7 @@ class VideoBodyParts():
         Detect the face the image and store it in the self.face_im variable.
         """
         width = (TARGET_SIZE*2, TARGET_SIZE)[type == ProcessingType.ALL]
-        
+
         # Detect faces in the image
         face_locations = face_recognition.face_locations(frame)
 
@@ -118,20 +119,22 @@ def get_image_regions(video_parts, type):
     """
     combined_hands_image = np.hstack(
         (video_parts.left_hand_im, video_parts.right_hand_im))
-    
+
     if type == ProcessingType.ALL:
-        combined_body_image = np.hstack((video_parts.face_im, video_parts.hole_im))
+        combined_body_image = np.hstack(
+            (video_parts.face_im, video_parts.hole_im))
         combined_image = np.vstack((combined_hands_image, combined_body_image))
-    
+
     elif type == ProcessingType.BODY_HANDS:
-        combined_image = np.vstack((combined_hands_image,  video_parts.hole_im))
-    
+        combined_image = np.vstack(
+            (combined_hands_image,  video_parts.hole_im))
+
     elif type == ProcessingType.FACE_HANDS:
         combined_image = np.vstack((combined_hands_image, video_parts.face_im))
-    
+
     else:
         combined_image = combined_hands_image
-    
+
     return combined_image
 
 
@@ -159,7 +162,7 @@ def process_video(type, video_path, output_path):
 
     width, height = (int(cap.get(cv.CAP_PROP_FRAME_WIDTH)),
                      int(cap.get(cv.CAP_PROP_FRAME_HEIGHT)))
-    
+
     fps = int(cap.get(cv.CAP_PROP_FPS))
     fourcc = cv.VideoWriter_fourcc('m', 'p', '4', 'v')
 
@@ -182,13 +185,13 @@ def process_video(type, video_path, output_path):
 
             if type == ProcessingType.ALL or type == ProcessingType.FACE_HANDS:
                 video_parts.detect_face_in_image(frame, type)
-            
+
             if type == ProcessingType.ALL or type == ProcessingType.BODY_HANDS:
                 video_parts.store_hole_im(frame, type)
-            
+
             combined_image = get_image_regions(video_parts, type)
             out_video.write(combined_image)
-        
+
         except Exception as error:
             print("Error in the file " + video_path + ". Error message", error)
 
@@ -237,6 +240,7 @@ def parse_arguments():
 if __name__ == "__main__":
 
     args = parse_arguments()
+    print("Type selected:", args.type.value)
     process_video_and_store(args.type)
 
 # Num videos 385
