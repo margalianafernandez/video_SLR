@@ -21,7 +21,7 @@ STD = [0.225, 0.225, 0.225]
 CROP_SIZE = 336
 NUM_FRAMES = 32
 SAMPLING_RATE = 1
-FPS = 32/5
+FPS = NUM_FRAMES/5
 CLIP_DURATION = (NUM_FRAMES * SAMPLING_RATE) / FPS
 
 
@@ -38,5 +38,5 @@ CURRENT_MODEL = Models.SLOWFAST
 # Paths
 
 ROOT_PATH = join("/dcs", "pg22", "u2288875", "Documents", "TFM")
-DATA_PATH = join(ROOT_PATH, "processed_data_bh")
+DATA_PATH = join(ROOT_PATH, "processed_data")
 CHECKPOINTS_PATH = join(ROOT_PATH, "check_points")

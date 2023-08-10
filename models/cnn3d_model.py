@@ -22,7 +22,6 @@ def collate_r3d_18(batch):
 
 
 def get_transformations():
-    h, w = 112, 112
 
     transformations = [
         Lambda(lambda frames: frames.permute(0, 3, 1, 2)),
