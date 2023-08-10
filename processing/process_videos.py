@@ -13,13 +13,21 @@ class VideoBodyParts():
     This class will detect the face and the hands of the input frame and store it
     """
 
-    def __init__(self):
+    def __init__(self, type):
         empty_image = np.zeros(
             (TARGET_SIZE, TARGET_SIZE, TARGET_CHANNELS), dtype=np.uint8)
+        self.type = type
         self.face_im = empty_image
         self.hole_im = empty_image.copy()
-        self.left_hand_im = empty_image.copy()
-        self.right_hand_im = empty_image.copy()
+        
+        if type == ProcessingType.HANDS:
+            self.left_hand_im = np.zeros(
+                (FRAME_SIZE, TARGET_SIZE, TARGET_CHANNELS), dtype=np.uint8)
+            self.right_hand_im = self.left_hand_im.copy()
+        else: 
+            self.left_hand_im = empty_image.copy()
+            self.right_hand_im = empty_image.copy()
+    
 
     @staticmethod
     def calculate_bounding_box(hand_landmarks, frame_width, frame_height):
@@ -50,7 +58,8 @@ class VideoBodyParts():
         """
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         results_hands = mp_hands.process(frame)
-
+        image_heigh = (TARGET_SIZE, FRAME_SIZE)[self.type== ProcessingType.HANDS]
+        
         if results_hands.multi_hand_landmarks:
 
             for aux, hand_landmarks in enumerate(results_hands.multi_hand_landmarks):
@@ -60,7 +69,7 @@ class VideoBodyParts():
                     hand_landmarks, width, height)
                 cropped_im = frame[y_min:y_max, x_min:x_max]
                 resized_image = cv.resize(
-                    cropped_im, (TARGET_SIZE, TARGET_SIZE))
+                    cropped_im, (TARGET_SIZE, image_heigh))
                 resized_image = cv.cvtColor(resized_image, cv.COLOR_RGB2BGR)
                 if results_hands.multi_handedness[aux].classification[0].label == LEFT_HAND_LABEL:
                     self.left_hand_im = resized_image
@@ -68,11 +77,11 @@ class VideoBodyParts():
                 else:
                     self.right_hand_im = resized_image
 
-    def detect_face_in_image(self, frame, type):
+    def detect_face_in_image(self, frame):
         """
         Detect the face the image and store it in the self.face_im variable.
         """
-        width = (TARGET_SIZE*2, TARGET_SIZE)[type == ProcessingType.ALL]
+        width = (FRAME_SIZE, TARGET_SIZE)[self.type == ProcessingType.ALL]
 
         # Detect faces in the image
         face_locations = face_recognition.face_locations(frame)
@@ -84,11 +93,11 @@ class VideoBodyParts():
             cropped_image = frame[top:bottom, left:right]
             self.face_im = cv.resize(cropped_image, (width, TARGET_SIZE))
 
-    def store_hole_im(self, frame, type):
+    def store_hole_im(self, frame):
         """
         Store the hole image, resized and blured, in the hole_im variable.
         """
-        width = (TARGET_SIZE*2, TARGET_SIZE)[type == ProcessingType.ALL]
+        width = (FRAME_SIZE, TARGET_SIZE)[self.type == ProcessingType.ALL]
 
         blur_image = cv.GaussianBlur(frame, (15, 15), 0)
         self.hole_im = cv.resize(blur_image, (width, TARGET_SIZE))
@@ -156,7 +165,7 @@ def process_video(type, video_path, output_path):
     | Left hand | Right hand |
     |        Hole image      |
     """
-    video_parts = VideoBodyParts()
+    video_parts = VideoBodyParts(type)
 
     cap = cv.VideoCapture(video_path)
 
@@ -166,9 +175,8 @@ def process_video(type, video_path, output_path):
     fps = int(cap.get(cv.CAP_PROP_FPS))
     fourcc = cv.VideoWriter_fourcc('m', 'p', '4', 'v')
 
-    heigh = (FRAME_SIZE, TARGET_SIZE)[type == ProcessingType.HANDS]
     out_video = cv.VideoWriter()
-    out_video.open(output_path, fourcc, fps, (FRAME_SIZE, heigh), True)
+    out_video.open(output_path, fourcc, fps, (FRAME_SIZE, FRAME_SIZE), True)
 
     mp_hands = mp.solutions.hands.Hands(
         max_num_hands=MAX_NUM_HANDS,
@@ -184,10 +192,10 @@ def process_video(type, video_path, output_path):
             video_parts.detect_hands_in_image(mp_hands, frame, width, height)
 
             if type == ProcessingType.ALL or type == ProcessingType.FACE_HANDS:
-                video_parts.detect_face_in_image(frame, type)
+                video_parts.detect_face_in_image(frame)
 
             if type == ProcessingType.ALL or type == ProcessingType.BODY_HANDS:
-                video_parts.store_hole_im(frame, type)
+                video_parts.store_hole_im(frame)
 
             combined_image = get_image_regions(video_parts, type)
             out_video.write(combined_image)
@@ -242,5 +250,3 @@ if __name__ == "__main__":
     args = parse_arguments()
     print("Type selected:", args.type.value)
     process_video_and_store(args.type)
-
-# Num videos 385
