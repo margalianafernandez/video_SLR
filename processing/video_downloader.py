@@ -7,10 +7,11 @@ import random
 import logging
 import subprocess
 import urllib.request
-from processing.data_constants import *
+from data_constants import *
 from os.path import join
 
 
+# Dataset dictionary to store downloaded video instances
 dataset = {
     TEST: dict(),
     TRAIN: dict(),
@@ -18,11 +19,21 @@ dataset = {
 }
 
 
+# Configure logging to both file and stdout
 logging.basicConfig(filename='download_{}.log'.format(int(time.time())), filemode='w', level=logging.DEBUG)
 logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 
 def trimme_file(inst):
+    """
+    Trim video file based on frame range.
+
+    Args:
+        inst (dict): Video instance data.
+
+    Returns:
+        None
+    """
     video_id = inst["video_id"]
     frame_start = inst["frame_start"]
     frame_end = inst["frame_end"]
@@ -57,6 +68,16 @@ def trimme_file(inst):
 
 
 def register_video_downloaded(gloss, instance):
+    """
+    Register downloaded video instance in the dataset.
+
+    Args:
+        gloss (str): Gloss associated with the video instance.
+        instance (dict): Video instance data.
+
+    Returns:
+        None
+    """
     set = instance["split"]
     
     instance = {
@@ -71,6 +92,16 @@ def register_video_downloaded(gloss, instance):
 
 
 def convert_file_to_mp4(video_id, original_extension):
+    """
+    Convert non-MP4 file to MP4 format.
+
+    Args:
+        video_id (str): Video ID.
+        original_extension (str): Original file extension.
+
+    Returns:
+        None
+    """
     input_file = join(VIDEOS_FOLDER, video_id+original_extension)
   
     # Create the output file path with the '.mp4' extension
@@ -87,6 +118,16 @@ def convert_file_to_mp4(video_id, original_extension):
 
 
 def request_video(url, referer=''):
+    """
+    Make a request to a URL and retrieve video data.
+
+    Args:
+        url (str): URL to request.
+        referer (str): Referer URL.
+
+    Returns:
+        bytes: Retrieved video data.
+    """
     user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
 
     headers = {'User-Agent': user_agent,}
@@ -102,6 +143,16 @@ def request_video(url, referer=''):
 
 
 def save_video(data, saveto):
+    """
+    Save video data to a file.
+
+    Args:
+        data (bytes): Video data to save.
+        saveto (str): File path to save the video data.
+
+    Returns:
+        None
+    """
     with open(saveto, 'wb+') as f:
         f.write(data)
 
@@ -110,10 +161,31 @@ def save_video(data, saveto):
 
 
 def download_youtube(url, dirname, video_id):
+    """
+    Placeholder function for downloading YouTube videos.
+
+    Args:
+        url (str): YouTube video URL.
+        dirname (str): Directory name.
+        video_id (str): Video ID.
+
+    Raises:
+        NotImplementedError: Placeholder function, YouTube download not supported.
+    """
     raise NotImplementedError("Urllib cannot deal with YouTube links.")
 
-
 def download_aslpro(url, dirname, video_id):
+    """
+    Download videos from ASLPro website and save as .swf file.
+
+    Args:
+        url (str): URL of the video to download.
+        dirname (str): Directory to save the downloaded video.
+        video_id (str): ID of the video.
+
+    Returns:
+        None
+    """
     saveto = os.path.join(dirname, '{}.swf'.format(video_id))
     if os.path.exists(saveto):
         logging.info('{} exists at {}'.format(video_id, saveto))
@@ -124,6 +196,17 @@ def download_aslpro(url, dirname, video_id):
 
 
 def download_others(url, dirname, video_id):
+    """
+    Download videos from other sources and save as .mp4 file.
+
+    Args:
+        url (str): URL of the video to download.
+        dirname (str): Directory to save the downloaded video.
+        video_id (str): ID of the video.
+
+    Returns:
+        None
+    """
     saveto = os.path.join(dirname, '{}.mp4'.format(video_id))
     if os.path.exists(saveto):
         logging.info('{} exists at {}'.format(video_id, saveto))
@@ -134,6 +217,15 @@ def download_others(url, dirname, video_id):
 
 
 def select_download_method(url):
+    """
+    Select the appropriate download method based on the URL.
+
+    Args:
+        url (str): URL of the video to download.
+
+    Returns:
+        function: The appropriate download function.
+    """
     if 'aslpro' in url:
         return download_aslpro
     elif 'youtube' in url or 'youtu.be' in url:
@@ -143,23 +235,42 @@ def select_download_method(url):
 
 
 def check_youtube_dl_version():
+    """
+    Check if youtube-dl is installed and its version is up to date.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     ver = os.popen('youtube-dl --version').read()
 
     assert ver, "youtube-dl cannot be found in PATH. Please verify your installation."
-    assert ver >= '2020.03.08', "Please update youtube-dl to newest version."
+    assert ver >= '2020.03.08', "Please update youtube-dl to the newest version."
 
 
 def download_nonyt_videos():
+    """
+    Download non-YouTube videos from the provided URLs.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     content = json.load(open(WLASL_FILE))
 
     if not os.path.exists(VIDEOS_FOLDER):
         os.mkdir(VIDEOS_FOLDER)
 
-    for idx, entry in enumerate(content):
-
-        if idx >= NUM_LABELS: break
-
+    for entry in content:
         gloss = entry['gloss']
+
+        if gloss not in LABELS: 
+            continue 
+
         instances = entry['instances']
 
         for inst in instances:
@@ -188,16 +299,26 @@ def download_nonyt_videos():
 
 
 def download_yt_videos():
+    """
+    Download YouTube videos from the provided URLs.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     content = json.load(open(WLASL_FILE))
     
     if not os.path.exists(VIDEOS_FOLDER):
         os.mkdir(VIDEOS_FOLDER)
     
-    for idx, entry in enumerate(content):
-        
-        if idx >= NUM_LABELS: break
-        
+    for entry in content:
         gloss = entry['gloss']
+
+        if gloss not in LABELS: 
+            continue        
+        
         instances = entry['instances']
 
         for inst in instances:
@@ -230,7 +351,7 @@ def download_yt_videos():
 
                 # please be nice to the host - take pauses and avoid spamming
                 time.sleep(random.uniform(1.0, 1.5))
-            
+
 
 if __name__ == '__main__':
 

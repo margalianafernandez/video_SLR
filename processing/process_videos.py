@@ -4,7 +4,6 @@ import cv2 as cv
 import numpy as np
 import mediapipe as mp
 import face_recognition
-# from processing.data_constants import *
 from data_constants import *
 
 
@@ -14,6 +13,12 @@ class VideoBodyParts():
     """
 
     def __init__(self, type):
+        """
+        Initialize the VideoBodyParts class.
+
+        Args:
+            type (ProcessingType): Type of processing to perform (ALL, HANDS, FACE_HANDS, BODY_HANDS).
+        """
         empty_image = np.zeros(
             (TARGET_SIZE, TARGET_SIZE, TARGET_CHANNELS), dtype=np.uint8)
         self.type = type
@@ -217,7 +222,8 @@ def process_video_and_store(processing_type):
 
         for label in dataset_content[folder]:
 
-            label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, folder, label)
+            # label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, folder, label)
+            label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, "train", label)
             create_folder_if_not_exists(label_folder)
 
             for video in dataset_content[folder][label]:

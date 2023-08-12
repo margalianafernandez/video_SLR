@@ -10,64 +10,6 @@
                 "signer_id": 21
             }
         ],
-        "computer": [
-            {
-                "video_id": "12306",
-                "signer_id": 9
-            },
-            {
-                "video_id": "12320",
-                "signer_id": 59
-            }
-        ],
-        "chair": [
-            {
-                "video_id": "09847",
-                "signer_id": 9
-            },
-            {
-                "video_id": "09855",
-                "signer_id": 5
-            },
-            {
-                "video_id": "09867",
-                "signer_id": 72
-            }
-        ],
-        "go": [
-            {
-                "video_id": "24857",
-                "signer_id": 9
-            },
-            {
-                "video_id": "24960",
-                "signer_id": 10
-            }
-        ],
-        "clothes": [
-            {
-                "video_id": "11305",
-                "signer_id": 9
-            },
-            {
-                "video_id": "11311",
-                "signer_id": 59
-            },
-            {
-                "video_id": "11318",
-                "signer_id": 72
-            }
-        ],
-        "who": [
-            {
-                "video_id": "63219",
-                "signer_id": 9
-            },
-            {
-                "video_id": "63226",
-                "signer_id": 36
-            }
-        ],
         "deaf": [
             {
                 "video_id": "14855",
@@ -80,16 +22,6 @@
             {
                 "video_id": "14888",
                 "signer_id": 15
-            }
-        ],
-        "fine": [
-            {
-                "video_id": "70234",
-                "signer_id": 121
-            },
-            {
-                "video_id": "21890",
-                "signer_id": 12
             }
         ],
         "help": [
@@ -114,34 +46,6 @@
             {
                 "video_id": "38525",
                 "signer_id": 36
-            },
-            {
-                "video_id": "38533",
-                "signer_id": 10
-            }
-        ],
-        "walk": [
-            {
-                "video_id": "62152",
-                "signer_id": 9
-            },
-            {
-                "video_id": "62160",
-                "signer_id": 39
-            }
-        ],
-        "year": [
-            {
-                "video_id": "64201",
-                "signer_id": 9
-            },
-            {
-                "video_id": "64210",
-                "signer_id": 36
-            },
-            {
-                "video_id": "64209",
-                "signer_id": 42
             }
         ],
         "yes": [
@@ -158,28 +62,266 @@
                 "signer_id": 10
             }
         ],
-        "all": [
+        "finish": [
             {
-                "video_id": "01996",
-                "signer_id": 5
-            },
-            {
-                "video_id": "01986",
-                "signer_id": 2
-            }
-        ],
-        "black": [
-            {
-                "video_id": "06455",
+                "video_id": "21933",
                 "signer_id": 9
             },
             {
-                "video_id": "06481",
-                "signer_id": 47
+                "video_id": "70361",
+                "signer_id": 121
             },
             {
-                "video_id": "06483",
+                "video_id": "21944",
+                "signer_id": 45
+            }
+        ],
+        "like": [
+            {
+                "video_id": "68093",
+                "signer_id": 109
+            },
+            {
+                "video_id": "69389",
+                "signer_id": 118
+            },
+            {
+                "video_id": "33286",
+                "signer_id": 12
+            }
+        ],
+        "mother": [
+            {
+                "video_id": "36927",
+                "signer_id": 9
+            },
+            {
+                "video_id": "36940",
                 "signer_id": 5
+            }
+        ],
+        "table": [
+            {
+                "video_id": "56552",
+                "signer_id": 9
+            },
+            {
+                "video_id": "56567",
+                "signer_id": 5
+            }
+        ],
+        "fish": [
+            {
+                "video_id": "22109",
+                "signer_id": 9
+            },
+            {
+                "video_id": "22126",
+                "signer_id": 5
+            },
+            {
+                "video_id": "22117",
+                "signer_id": 21
+            }
+        ],
+        "white": [
+            {
+                "video_id": "63191",
+                "signer_id": 9
+            },
+            {
+                "video_id": "63201",
+                "signer_id": 36
+            }
+        ],
+        "bird": [
+            {
+                "video_id": "06326",
+                "signer_id": 9
+            },
+            {
+                "video_id": "06335",
+                "signer_id": 59
+            }
+        ],
+        "dance": [
+            {
+                "video_id": "14621",
+                "signer_id": 9
+            }
+        ],
+        "eat": [
+            {
+                "video_id": "18316",
+                "signer_id": 9
+            }
+        ],
+        "school": [
+            {
+                "video_id": "49577",
+                "signer_id": 9
+            },
+            {
+                "video_id": "68145",
+                "signer_id": 109
+            }
+        ],
+        "want": [
+            {
+                "video_id": "62241",
+                "signer_id": 9
+            },
+            {
+                "video_id": "62247",
+                "signer_id": 4
+            }
+        ],
+        "paper": [
+            {
+                "video_id": "41008",
+                "signer_id": 9
+            }
+        ],
+        "water": [
+            {
+                "video_id": "62479",
+                "signer_id": 9
+            },
+            {
+                "video_id": "68179",
+                "signer_id": 109
+            }
+        ],
+        "yellow": [
+            {
+                "video_id": "64260",
+                "signer_id": 9
+            },
+            {
+                "video_id": "69545",
+                "signer_id": 118
+            }
+        ],
+        "brother": [
+            {
+                "video_id": "07929",
+                "signer_id": 9
+            },
+            {
+                "video_id": "69251",
+                "signer_id": 116
+            }
+        ],
+        "cry": [
+            {
+                "video_id": "14172",
+                "signer_id": 9
+            },
+            {
+                "video_id": "14190",
+                "signer_id": 12
+            }
+        ],
+        "learn": [
+            {
+                "video_id": "32598",
+                "signer_id": 9
+            },
+            {
+                "video_id": "68088",
+                "signer_id": 109
+            }
+        ],
+        "teacher": [
+            {
+                "video_id": "57037",
+                "signer_id": 9
+            },
+            {
+                "video_id": "68166",
+                "signer_id": 109
+            }
+        ],
+        "write": [
+            {
+                "video_id": "64049",
+                "signer_id": 9
+            },
+            {
+                "video_id": "69544",
+                "signer_id": 115
+            }
+        ],
+        "coffee": [
+            {
+                "video_id": "11552",
+                "signer_id": 9
+            },
+            {
+                "video_id": "70298",
+                "signer_id": 121
+            }
+        ],
+        "friend": [
+            {
+                "video_id": "23567",
+                "signer_id": 9
+            }
+        ],
+        "happy": [
+            {
+                "video_id": "26506",
+                "signer_id": 9
+            },
+            {
+                "video_id": "26525",
+                "signer_id": 36
+            }
+        ],
+        "more": [
+            {
+                "video_id": "36838",
+                "signer_id": 5
+            },
+            {
+                "video_id": "36840",
+                "signer_id": 12
+            }
+        ],
+        "delicious": [
+            {
+                "video_id": "15372",
+                "signer_id": 5
+            },
+            {
+                "video_id": "15374",
+                "signer_id": 12
+            }
+        ],
+        "father": [
+            {
+                "video_id": "21217",
+                "signer_id": 5
+            },
+            {
+                "video_id": "21204",
+                "signer_id": 37
+            }
+        ],
+        "sister": [
+            {
+                "video_id": "51893",
+                "signer_id": 5
+            },
+            {
+                "video_id": "51883",
+                "signer_id": 36
+            }
+        ],
+        "angry": [
+            {
+                "video_id": "02564",
+                "signer_id": 9
             }
         ],
         "book": [
@@ -196,52 +338,138 @@
                 "signer_id": 18
             }
         ],
-        "before": [
+        "doctor": [
             {
-                "video_id": "05727",
-                "signer_id": 38
-            },
-            {
-                "video_id": "05739",
+                "video_id": "17020",
                 "signer_id": 10
             },
             {
-                "video_id": "05741",
-                "signer_id": 11
+                "video_id": "17024",
+                "signer_id": 72
             }
         ],
-        "candy": [
+        "laugh": [
             {
-                "video_id": "65300",
-                "signer_id": 89
+                "video_id": "32379",
+                "signer_id": 39
             },
             {
-                "video_id": "08915",
-                "signer_id": 56
-            },
-            {
-                "video_id": "08925",
-                "signer_id": 11
+                "video_id": "32389",
+                "signer_id": 10
             }
         ],
-        "cousin": [
+        "careful": [
             {
-                "video_id": "65415",
-                "signer_id": 102
+                "video_id": "09188",
+                "signer_id": 12
             },
             {
-                "video_id": "13635",
+                "video_id": "09180",
+                "signer_id": 4
+            }
+        ],
+        "crazy": [
+            {
+                "video_id": "13855",
                 "signer_id": 59
             }
         ],
-        "thin": [
+        "milk": [
             {
-                "video_id": "57941",
-                "signer_id": 32
+                "video_id": "36056",
+                "signer_id": 12
             },
             {
-                "video_id": "57943",
-                "signer_id": 34
+                "video_id": "36047",
+                "signer_id": 32
+            }
+        ],
+        "nice": [
+            {
+                "video_id": "38283",
+                "signer_id": 38
+            },
+            {
+                "video_id": "38285",
+                "signer_id": 13
+            }
+        ],
+        "sad": [
+            {
+                "video_id": "48982",
+                "signer_id": 87
+            },
+            {
+                "video_id": "48972",
+                "signer_id": 36
+            }
+        ],
+        "think": [
+            {
+                "video_id": "57975",
+                "signer_id": 13
+            },
+            {
+                "video_id": "57977",
+                "signer_id": 11
+            }
+        ],
+        "fly": [
+            {
+                "video_id": "22642",
+                "signer_id": 16
+            }
+        ],
+        "hello": [
+            {
+                "video_id": "27172",
+                "signer_id": 46
+            }
+        ],
+        "important": [
+            {
+                "video_id": "29071",
+                "signer_id": 11
+            },
+            {
+                "video_id": "29073",
+                "signer_id": 30
+            }
+        ],
+        "phone": [
+            {
+                "video_id": "42428",
+                "signer_id": 11
+            }
+        ],
+        "hungry": [
+            {
+                "video_id": "28381",
+                "signer_id": 11
+            }
+        ],
+        "serious": [
+            {
+                "video_id": "50506",
+                "signer_id": 13
+            }
+        ],
+        "surprise": [
+            {
+                "video_id": "56110",
+                "signer_id": 24
+            }
+        ],
+        "swim": [
+            {
+                "video_id": "56347",
+                "signer_id": 24
+            }
+        ],
+        "swing": [
+            {
+                "video_id": "56393",
+                "signer_id": 25
             }
         ]
     },
@@ -414,486 +642,6 @@
                 "signer_id": 10
             }
         ],
-        "computer": [
-            {
-                "video_id": "68028",
-                "signer_id": 109
-            },
-            {
-                "video_id": "12329",
-                "signer_id": 5
-            },
-            {
-                "video_id": "12330",
-                "signer_id": 5
-            },
-            {
-                "video_id": "12331",
-                "signer_id": 5
-            },
-            {
-                "video_id": "12328",
-                "signer_id": 11
-            },
-            {
-                "video_id": "12311",
-                "signer_id": 56
-            },
-            {
-                "video_id": "12337",
-                "signer_id": 72
-            },
-            {
-                "video_id": "12338",
-                "signer_id": 41
-            },
-            {
-                "video_id": "12313",
-                "signer_id": 38
-            },
-            {
-                "video_id": "12314",
-                "signer_id": 4
-            },
-            {
-                "video_id": "12316",
-                "signer_id": 4
-            },
-            {
-                "video_id": "12317",
-                "signer_id": 4
-            },
-            {
-                "video_id": "12318",
-                "signer_id": 4
-            },
-            {
-                "video_id": "12319",
-                "signer_id": 45
-            },
-            {
-                "video_id": "12327",
-                "signer_id": 11
-            }
-        ],
-        "before": [
-            {
-                "video_id": "05724",
-                "signer_id": 9
-            },
-            {
-                "video_id": "70348",
-                "signer_id": 121
-            },
-            {
-                "video_id": "68007",
-                "signer_id": 109
-            },
-            {
-                "video_id": "05744",
-                "signer_id": 5
-            },
-            {
-                "video_id": "05747",
-                "signer_id": 5
-            },
-            {
-                "video_id": "05728",
-                "signer_id": 32
-            },
-            {
-                "video_id": "05748",
-                "signer_id": 24
-            },
-            {
-                "video_id": "05749",
-                "signer_id": 12
-            },
-            {
-                "video_id": "05729",
-                "signer_id": 46
-            },
-            {
-                "video_id": "05730",
-                "signer_id": 32
-            },
-            {
-                "video_id": "05731",
-                "signer_id": 4
-            },
-            {
-                "video_id": "05732",
-                "signer_id": 13
-            },
-            {
-                "video_id": "05733",
-                "signer_id": 13
-            },
-            {
-                "video_id": "05734",
-                "signer_id": 13
-            },
-            {
-                "video_id": "05740",
-                "signer_id": 10
-            },
-            {
-                "video_id": "05742",
-                "signer_id": 11
-            },
-            {
-                "video_id": "05743",
-                "signer_id": 11
-            }
-        ],
-        "chair": [
-            {
-                "video_id": "70230",
-                "signer_id": 121
-            },
-            {
-                "video_id": "70263",
-                "signer_id": 121
-            },
-            {
-                "video_id": "68019",
-                "signer_id": 110
-            },
-            {
-                "video_id": "09865",
-                "signer_id": 72
-            },
-            {
-                "video_id": "09866",
-                "signer_id": 72
-            },
-            {
-                "video_id": "09848",
-                "signer_id": 0
-            },
-            {
-                "video_id": "09869",
-                "signer_id": 12
-            },
-            {
-                "video_id": "09849",
-                "signer_id": 38
-            },
-            {
-                "video_id": "09850",
-                "signer_id": 31
-            },
-            {
-                "video_id": "65328",
-                "signer_id": 90
-            },
-            {
-                "video_id": "09857",
-                "signer_id": 72
-            },
-            {
-                "video_id": "09858",
-                "signer_id": 72
-            },
-            {
-                "video_id": "09859",
-                "signer_id": 72
-            },
-            {
-                "video_id": "09860",
-                "signer_id": 72
-            },
-            {
-                "video_id": "09861",
-                "signer_id": 72
-            },
-            {
-                "video_id": "09863",
-                "signer_id": 72
-            }
-        ],
-        "go": [
-            {
-                "video_id": "24969",
-                "signer_id": 5
-            },
-            {
-                "video_id": "24970",
-                "signer_id": 5
-            },
-            {
-                "video_id": "24955",
-                "signer_id": 10
-            },
-            {
-                "video_id": "24956",
-                "signer_id": 10
-            },
-            {
-                "video_id": "24941",
-                "signer_id": 36
-            },
-            {
-                "video_id": "24961",
-                "signer_id": 10
-            },
-            {
-                "video_id": "24962",
-                "signer_id": 10
-            },
-            {
-                "video_id": "24972",
-                "signer_id": 25
-            },
-            {
-                "video_id": "65824",
-                "signer_id": 94
-            },
-            {
-                "video_id": "24973",
-                "signer_id": 41
-            },
-            {
-                "video_id": "24943",
-                "signer_id": 52
-            },
-            {
-                "video_id": "24947",
-                "signer_id": 21
-            },
-            {
-                "video_id": "24940",
-                "signer_id": 0
-            },
-            {
-                "video_id": "24954",
-                "signer_id": 10
-            }
-        ],
-        "clothes": [
-            {
-                "video_id": "68024",
-                "signer_id": 110
-            },
-            {
-                "video_id": "11316",
-                "signer_id": 5
-            },
-            {
-                "video_id": "11327",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11328",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11310",
-                "signer_id": 38
-            },
-            {
-                "video_id": "11329",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11330",
-                "signer_id": 12
-            },
-            {
-                "video_id": "11313",
-                "signer_id": 11
-            },
-            {
-                "video_id": "11309",
-                "signer_id": 42
-            },
-            {
-                "video_id": "11317",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11320",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11321",
-                "signer_id": 49
-            },
-            {
-                "video_id": "11322",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11323",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11324",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11326",
-                "signer_id": 72
-            }
-        ],
-        "who": [
-            {
-                "video_id": "68183",
-                "signer_id": 111
-            },
-            {
-                "video_id": "63239",
-                "signer_id": 5
-            },
-            {
-                "video_id": "63240",
-                "signer_id": 5
-            },
-            {
-                "video_id": "69534",
-                "signer_id": 118
-            },
-            {
-                "video_id": "63241",
-                "signer_id": 87
-            },
-            {
-                "video_id": "63242",
-                "signer_id": 12
-            },
-            {
-                "video_id": "63227",
-                "signer_id": 6
-            },
-            {
-                "video_id": "63228",
-                "signer_id": 6
-            },
-            {
-                "video_id": "63231",
-                "signer_id": 13
-            },
-            {
-                "video_id": "63232",
-                "signer_id": 59
-            },
-            {
-                "video_id": "63225",
-                "signer_id": 42
-            },
-            {
-                "video_id": "63236",
-                "signer_id": 11
-            }
-        ],
-        "candy": [
-            {
-                "video_id": "08909",
-                "signer_id": 9
-            },
-            {
-                "video_id": "68018",
-                "signer_id": 109
-            },
-            {
-                "video_id": "70326",
-                "signer_id": 121
-            },
-            {
-                "video_id": "08926",
-                "signer_id": 5
-            },
-            {
-                "video_id": "08927",
-                "signer_id": 5
-            },
-            {
-                "video_id": "08928",
-                "signer_id": 49
-            },
-            {
-                "video_id": "08916",
-                "signer_id": 36
-            },
-            {
-                "video_id": "08917",
-                "signer_id": 39
-            },
-            {
-                "video_id": "08919",
-                "signer_id": 4
-            },
-            {
-                "video_id": "08920",
-                "signer_id": 4
-            },
-            {
-                "video_id": "08921",
-                "signer_id": 17
-            },
-            {
-                "video_id": "65298",
-                "signer_id": 90
-            },
-            {
-                "video_id": "08924",
-                "signer_id": 11
-            }
-        ],
-        "cousin": [
-            {
-                "video_id": "70332",
-                "signer_id": 121
-            },
-            {
-                "video_id": "13643",
-                "signer_id": 5
-            },
-            {
-                "video_id": "13647",
-                "signer_id": 41
-            },
-            {
-                "video_id": "13648",
-                "signer_id": 41
-            },
-            {
-                "video_id": "13631",
-                "signer_id": 38
-            },
-            {
-                "video_id": "13632",
-                "signer_id": 38
-            },
-            {
-                "video_id": "13636",
-                "signer_id": 59
-            },
-            {
-                "video_id": "13630",
-                "signer_id": 35
-            },
-            {
-                "video_id": "13640",
-                "signer_id": 11
-            },
-            {
-                "video_id": "13642",
-                "signer_id": 11
-            },
-            {
-                "video_id": "13644",
-                "signer_id": 24
-            },
-            {
-                "video_id": "13645",
-                "signer_id": 24
-            },
-            {
-                "video_id": "13646",
-                "signer_id": 41
-            }
-        ],
         "deaf": [
             {
                 "video_id": "70015",
@@ -906,10 +654,6 @@
             {
                 "video_id": "14899",
                 "signer_id": 5
-            },
-            {
-                "video_id": "14896",
-                "signer_id": 47
             },
             {
                 "video_id": "14898",
@@ -942,52 +686,6 @@
             {
                 "video_id": "14894",
                 "signer_id": 10
-            }
-        ],
-        "fine": [
-            {
-                "video_id": "68048",
-                "signer_id": 109
-            },
-            {
-                "video_id": "21885",
-                "signer_id": 64
-            },
-            {
-                "video_id": "21884",
-                "signer_id": 5
-            },
-            {
-                "video_id": "21888",
-                "signer_id": 83
-            },
-            {
-                "video_id": "21870",
-                "signer_id": 38
-            },
-            {
-                "video_id": "21889",
-                "signer_id": 24
-            },
-            {
-                "video_id": "21891",
-                "signer_id": 41
-            },
-            {
-                "video_id": "21871",
-                "signer_id": 36
-            },
-            {
-                "video_id": "21869",
-                "signer_id": 2
-            },
-            {
-                "video_id": "21878",
-                "signer_id": 11
-            },
-            {
-                "video_id": "21883",
-                "signer_id": 11
             }
         ],
         "no": [
@@ -1037,152 +735,6 @@
             },
             {
                 "video_id": "38534",
-                "signer_id": 11
-            }
-        ],
-        "thin": [
-            {
-                "video_id": "57919",
-                "signer_id": 9
-            },
-            {
-                "video_id": "57950",
-                "signer_id": 5
-            },
-            {
-                "video_id": "57949",
-                "signer_id": 10
-            },
-            {
-                "video_id": "57952",
-                "signer_id": 87
-            },
-            {
-                "video_id": "57934",
-                "signer_id": 38
-            },
-            {
-                "video_id": "57953",
-                "signer_id": 12
-            },
-            {
-                "video_id": "57935",
-                "signer_id": 38
-            },
-            {
-                "video_id": "57936",
-                "signer_id": 32
-            },
-            {
-                "video_id": "57937",
-                "signer_id": 4
-            },
-            {
-                "video_id": "66606",
-                "signer_id": 92
-            },
-            {
-                "video_id": "57939",
-                "signer_id": 39
-            },
-            {
-                "video_id": "57940",
-                "signer_id": 6
-            },
-            {
-                "video_id": "57942",
-                "signer_id": 13
-            },
-            {
-                "video_id": "57947",
-                "signer_id": 10
-            }
-        ],
-        "walk": [
-            {
-                "video_id": "62173",
-                "signer_id": 5
-            },
-            {
-                "video_id": "62171",
-                "signer_id": 5
-            },
-            {
-                "video_id": "62174",
-                "signer_id": 87
-            },
-            {
-                "video_id": "62175",
-                "signer_id": 41
-            },
-            {
-                "video_id": "62159",
-                "signer_id": 36
-            },
-            {
-                "video_id": "62163",
-                "signer_id": 39
-            },
-            {
-                "video_id": "62164",
-                "signer_id": 13
-            },
-            {
-                "video_id": "62168",
-                "signer_id": 10
-            },
-            {
-                "video_id": "62169",
-                "signer_id": 10
-            },
-            {
-                "video_id": "62170",
-                "signer_id": 11
-            }
-        ],
-        "year": [
-            {
-                "video_id": "70306",
-                "signer_id": 121
-            },
-            {
-                "video_id": "64221",
-                "signer_id": 5
-            },
-            {
-                "video_id": "64222",
-                "signer_id": 5
-            },
-            {
-                "video_id": "64223",
-                "signer_id": 25
-            },
-            {
-                "video_id": "64224",
-                "signer_id": 12
-            },
-            {
-                "video_id": "64212",
-                "signer_id": 4
-            },
-            {
-                "video_id": "66818",
-                "signer_id": 88
-            },
-            {
-                "video_id": "64213",
-                "signer_id": 13
-            },
-            {
-                "video_id": "66816",
-                "signer_id": 93
-            },
-            {
-                "video_id": "64219",
-                "signer_id": 11
-            },
-            {
-                "video_id": "64218",
                 "signer_id": 11
             }
         ],
@@ -1236,96 +788,1542 @@
                 "signer_id": 4
             }
         ],
-        "all": [
+        "finish": [
             {
-                "video_id": "01995",
+                "video_id": "68050",
+                "signer_id": 109
+            },
+            {
+                "video_id": "21953",
                 "signer_id": 5
             },
             {
-                "video_id": "02000",
+                "video_id": "21954",
                 "signer_id": 5
             },
             {
-                "video_id": "69206",
-                "signer_id": 115
+                "video_id": "21955",
+                "signer_id": 5
             },
             {
-                "video_id": "02002",
+                "video_id": "21943",
+                "signer_id": 32
+            },
+            {
+                "video_id": "21945",
+                "signer_id": 21
+            },
+            {
+                "video_id": "21950",
+                "signer_id": 11
+            },
+            {
+                "video_id": "21941",
+                "signer_id": 37
+            },
+            {
+                "video_id": "21951",
+                "signer_id": 11
+            },
+            {
+                "video_id": "21956",
                 "signer_id": 16
-            },
-            {
-                "video_id": "02003",
-                "signer_id": 12
-            },
-            {
-                "video_id": "01987",
-                "signer_id": 38
-            },
-            {
-                "video_id": "01988",
-                "signer_id": 13
-            },
-            {
-                "video_id": "01991",
-                "signer_id": 10
-            },
-            {
-                "video_id": "01992",
-                "signer_id": 10
-            },
-            {
-                "video_id": "65043",
-                "signer_id": 88
             }
         ],
-        "black": [
+        "like": [
             {
-                "video_id": "70244",
+                "video_id": "70299",
                 "signer_id": 121
             },
             {
-                "video_id": "06480",
+                "video_id": "33277",
                 "signer_id": 5
             },
             {
-                "video_id": "06482",
+                "video_id": "33278",
+                "signer_id": 82
+            },
+            {
+                "video_id": "33279",
                 "signer_id": 5
             },
             {
-                "video_id": "06472",
+                "video_id": "33281",
+                "signer_id": 5
+            },
+            {
+                "video_id": "33282",
+                "signer_id": 5
+            },
+            {
+                "video_id": "33266",
+                "signer_id": 8
+            },
+            {
+                "video_id": "33285",
+                "signer_id": 12
+            },
+            {
+                "video_id": "33267",
+                "signer_id": 38
+            },
+            {
+                "video_id": "33269",
+                "signer_id": 13
+            },
+            {
+                "video_id": "33273",
+                "signer_id": 11
+            },
+            {
+                "video_id": "33274",
+                "signer_id": 11
+            },
+            {
+                "video_id": "33284",
+                "signer_id": 87
+            }
+        ],
+        "mother": [
+            {
+                "video_id": "36938",
+                "signer_id": 5
+            },
+            {
+                "video_id": "36941",
+                "signer_id": 5
+            },
+            {
+                "video_id": "36942",
+                "signer_id": 5
+            },
+            {
+                "video_id": "36944",
+                "signer_id": 5
+            },
+            {
+                "video_id": "36946",
+                "signer_id": 41
+            },
+            {
+                "video_id": "36930",
                 "signer_id": 36
             },
             {
-                "video_id": "06473",
+                "video_id": "36931",
                 "signer_id": 4
             },
             {
-                "video_id": "06474",
-                "signer_id": 59
+                "video_id": "36932",
+                "signer_id": 52
             },
             {
-                "video_id": "06477",
+                "video_id": "36933",
+                "signer_id": 13
+            },
+            {
+                "video_id": "36936",
                 "signer_id": 11
             },
             {
-                "video_id": "06478",
+                "video_id": "36937",
                 "signer_id": 11
             },
             {
-                "video_id": "65200",
+                "video_id": "66147",
+                "signer_id": 97
+            },
+            {
+                "video_id": "36929",
+                "signer_id": 56
+            }
+        ],
+        "table": [
+            {
+                "video_id": "56566",
+                "signer_id": 5
+            },
+            {
+                "video_id": "56573",
+                "signer_id": 72
+            },
+            {
+                "video_id": "56574",
+                "signer_id": 72
+            },
+            {
+                "video_id": "56557",
+                "signer_id": 4
+            },
+            {
+                "video_id": "56576",
+                "signer_id": 72
+            },
+            {
+                "video_id": "56577",
+                "signer_id": 49
+            },
+            {
+                "video_id": "56579",
+                "signer_id": 12
+            },
+            {
+                "video_id": "56558",
+                "signer_id": 13
+            },
+            {
+                "video_id": "56556",
+                "signer_id": 38
+            },
+            {
+                "video_id": "56563",
+                "signer_id": 11
+            },
+            {
+                "video_id": "56568",
+                "signer_id": 72
+            },
+            {
+                "video_id": "56569",
+                "signer_id": 72
+            },
+            {
+                "video_id": "56571",
+                "signer_id": 72
+            }
+        ],
+        "fish": [
+            {
+                "video_id": "22125",
+                "signer_id": 64
+            },
+            {
+                "video_id": "22127",
+                "signer_id": 5
+            },
+            {
+                "video_id": "69325",
+                "signer_id": 116
+            },
+            {
+                "video_id": "22129",
+                "signer_id": 83
+            },
+            {
+                "video_id": "22130",
+                "signer_id": 12
+            },
+            {
+                "video_id": "22115",
+                "signer_id": 38
+            },
+            {
+                "video_id": "22116",
+                "signer_id": 32
+            },
+            {
+                "video_id": "22120",
+                "signer_id": 11
+            },
+            {
+                "video_id": "22121",
+                "signer_id": 11
+            },
+            {
+                "video_id": "65731",
+                "signer_id": 94
+            }
+        ],
+        "white": [
+            {
+                "video_id": "68182",
+                "signer_id": 110
+            },
+            {
+                "video_id": "70245",
+                "signer_id": 121
+            },
+            {
+                "video_id": "63210",
+                "signer_id": 47
+            },
+            {
+                "video_id": "63212",
+                "signer_id": 5
+            },
+            {
+                "video_id": "63204",
+                "signer_id": 6
+            },
+            {
+                "video_id": "63205",
+                "signer_id": 13
+            },
+            {
+                "video_id": "63207",
+                "signer_id": 11
+            },
+            {
+                "video_id": "63208",
+                "signer_id": 11
+            },
+            {
+                "video_id": "63200",
+                "signer_id": 42
+            },
+            {
+                "video_id": "63214",
+                "signer_id": 12
+            },
+            {
+                "video_id": "63202",
+                "signer_id": 38
+            },
+            {
+                "video_id": "63203",
+                "signer_id": 6
+            }
+        ],
+        "bird": [
+            {
+                "video_id": "06338",
+                "signer_id": 5
+            },
+            {
+                "video_id": "06341",
+                "signer_id": 64
+            },
+            {
+                "video_id": "06333",
+                "signer_id": 32
+            },
+            {
+                "video_id": "06334",
+                "signer_id": 4
+            },
+            {
+                "video_id": "06337",
+                "signer_id": 10
+            },
+            {
+                "video_id": "65187",
                 "signer_id": 90
             },
             {
-                "video_id": "06471",
+                "video_id": "06342",
+                "signer_id": 24
+            },
+            {
+                "video_id": "06343",
+                "signer_id": 12
+            },
+            {
+                "video_id": "06331",
+                "signer_id": 2
+            },
+            {
+                "video_id": "06332",
+                "signer_id": 36
+            }
+        ],
+        "dance": [
+            {
+                "video_id": "70152",
+                "signer_id": 121
+            },
+            {
+                "video_id": "14628",
+                "signer_id": 5
+            },
+            {
+                "video_id": "14630",
+                "signer_id": 5
+            },
+            {
+                "video_id": "14631",
+                "signer_id": 5
+            },
+            {
+                "video_id": "14627",
+                "signer_id": 11
+            },
+            {
+                "video_id": "65434",
+                "signer_id": 102
+            },
+            {
+                "video_id": "14633",
+                "signer_id": 12
+            },
+            {
+                "video_id": "14622",
+                "signer_id": 2
+            },
+            {
+                "video_id": "14623",
+                "signer_id": 38
+            },
+            {
+                "video_id": "14624",
+                "signer_id": 6
+            },
+            {
+                "video_id": "14625",
+                "signer_id": 59
+            }
+        ],
+        "doctor": [
+            {
+                "video_id": "17007",
+                "signer_id": 9
+            },
+            {
+                "video_id": "70049",
+                "signer_id": 121
+            },
+            {
+                "video_id": "17015",
+                "signer_id": 36
+            },
+            {
+                "video_id": "17017",
+                "signer_id": 21
+            },
+            {
+                "video_id": "17019",
+                "signer_id": 10
+            },
+            {
+                "video_id": "17013",
+                "signer_id": 8
+            },
+            {
+                "video_id": "17025",
+                "signer_id": 72
+            },
+            {
+                "video_id": "17026",
+                "signer_id": 12
+            },
+            {
+                "video_id": "17014",
+                "signer_id": 36
+            }
+        ],
+        "eat": [
+            {
+                "video_id": "68044",
+                "signer_id": 109
+            },
+            {
+                "video_id": "18331",
+                "signer_id": 64
+            },
+            {
+                "video_id": "18332",
+                "signer_id": 5
+            },
+            {
+                "video_id": "18329",
+                "signer_id": 11
+            },
+            {
+                "video_id": "18334",
+                "signer_id": 16
+            },
+            {
+                "video_id": "18335",
+                "signer_id": 12
+            },
+            {
+                "video_id": "18324",
+                "signer_id": 36
+            },
+            {
+                "video_id": "18325",
+                "signer_id": 21
+            }
+        ],
+        "school": [
+            {
+                "video_id": "70207",
+                "signer_id": 121
+            },
+            {
+                "video_id": "49603",
+                "signer_id": 5
+            },
+            {
+                "video_id": "49602",
+                "signer_id": 11
+            },
+            {
+                "video_id": "49604",
+                "signer_id": 87
+            },
+            {
+                "video_id": "49595",
+                "signer_id": 63
+            },
+            {
+                "video_id": "49605",
+                "signer_id": 72
+            },
+            {
+                "video_id": "49596",
+                "signer_id": 36
+            },
+            {
+                "video_id": "49597",
+                "signer_id": 32
+            },
+            {
+                "video_id": "49598",
+                "signer_id": 46
+            },
+            {
+                "video_id": "49599",
+                "signer_id": 13
+            },
+            {
+                "video_id": "49600",
+                "signer_id": 15
+            }
+        ],
+        "want": [
+            {
+                "video_id": "68178",
+                "signer_id": 109
+            },
+            {
+                "video_id": "62253",
+                "signer_id": 5
+            },
+            {
+                "video_id": "62246",
+                "signer_id": 36
+            },
+            {
+                "video_id": "62248",
+                "signer_id": 13
+            },
+            {
+                "video_id": "62250",
+                "signer_id": 11
+            },
+            {
+                "video_id": "62251",
+                "signer_id": 11
+            },
+            {
+                "video_id": "62258",
+                "signer_id": 87
+            },
+            {
+                "video_id": "62259",
+                "signer_id": 41
+            },
+            {
+                "video_id": "62245",
+                "signer_id": 38
+            }
+        ],
+        "paper": [
+            {
+                "video_id": "70211",
+                "signer_id": 121
+            },
+            {
+                "video_id": "68127",
+                "signer_id": 110
+            },
+            {
+                "video_id": "41033",
+                "signer_id": 5
+            },
+            {
+                "video_id": "41035",
+                "signer_id": 5
+            },
+            {
+                "video_id": "41030",
+                "signer_id": 15
+            },
+            {
+                "video_id": "41032",
+                "signer_id": 11
+            },
+            {
+                "video_id": "41025",
                 "signer_id": 56
             },
             {
-                "video_id": "06485",
+                "video_id": "41036",
+                "signer_id": 87
+            },
+            {
+                "video_id": "41037",
+                "signer_id": 41
+            },
+            {
+                "video_id": "41026",
+                "signer_id": 36
+            },
+            {
+                "video_id": "41028",
+                "signer_id": 31
+            },
+            {
+                "video_id": "41029",
+                "signer_id": 13
+            }
+        ],
+        "water": [
+            {
+                "video_id": "70069",
+                "signer_id": 121
+            },
+            {
+                "video_id": "62507",
+                "signer_id": 5
+            },
+            {
+                "video_id": "62506",
+                "signer_id": 10
+            },
+            {
+                "video_id": "66752",
+                "signer_id": 100
+            },
+            {
+                "video_id": "62499",
+                "signer_id": 19
+            },
+            {
+                "video_id": "62509",
+                "signer_id": 72
+            },
+            {
+                "video_id": "62510",
+                "signer_id": 12
+            },
+            {
+                "video_id": "62500",
+                "signer_id": 28
+            },
+            {
+                "video_id": "62502",
+                "signer_id": 52
+            },
+            {
+                "video_id": "62503",
+                "signer_id": 13
+            }
+        ],
+        "yellow": [
+            {
+                "video_id": "68191",
+                "signer_id": 110
+            },
+            {
+                "video_id": "64268",
+                "signer_id": 5
+            },
+            {
+                "video_id": "66819",
+                "signer_id": 88
+            },
+            {
+                "video_id": "64270",
+                "signer_id": 87
+            },
+            {
+                "video_id": "64271",
+                "signer_id": 41
+            },
+            {
+                "video_id": "64261",
+                "signer_id": 42
+            },
+            {
+                "video_id": "64262",
+                "signer_id": 36
+            },
+            {
+                "video_id": "64264",
+                "signer_id": 13
+            }
+        ],
+        "brother": [
+            {
+                "video_id": "07941",
+                "signer_id": 5
+            },
+            {
+                "video_id": "07937",
+                "signer_id": 52
+            },
+            {
+                "video_id": "07940",
+                "signer_id": 11
+            },
+            {
+                "video_id": "07932",
+                "signer_id": 2
+            },
+            {
+                "video_id": "07942",
+                "signer_id": 30
+            },
+            {
+                "video_id": "07943",
+                "signer_id": 12
+            },
+            {
+                "video_id": "07933",
+                "signer_id": 36
+            },
+            {
+                "video_id": "07934",
+                "signer_id": 39
+            },
+            {
+                "video_id": "07935",
+                "signer_id": 39
+            },
+            {
+                "video_id": "07936",
+                "signer_id": 39
+            }
+        ],
+        "cry": [
+            {
+                "video_id": "14186",
+                "signer_id": 5
+            },
+            {
+                "video_id": "14175",
+                "signer_id": 38
+            },
+            {
+                "video_id": "14176",
+                "signer_id": 32
+            },
+            {
+                "video_id": "14180",
+                "signer_id": 11
+            },
+            {
+                "video_id": "14182",
+                "signer_id": 11
+            },
+            {
+                "video_id": "14183",
+                "signer_id": 11
+            },
+            {
+                "video_id": "14174",
+                "signer_id": 53
+            },
+            {
+                "video_id": "14187",
                 "signer_id": 25
             },
             {
-                "video_id": "06486",
+                "video_id": "14188",
                 "signer_id": 12
+            }
+        ],
+        "laugh": [
+            {
+                "video_id": "32373",
+                "signer_id": 9
+            },
+            {
+                "video_id": "32395",
+                "signer_id": 5
+            },
+            {
+                "video_id": "32397",
+                "signer_id": 54
+            },
+            {
+                "video_id": "32381",
+                "signer_id": 39
+            },
+            {
+                "video_id": "66016",
+                "signer_id": 90
+            },
+            {
+                "video_id": "32382",
+                "signer_id": 39
+            },
+            {
+                "video_id": "32383",
+                "signer_id": 39
+            },
+            {
+                "video_id": "32377",
+                "signer_id": 35
+            },
+            {
+                "video_id": "32388",
+                "signer_id": 10
+            }
+        ],
+        "learn": [
+            {
+                "video_id": "70205",
+                "signer_id": 121
+            },
+            {
+                "video_id": "32613",
+                "signer_id": 5
+            },
+            {
+                "video_id": "32614",
+                "signer_id": 82
+            },
+            {
+                "video_id": "32608",
+                "signer_id": 13
+            },
+            {
+                "video_id": "32612",
+                "signer_id": 11
+            },
+            {
+                "video_id": "66024",
+                "signer_id": 90
+            },
+            {
+                "video_id": "32604",
+                "signer_id": 8
+            },
+            {
+                "video_id": "32615",
+                "signer_id": 72
+            },
+            {
+                "video_id": "32616",
+                "signer_id": 12
+            },
+            {
+                "video_id": "32605",
+                "signer_id": 36
+            },
+            {
+                "video_id": "32606",
+                "signer_id": 31
+            },
+            {
+                "video_id": "32607",
+                "signer_id": 27
+            }
+        ],
+        "teacher": [
+            {
+                "video_id": "57047",
+                "signer_id": 82
+            },
+            {
+                "video_id": "57048",
+                "signer_id": 5
+            },
+            {
+                "video_id": "57044",
+                "signer_id": 11
+            },
+            {
+                "video_id": "66593",
+                "signer_id": 93
+            },
+            {
+                "video_id": "57039",
+                "signer_id": 36
+            },
+            {
+                "video_id": "57050",
+                "signer_id": 84
+            },
+            {
+                "video_id": "57051",
+                "signer_id": 12
+            },
+            {
+                "video_id": "57040",
+                "signer_id": 31
+            },
+            {
+                "video_id": "57041",
+                "signer_id": 13
+            },
+            {
+                "video_id": "57042",
+                "signer_id": 15
+            }
+        ],
+        "write": [
+            {
+                "video_id": "70261",
+                "signer_id": 121
+            },
+            {
+                "video_id": "64066",
+                "signer_id": 5
+            },
+            {
+                "video_id": "64067",
+                "signer_id": 5
+            },
+            {
+                "video_id": "64060",
+                "signer_id": 13
+            },
+            {
+                "video_id": "64065",
+                "signer_id": 11
+            },
+            {
+                "video_id": "66815",
+                "signer_id": 88
+            },
+            {
+                "video_id": "64056",
+                "signer_id": 42
+            },
+            {
+                "video_id": "64068",
+                "signer_id": 12
+            },
+            {
+                "video_id": "64057",
+                "signer_id": 36
+            },
+            {
+                "video_id": "64058",
+                "signer_id": 38
+            },
+            {
+                "video_id": "64059",
+                "signer_id": 31
+            }
+        ],
+        "coffee": [
+            {
+                "video_id": "70033",
+                "signer_id": 121
+            },
+            {
+                "video_id": "68025",
+                "signer_id": 109
+            },
+            {
+                "video_id": "11564",
+                "signer_id": 5
+            },
+            {
+                "video_id": "11566",
+                "signer_id": 12
+            },
+            {
+                "video_id": "11558",
+                "signer_id": 0
+            },
+            {
+                "video_id": "11559",
+                "signer_id": 38
+            },
+            {
+                "video_id": "11560",
+                "signer_id": 70
+            },
+            {
+                "video_id": "11563",
+                "signer_id": 11
+            }
+        ],
+        "friend": [
+            {
+                "video_id": "70342",
+                "signer_id": 121
+            },
+            {
+                "video_id": "23576",
+                "signer_id": 5
+            },
+            {
+                "video_id": "23574",
+                "signer_id": 11
+            },
+            {
+                "video_id": "23577",
+                "signer_id": 16
+            },
+            {
+                "video_id": "23578",
+                "signer_id": 12
+            },
+            {
+                "video_id": "23568",
+                "signer_id": 37
+            },
+            {
+                "video_id": "23570",
+                "signer_id": 70
+            },
+            {
+                "video_id": "23572",
+                "signer_id": 21
+            }
+        ],
+        "happy": [
+            {
+                "video_id": "70284",
+                "signer_id": 121
+            },
+            {
+                "video_id": "26535",
+                "signer_id": 5
+            },
+            {
+                "video_id": "26530",
+                "signer_id": 10
+            },
+            {
+                "video_id": "26532",
+                "signer_id": 10
+            },
+            {
+                "video_id": "26524",
+                "signer_id": 37
+            },
+            {
+                "video_id": "26536",
+                "signer_id": 30
+            },
+            {
+                "video_id": "26537",
+                "signer_id": 12
+            },
+            {
+                "video_id": "26526",
+                "signer_id": 46
+            },
+            {
+                "video_id": "26527",
+                "signer_id": 21
+            }
+        ],
+        "careful": [
+            {
+                "video_id": "70200",
+                "signer_id": 121
+            },
+            {
+                "video_id": "09187",
+                "signer_id": 5
+            },
+            {
+                "video_id": "09186",
+                "signer_id": 11
+            },
+            {
+                "video_id": "65307",
+                "signer_id": 89
+            },
+            {
+                "video_id": "65306",
+                "signer_id": 100
+            },
+            {
+                "video_id": "09181",
+                "signer_id": 31
+            },
+            {
+                "video_id": "09182",
+                "signer_id": 59
+            }
+        ],
+        "more": [
+            {
+                "video_id": "70222",
+                "signer_id": 121
+            },
+            {
+                "video_id": "36837",
+                "signer_id": 64
+            },
+            {
+                "video_id": "69401",
+                "signer_id": 115
+            },
+            {
+                "video_id": "36834",
+                "signer_id": 11
+            },
+            {
+                "video_id": "36836",
+                "signer_id": 11
+            },
+            {
+                "video_id": "36827",
+                "signer_id": 2
+            },
+            {
+                "video_id": "36828",
+                "signer_id": 36
+            },
+            {
+                "video_id": "36829",
+                "signer_id": 52
+            }
+        ],
+        "crazy": [
+            {
+                "video_id": "13850",
+                "signer_id": 9
+            },
+            {
+                "video_id": "70363",
+                "signer_id": 121
+            },
+            {
+                "video_id": "13861",
+                "signer_id": 5
+            },
+            {
+                "video_id": "13863",
+                "signer_id": 12
+            },
+            {
+                "video_id": "65421",
+                "signer_id": 102
+            },
+            {
+                "video_id": "65422",
+                "signer_id": 102
+            },
+            {
+                "video_id": "13854",
+                "signer_id": 2
+            },
+            {
+                "video_id": "13858",
+                "signer_id": 10
+            },
+            {
+                "video_id": "13859",
+                "signer_id": 10
+            }
+        ],
+        "father": [
+            {
+                "video_id": "21219",
+                "signer_id": 5
+            },
+            {
+                "video_id": "69318",
+                "signer_id": 116
+            },
+            {
+                "video_id": "21220",
+                "signer_id": 16
+            },
+            {
+                "video_id": "21205",
+                "signer_id": 36
+            },
+            {
+                "video_id": "21207",
+                "signer_id": 52
+            },
+            {
+                "video_id": "21209",
+                "signer_id": 21
+            },
+            {
+                "video_id": "21212",
+                "signer_id": 11
+            }
+        ],
+        "milk": [
+            {
+                "video_id": "36044",
+                "signer_id": 9
+            },
+            {
+                "video_id": "68100",
+                "signer_id": 109
+            },
+            {
+                "video_id": "36052",
+                "signer_id": 64
+            },
+            {
+                "video_id": "36053",
+                "signer_id": 5
+            },
+            {
+                "video_id": "36054",
+                "signer_id": 5
+            },
+            {
+                "video_id": "36055",
+                "signer_id": 87
+            },
+            {
+                "video_id": "36048",
+                "signer_id": 13
+            }
+        ],
+        "nice": [
+            {
+                "video_id": "38281",
+                "signer_id": 9
+            },
+            {
+                "video_id": "70021",
+                "signer_id": 121
+            },
+            {
+                "video_id": "70050",
+                "signer_id": 121
+            },
+            {
+                "video_id": "38288",
+                "signer_id": 47
+            },
+            {
+                "video_id": "38292",
+                "signer_id": 25
+            },
+            {
+                "video_id": "38293",
+                "signer_id": 41
+            },
+            {
+                "video_id": "38282",
+                "signer_id": 2
+            },
+            {
+                "video_id": "38287",
+                "signer_id": 11
+            }
+        ],
+        "sad": [
+            {
+                "video_id": "48965",
+                "signer_id": 9
+            },
+            {
+                "video_id": "48981",
+                "signer_id": 5
+            },
+            {
+                "video_id": "69450",
+                "signer_id": 118
+            },
+            {
+                "video_id": "48976",
+                "signer_id": 13
+            },
+            {
+                "video_id": "48978",
+                "signer_id": 11
+            },
+            {
+                "video_id": "48971",
+                "signer_id": 63
+            },
+            {
+                "video_id": "48973",
+                "signer_id": 32
+            },
+            {
+                "video_id": "48974",
+                "signer_id": 46
+            }
+        ],
+        "sister": [
+            {
+                "video_id": "51882",
+                "signer_id": 9
+            },
+            {
+                "video_id": "51892",
+                "signer_id": 5
+            },
+            {
+                "video_id": "51886",
+                "signer_id": 52
+            },
+            {
+                "video_id": "51889",
+                "signer_id": 11
+            },
+            {
+                "video_id": "66488",
+                "signer_id": 108
+            },
+            {
+                "video_id": "51884",
+                "signer_id": 39
+            },
+            {
+                "video_id": "51885",
+                "signer_id": 39
+            }
+        ],
+        "think": [
+            {
+                "video_id": "57954",
+                "signer_id": 9
+            },
+            {
+                "video_id": "57980",
+                "signer_id": 5
+            },
+            {
+                "video_id": "57978",
+                "signer_id": 5
+            },
+            {
+                "video_id": "57979",
+                "signer_id": 5
+            },
+            {
+                "video_id": "69505",
+                "signer_id": 115
+            },
+            {
+                "video_id": "57982",
+                "signer_id": 12
+            },
+            {
+                "video_id": "66609",
+                "signer_id": 93
+            },
+            {
+                "video_id": "57973",
+                "signer_id": 56
+            },
+            {
+                "video_id": "57974",
+                "signer_id": 31
+            }
+        ],
+        "hello": [
+            {
+                "video_id": "70017",
+                "signer_id": 121
+            },
+            {
+                "video_id": "27180",
+                "signer_id": 64
+            },
+            {
+                "video_id": "27181",
+                "signer_id": 5
+            },
+            {
+                "video_id": "27183",
+                "signer_id": 16
+            },
+            {
+                "video_id": "27184",
+                "signer_id": 41
+            },
+            {
+                "video_id": "27173",
+                "signer_id": 21
+            }
+        ],
+        "important": [
+            {
+                "video_id": "29072",
+                "signer_id": 5
+            },
+            {
+                "video_id": "69376",
+                "signer_id": 115
+            },
+            {
+                "video_id": "29068",
+                "signer_id": 4
+            },
+            {
+                "video_id": "65926",
+                "signer_id": 99
+            },
+            {
+                "video_id": "29065",
+                "signer_id": 0
+            },
+            {
+                "video_id": "29069",
+                "signer_id": 21
+            },
+            {
+                "video_id": "29066",
+                "signer_id": 38
+            }
+        ],
+        "phone": [
+            {
+                "video_id": "68130",
+                "signer_id": 109
+            },
+            {
+                "video_id": "42423",
+                "signer_id": 37
+            },
+            {
+                "video_id": "42433",
+                "signer_id": 87
+            },
+            {
+                "video_id": "42434",
+                "signer_id": 12
+            },
+            {
+                "video_id": "42424",
+                "signer_id": 37
+            },
+            {
+                "video_id": "42425",
+                "signer_id": 13
+            }
+        ],
+        "hungry": [
+            {
+                "video_id": "28375",
+                "signer_id": 9
+            },
+            {
+                "video_id": "28382",
+                "signer_id": 5
+            },
+            {
+                "video_id": "28384",
+                "signer_id": 16
+            },
+            {
+                "video_id": "28385",
+                "signer_id": 12
+            },
+            {
+                "video_id": "28376",
+                "signer_id": 0
+            },
+            {
+                "video_id": "28377",
+                "signer_id": 38
+            },
+            {
+                "video_id": "28378",
+                "signer_id": 52
+            }
+        ],
+        "serious": [
+            {
+                "video_id": "50502",
+                "signer_id": 9
+            },
+            {
+                "video_id": "50509",
+                "signer_id": 5
+            },
+            {
+                "video_id": "50510",
+                "signer_id": 5
+            },
+            {
+                "video_id": "66448",
+                "signer_id": 91
+            },
+            {
+                "video_id": "50512",
+                "signer_id": 12
+            },
+            {
+                "video_id": "50503",
+                "signer_id": 63
+            },
+            {
+                "video_id": "50508",
+                "signer_id": 11
+            }
+        ],
+        "angry": [
+            {
+                "video_id": "02575",
+                "signer_id": 5
+            },
+            {
+                "video_id": "02569",
+                "signer_id": 13
+            },
+            {
+                "video_id": "02565",
+                "signer_id": 26
+            },
+            {
+                "video_id": "02566",
+                "signer_id": 31
+            },
+            {
+                "video_id": "02567",
+                "signer_id": 46
+            }
+        ],
+        "surprise": [
+            {
+                "video_id": "56099",
+                "signer_id": 9
+            },
+            {
+                "video_id": "56109",
+                "signer_id": 5
+            },
+            {
+                "video_id": "56105",
+                "signer_id": 32
+            },
+            {
+                "video_id": "56106",
+                "signer_id": 46
+            },
+            {
+                "video_id": "56108",
+                "signer_id": 10
+            },
+            {
+                "video_id": "56111",
+                "signer_id": 12
+            }
+        ],
+        "swim": [
+            {
+                "video_id": "56340",
+                "signer_id": 9
+            },
+            {
+                "video_id": "70178",
+                "signer_id": 121
+            },
+            {
+                "video_id": "56346",
+                "signer_id": 5
+            },
+            {
+                "video_id": "56343",
+                "signer_id": 11
+            },
+            {
+                "video_id": "56348",
+                "signer_id": 41
             }
         ],
         "help": [
@@ -1368,6 +2366,84 @@
             {
                 "video_id": "27217",
                 "signer_id": 11
+            }
+        ],
+        "delicious": [
+            {
+                "video_id": "15363",
+                "signer_id": 39
+            },
+            {
+                "video_id": "15364",
+                "signer_id": 39
+            },
+            {
+                "video_id": "15365",
+                "signer_id": 39
+            },
+            {
+                "video_id": "15369",
+                "signer_id": 10
+            },
+            {
+                "video_id": "65457",
+                "signer_id": 90
+            },
+            {
+                "video_id": "15370",
+                "signer_id": 10
+            },
+            {
+                "video_id": "15361",
+                "signer_id": 2
+            },
+            {
+                "video_id": "15362",
+                "signer_id": 38
+            }
+        ],
+        "fly": [
+            {
+                "video_id": "22643",
+                "signer_id": 12
+            },
+            {
+                "video_id": "22645",
+                "signer_id": 12
+            },
+            {
+                "video_id": "22646",
+                "signer_id": 12
+            },
+            {
+                "video_id": "22627",
+                "signer_id": 21
+            },
+            {
+                "video_id": "22635",
+                "signer_id": 11
+            },
+            {
+                "video_id": "22636",
+                "signer_id": 11
+            },
+            {
+                "video_id": "22640",
+                "signer_id": 11
+            }
+        ],
+        "swing": [
+            {
+                "video_id": "56387",
+                "signer_id": 52
+            },
+            {
+                "video_id": "56388",
+                "signer_id": 13
+            },
+            {
+                "video_id": "56394",
+                "signer_id": 41
             }
         ]
     },
@@ -1420,74 +2496,6 @@
                 "signer_id": 11
             }
         ],
-        "computer": [
-            {
-                "video_id": "12333",
-                "signer_id": 5
-            },
-            {
-                "video_id": "12335",
-                "signer_id": 5
-            },
-            {
-                "video_id": "12312",
-                "signer_id": 38
-            },
-            {
-                "video_id": "12315",
-                "signer_id": 4
-            },
-            {
-                "video_id": "12326",
-                "signer_id": 11
-            }
-        ],
-        "before": [
-            {
-                "video_id": "05746",
-                "signer_id": 5
-            },
-            {
-                "video_id": "05750",
-                "signer_id": 12
-            }
-        ],
-        "clothes": [
-            {
-                "video_id": "11314",
-                "signer_id": 5
-            },
-            {
-                "video_id": "11315",
-                "signer_id": 5
-            },
-            {
-                "video_id": "11319",
-                "signer_id": 72
-            },
-            {
-                "video_id": "11325",
-                "signer_id": 72
-            }
-        ],
-        "fine": [
-            {
-                "video_id": "21886",
-                "signer_id": 5
-            },
-            {
-                "video_id": "21887",
-                "signer_id": 5
-            },
-            {
-                "video_id": "21872",
-                "signer_id": 52
-            },
-            {
-                "video_id": "21874",
-                "signer_id": 21
-            }
-        ],
         "no": [
             {
                 "video_id": "68110",
@@ -1496,26 +2504,10 @@
             {
                 "video_id": "69411",
                 "signer_id": 118
-            }
-        ],
-        "walk": [
-            {
-                "video_id": "68177",
-                "signer_id": 109
             },
             {
-                "video_id": "62158",
-                "signer_id": 56
-            }
-        ],
-        "year": [
-            {
-                "video_id": "68190",
-                "signer_id": 109
-            },
-            {
-                "video_id": "64211",
-                "signer_id": 4
+                "video_id": "38533",
+                "signer_id": 10
             }
         ],
         "yes": [
@@ -1532,83 +2524,263 @@
                 "signer_id": 13
             }
         ],
-        "all": [
+        "finish": [
             {
-                "video_id": "01912",
-                "signer_id": 9
-            },
-            {
-                "video_id": "68001",
-                "signer_id": 109
-            },
-            {
-                "video_id": "01997",
+                "video_id": "21952",
                 "signer_id": 5
-            }
-        ],
-        "chair": [
-            {
-                "video_id": "09851",
-                "signer_id": 59
             },
             {
-                "video_id": "09854",
-                "signer_id": 11
+                "video_id": "21942",
+                "signer_id": 36
             },
             {
-                "video_id": "09862",
-                "signer_id": 72
-            }
-        ],
-        "go": [
-            {
-                "video_id": "69345",
-                "signer_id": 118
-            },
-            {
-                "video_id": "24946",
-                "signer_id": 31
-            },
-            {
-                "video_id": "24952",
+                "video_id": "21949",
                 "signer_id": 10
             }
         ],
-        "who": [
+        "like": [
             {
-                "video_id": "63229",
-                "signer_id": 4
+                "video_id": "33280",
+                "signer_id": 5
             },
             {
-                "video_id": "63230",
-                "signer_id": 46
-            },
-            {
-                "video_id": "63237",
-                "signer_id": 11
-            }
-        ],
-        "candy": [
-            {
-                "video_id": "08929",
-                "signer_id": 12
-            },
-            {
-                "video_id": "08918",
-                "signer_id": 39
-            }
-        ],
-        "cousin": [
-            {
-                "video_id": "13633",
+                "video_id": "33268",
                 "signer_id": 60
             },
             {
-                "video_id": "13634",
-                "signer_id": 59
+                "video_id": "33270",
+                "signer_id": 13
+            }
+        ],
+        "table": [
+            {
+                "video_id": "70323",
+                "signer_id": 121
             },
             {
-                "video_id": "13641",
+                "video_id": "56578",
+                "signer_id": 49
+            }
+        ],
+        "fish": [
+            {
+                "video_id": "22128",
+                "signer_id": 5
+            },
+            {
+                "video_id": "22114",
+                "signer_id": 0
+            },
+            {
+                "video_id": "22113",
+                "signer_id": 19
+            }
+        ],
+        "white": [
+            {
+                "video_id": "63211",
+                "signer_id": 5
+            },
+            {
+                "video_id": "69533",
+                "signer_id": 118
+            },
+            {
+                "video_id": "63213",
+                "signer_id": 87
+            }
+        ],
+        "bird": [
+            {
+                "video_id": "06340",
+                "signer_id": 5
+            },
+            {
+                "video_id": "69233",
+                "signer_id": 115
+            },
+            {
+                "video_id": "06330",
+                "signer_id": 19
+            }
+        ],
+        "dance": [
+            {
+                "video_id": "68032",
+                "signer_id": 109
+            },
+            {
+                "video_id": "14632",
+                "signer_id": 54
+            }
+        ],
+        "doctor": [
+            {
+                "video_id": "17022",
+                "signer_id": 5
+            },
+            {
+                "video_id": "17023",
+                "signer_id": 5
+            },
+            {
+                "video_id": "17016",
+                "signer_id": 60
+            }
+        ],
+        "want": [
+            {
+                "video_id": "62254",
+                "signer_id": 5
+            },
+            {
+                "video_id": "69524",
+                "signer_id": 118
+            },
+            {
+                "video_id": "62244",
+                "signer_id": 56
+            }
+        ],
+        "paper": [
+            {
+                "video_id": "41034",
+                "signer_id": 5
+            },
+            {
+                "video_id": "41027",
+                "signer_id": 31
+            }
+        ],
+        "water": [
+            {
+                "video_id": "62508",
+                "signer_id": 5
+            },
+            {
+                "video_id": "62505",
+                "signer_id": 10
+            },
+            {
+                "video_id": "62501",
+                "signer_id": 36
+            }
+        ],
+        "yellow": [
+            {
+                "video_id": "64269",
+                "signer_id": 47
+            },
+            {
+                "video_id": "64266",
+                "signer_id": 11
+            },
+            {
+                "video_id": "64263",
+                "signer_id": 4
+            }
+        ],
+        "teacher": [
+            {
+                "video_id": "57046",
+                "signer_id": 5
+            },
+            {
+                "video_id": "57045",
+                "signer_id": 11
+            }
+        ],
+        "friend": [
+            {
+                "video_id": "23575",
+                "signer_id": 5
+            },
+            {
+                "video_id": "23569",
+                "signer_id": 36
+            }
+        ],
+        "happy": [
+            {
+                "video_id": "26534",
+                "signer_id": 5
+            },
+            {
+                "video_id": "26531",
+                "signer_id": 10
+            }
+        ],
+        "careful": [
+            {
+                "video_id": "09178",
+                "signer_id": 9
+            },
+            {
+                "video_id": "09185",
+                "signer_id": 11
+            },
+            {
+                "video_id": "09179",
+                "signer_id": 2
+            }
+        ],
+        "more": [
+            {
+                "video_id": "36826",
+                "signer_id": 9
+            },
+            {
+                "video_id": "36830",
+                "signer_id": 13
+            },
+            {
+                "video_id": "36839",
+                "signer_id": 87
+            }
+        ],
+        "crazy": [
+            {
+                "video_id": "13862",
+                "signer_id": 5
+            }
+        ],
+        "hello": [
+            {
+                "video_id": "27171",
+                "signer_id": 9
+            },
+            {
+                "video_id": "27177",
+                "signer_id": 11
+            }
+        ],
+        "important": [
+            {
+                "video_id": "29064",
+                "signer_id": 9
+            },
+            {
+                "video_id": "29074",
+                "signer_id": 12
+            }
+        ],
+        "phone": [
+            {
+                "video_id": "42419",
+                "signer_id": 9
+            },
+            {
+                "video_id": "42429",
+                "signer_id": 5
+            }
+        ],
+        "swing": [
+            {
+                "video_id": "56391",
+                "signer_id": 5
+            },
+            {
+                "video_id": "56390",
                 "signer_id": 11
             }
         ],
@@ -1640,27 +2812,185 @@
                 "signer_id": 90
             }
         ],
-        "thin": [
+        "mother": [
             {
-                "video_id": "57948",
-                "signer_id": 10
+                "video_id": "69402",
+                "signer_id": 116
             },
             {
-                "video_id": "66607",
-                "signer_id": 93
-            },
-            {
-                "video_id": "57933",
-                "signer_id": 56
+                "video_id": "36945",
+                "signer_id": 87
             }
         ],
-        "black": [
+        "eat": [
             {
-                "video_id": "69236",
+                "video_id": "69307",
                 "signer_id": 118
             },
             {
-                "video_id": "06476",
+                "video_id": "18323",
+                "signer_id": 0
+            }
+        ],
+        "school": [
+            {
+                "video_id": "69455",
+                "signer_id": 118
+            },
+            {
+                "video_id": "49606",
+                "signer_id": 41
+            }
+        ],
+        "brother": [
+            {
+                "video_id": "07938",
+                "signer_id": 59
+            }
+        ],
+        "cry": [
+            {
+                "video_id": "14177",
+                "signer_id": 59
+            },
+            {
+                "video_id": "65427",
+                "signer_id": 99
+            }
+        ],
+        "laugh": [
+            {
+                "video_id": "32398",
+                "signer_id": 12
+            },
+            {
+                "video_id": "32380",
+                "signer_id": 39
+            },
+            {
+                "video_id": "32386",
+                "signer_id": 13
+            }
+        ],
+        "write": [
+            {
+                "video_id": "64061",
+                "signer_id": 15
+            }
+        ],
+        "coffee": [
+            {
+                "video_id": "11565",
+                "signer_id": 25
+            },
+            {
+                "video_id": "65375",
+                "signer_id": 92
+            },
+            {
+                "video_id": "11561",
+                "signer_id": 59
+            }
+        ],
+        "delicious": [
+            {
+                "video_id": "15366",
+                "signer_id": 60
+            },
+            {
+                "video_id": "15373",
+                "signer_id": 16
+            }
+        ],
+        "father": [
+            {
+                "video_id": "21221",
+                "signer_id": 12
+            }
+        ],
+        "milk": [
+            {
+                "video_id": "36050",
+                "signer_id": 11
+            },
+            {
+                "video_id": "36046",
+                "signer_id": 36
+            }
+        ],
+        "nice": [
+            {
+                "video_id": "38284",
+                "signer_id": 3
+            }
+        ],
+        "sad": [
+            {
+                "video_id": "48983",
+                "signer_id": 12
+            }
+        ],
+        "sister": [
+            {
+                "video_id": "51887",
+                "signer_id": 13
+            },
+            {
+                "video_id": "51894",
+                "signer_id": 24
+            }
+        ],
+        "think": [
+            {
+                "video_id": "57981",
+                "signer_id": 87
+            }
+        ],
+        "fly": [
+            {
+                "video_id": "65748",
+                "signer_id": 106
+            }
+        ],
+        "hungry": [
+            {
+                "video_id": "28379",
+                "signer_id": 21
+            }
+        ],
+        "serious": [
+            {
+                "video_id": "50511",
+                "signer_id": 83
+            },
+            {
+                "video_id": "50505",
+                "signer_id": 4
+            }
+        ],
+        "angry": [
+            {
+                "video_id": "02572",
+                "signer_id": 11
+            },
+            {
+                "video_id": "02568",
+                "signer_id": 4
+            }
+        ],
+        "surprise": [
+            {
+                "video_id": "56107",
+                "signer_id": 13
+            }
+        ],
+        "swim": [
+            {
+                "video_id": "56341",
+                "signer_id": 6
+            },
+            {
+                "video_id": "56344",
                 "signer_id": 11
             }
         ]

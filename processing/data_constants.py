@@ -1,6 +1,7 @@
 import os
 from enum import Enum
 from os.path import join
+from labels import face_motion_labels, hands_motion_labels, body_motion_labels
 
 
 class ProcessingType(Enum):
@@ -11,7 +12,7 @@ class ProcessingType(Enum):
 
 
 # Parameters
-NUM_LABELS = 20
+NUM_LABELS = 50
 TARGET_SIZE = 256
 FRAME_SIZE = TARGET_SIZE*2
 TARGET_CHANNELS = 3
@@ -29,7 +30,11 @@ FILES_EXTENSION = ".mp4"
 # Paths
 CURRENT_PATH = os.getcwd()
 CONFIG_PATH = join(CURRENT_PATH, "config")
-VIDEOS_FOLDER = join(CURRENT_PATH, "videos")
+VIDEOS_FOLDER = join(CURRENT_PATH, "videos_WLASL")
 DATASET_FILE = join(CONFIG_PATH, "dataset.json")
 WLASL_FILE = join(CONFIG_PATH, "WLASL_v0.3.json")
+# WLASL_FILE = join(CONFIG_PATH, "MSASL.json")
 PROCESSED_VIDEO_FOLDER = os.path.join(CURRENT_PATH, "processed_data")
+
+
+LABELS = face_motion_labels + hands_motion_labels + body_motion_labels
