@@ -320,9 +320,16 @@ def download_yt_videos():
             continue        
         
         instances = entry['instances']
+        video_downloaded = 0
 
         for inst in instances:
 
+            if video_downloaded >= MAX_SAMPLES_LABEL: 
+                break
+
+            if video_downloaded >= MIN_SAMPLES_LABEL and inst['end_time'] > 6: 
+                continue
+            
             video_url = inst['url']
             video_id = inst['video_id']
 
@@ -346,11 +353,22 @@ def download_yt_videos():
 
                     trimme_file(inst)
                     register_video_downloaded(gloss, inst)
+                    video_downloaded += 1
                 else:
                     logging.error('Unsuccessful downloading - youtube video url {}'.format(video_url))
 
                 # please be nice to the host - take pauses and avoid spamming
                 time.sleep(random.uniform(1.0, 1.5))
+
+
+def remove_unwanted_files():
+    # Iterate through the files and remove those that are not .mp4
+    files = os.listdir(VIDEOS_FOLDER)
+
+    for file in files:
+        if not file.endswith('.mp4'):
+            file_path = os.path.join(VIDEOS_FOLDER, file)
+            os.remove(file_path)
 
 
 if __name__ == '__main__':
@@ -363,6 +381,8 @@ if __name__ == '__main__':
     download_yt_videos()
 
     download_nonyt_videos()
-
+    
     with open(DATASET_FILE, "w") as json_file:
         json.dump(dataset, json_file, indent=4)
+
+    remove_unwanted_files()
