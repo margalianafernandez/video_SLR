@@ -4,12 +4,19 @@ from os.path import join
 from labels import face_motion_labels, hands_motion_labels, body_motion_labels
 
 
+class DatasetSelected(Enum):
+    WLASL = "wlasl"
+    MSASL = "msasl"
+
 class ProcessingType(Enum):
     HANDS = "hands"
     FACE_HANDS = "face_and_hands"
     BODY_HANDS = "body_and_hands"
     ALL = "all"
 
+
+DATASET_SELECTED = DatasetSelected.WLASL
+# MSASL 714611      WLAS (GPU) 714612
 
 # Parameters
 MIN_SAMPLES_LABEL = 8
@@ -32,13 +39,14 @@ FILES_EXTENSION = ".mp4"
 # Paths
 CURRENT_PATH = os.getcwd()
 CONFIG_PATH = join(CURRENT_PATH, "config")
-#VIDEOS_FOLDER = join(CURRENT_PATH, "videos_WLASL")
-VIDEOS_FOLDER = join(CURRENT_PATH, "videos_MSASL")
-DATASET_FILE = join(CONFIG_PATH, "dataset_MSASL.json")
-#DATASET_FILE = join(CONFIG_PATH, "dataset.json")
-#WLASL_FILE = join(CONFIG_PATH, "WLASL_v0.3.json")
-WLASL_FILE = join(CONFIG_PATH, "MSASL.json")
+VIDEOS_FOLDER = join(CURRENT_PATH, "videos_{}".format(DATASET_SELECTED.value))
+DATASET_FILE = join(CONFIG_PATH, "dataset_{}.json".format(DATASET_SELECTED.value))
 PROCESSED_VIDEO_FOLDER = os.path.join(CURRENT_PATH, "processed_data")
+
+if DATASET_SELECTED == DatasetSelected.WLASL:
+    DATASET_ORIGINAL_FILE = join(CONFIG_PATH, "WLASL_v0.3.json")
+else:
+    DATASET_ORIGINAL_FILE = join(CONFIG_PATH, "MSASL.json")
 
 
 LABELS = face_motion_labels + hands_motion_labels + body_motion_labels

@@ -25,6 +25,7 @@ FILES = [
 MSASL_LABEL = "clean_text"
 MSASL_FRAME_START = "start"
 MSASL_FRAME_END = "end"
+START_TIME = "start_time"
 END_TIME = "end_time"
 FPS = "fps"
 SIGNER_ID = "signer_id"
@@ -72,7 +73,8 @@ def get_content(output, input, set_name, start_id = 0):
             URL: sign[URL],
             SIGNER_ID: sign[SIGNER_ID],
             WLASL_DATA_SET: set_name,
-            END_TIME: sign[END_TIME]
+            END_TIME: sign[END_TIME],
+            START_TIME: sign[START_TIME]
         }
 
         if label not in output:

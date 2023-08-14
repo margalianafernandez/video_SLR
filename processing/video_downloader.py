@@ -5,10 +5,10 @@ import time
 import ffmpeg
 import random
 import logging
-import subprocess
 import urllib.request
 from data_constants import *
 from os.path import join
+from moviepy.editor import *
 
 
 # Dataset dictionary to store downloaded video instances
@@ -22,6 +22,7 @@ dataset = {
 # Configure logging to both file and stdout
 logging.basicConfig(filename='download_{}.log'.format(int(time.time())), filemode='w', level=logging.DEBUG)
 logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+
 
 
 def trimme_file(inst):
@@ -42,29 +43,25 @@ def trimme_file(inst):
     valid_trim = frame_start and  frame_end and  frame_start < frame_end
     if not valid_trim: return
     
-    start_time = frame_start / fps
-    end_time = frame_end / fps
+    if "end_time" in inst:
+        start_time = inst["start_time"]
+        end_time = inst["end_time"]
+    else:
+        start_time = frame_start / fps
+        end_time = frame_end / fps
     
     input_file = os.path.join(VIDEOS_FOLDER, video_id + '.mp4')
-    output_file = os.path.join(VIDEOS_FOLDER, video_id + '_tmp.mp4')
+    output_file = os.path.join(VIDEOS_FOLDER, video_id + '_trimmed.mp4')
 
-    cmd = [
-        'ffmpeg',
-        '-i', input_file,
-        '-ss', str(start_time),
-        '-to', str(end_time),
-        '-c', 'copy',
-        output_file
-    ]
 
-    # Run the ffmpeg command using subprocess
-    rv = subprocess.run(cmd)
+    clip = VideoFileClip(input_file, audio=False) 
+    new_clip = clip.subclip(start_time, end_time)
+    new_clip.write_videofile(output_file, codec="libx264")
 
-    if rv.returncode == 0:
-        os.remove(input_file)
-        os.rename(output_file, input_file)
-    else:
-        print(f"Error while trimming video - video {video_id}")
+    clip.close()
+    new_clip.close()
+    os.remove(input_file)
+    os.rename(output_file, input_file)
 
 
 def register_video_downloaded(gloss, instance):
@@ -102,19 +99,24 @@ def convert_file_to_mp4(video_id, original_extension):
     Returns:
         None
     """
-    input_file = join(VIDEOS_FOLDER, video_id+original_extension)
-  
-    # Create the output file path with the '.mp4' extension
-    output_file = join(VIDEOS_FOLDER, os.path.splitext(os.path.basename(input_file))[0] + '.mp4')
+    try:
+        input_file = join(VIDEOS_FOLDER, video_id+original_extension)
+        tmp_input_file = join(VIDEOS_FOLDER, video_id+"_tmp"+original_extension)
+    
+        # Create the output file path with the '.mp4' extension
+        output_file = join(VIDEOS_FOLDER, os.path.splitext(os.path.basename(input_file))[0] + '.mp4')
 
-    # Define the input stream (SWF) and output stream (MP4)
-    input_stream = ffmpeg.input(input_file)
-    output_stream = ffmpeg.output(input_stream, output_file)
+        # Define the input stream (SWF) and output stream (MP4)
+        input_stream = ffmpeg.input(input_file)
+        output_stream = ffmpeg.output(input_stream, output_file)
 
-    # Run the conversion using ffmpeg-python
-    ffmpeg.run(output_stream)
+        # Run the conversion using ffmpeg-python
+        ffmpeg.run(output_stream)
 
-    os.remove(input_file)
+        os.remove(input_file)
+
+    except Exception as e:
+        print(f"Error converting {input_file} to MP4: {e}")
 
 
 def request_video(url, referer=''):
@@ -260,7 +262,7 @@ def download_nonyt_videos():
     Returns:
         None
     """
-    content = json.load(open(WLASL_FILE))
+    content = json.load(open(DATASET_ORIGINAL_FILE))
 
     if not os.path.exists(VIDEOS_FOLDER):
         os.mkdir(VIDEOS_FOLDER)
@@ -274,6 +276,7 @@ def download_nonyt_videos():
         instances = entry['instances']
 
         for inst in instances:
+
             video_url = inst['url']
             video_id = inst['video_id']
             
@@ -308,7 +311,7 @@ def download_yt_videos():
     Returns:
         None
     """
-    content = json.load(open(WLASL_FILE))
+    content = json.load(open(DATASET_ORIGINAL_FILE))
     
     if not os.path.exists(VIDEOS_FOLDER):
         os.mkdir(VIDEOS_FOLDER)
@@ -326,9 +329,6 @@ def download_yt_videos():
 
             if video_downloaded >= MAX_SAMPLES_LABEL: 
                 break
-
-            if video_downloaded >= MIN_SAMPLES_LABEL and inst['end_time'] > 6: 
-                continue
             
             video_url = inst['url']
             video_id = inst['video_id']
@@ -336,29 +336,36 @@ def download_yt_videos():
             if 'youtube' not in video_url and 'youtu.be' not in video_url:
                 continue
 
-            if os.path.exists(os.path.join(VIDEOS_FOLDER, video_url[-11:] + '.mp4')) or os.path.exists(os.path.join(VIDEOS_FOLDER, video_url[-11:] + '.mkv')):
-                logging.info('YouTube videos {} already exists.'.format(video_url))
+            if os.path.exists(os.path.join(VIDEOS_FOLDER, video_id + '.mp4')) or os.path.exists(os.path.join(VIDEOS_FOLDER, video_url[-11:] + '.mkv')):
+                # logging.info('YouTube videos {} already exists.'.format(video_url))
+                
+                register_video_downloaded(gloss, inst)
+                video_downloaded += 1
                 continue
             
             else:
-                cmd = "youtube-dl \"{}\" -o \"{}{}.%(ext)s\""
-                cmd = cmd.format(video_url, VIDEOS_FOLDER + os.path.sep, video_id)
+                try:
+                    cmd = "youtube-dl \"{}\" -o \"{}{}.%(ext)s\""
+                    cmd = cmd.format(video_url, VIDEOS_FOLDER + os.path.sep, video_id)
 
-                rv = os.system(cmd)
+                    rv = os.system(cmd)
 
-                if not rv:
-                    
-                    if os.path.exists(join(VIDEOS_FOLDER, video_id+".mkv")):
-                        convert_file_to_mp4(video_id, ".mkv")
+                    if not rv:
+                        
+                        if os.path.exists(join(VIDEOS_FOLDER, video_id+".mkv")):
+                            convert_file_to_mp4(video_id, ".mkv")
 
-                    trimme_file(inst)
-                    register_video_downloaded(gloss, inst)
-                    video_downloaded += 1
-                else:
-                    logging.error('Unsuccessful downloading - youtube video url {}'.format(video_url))
+                        trimme_file(inst)
+                        register_video_downloaded(gloss, inst)
+                        video_downloaded += 1
+                    else:
+                        logging.error('Unsuccessful downloading - youtube video url {}'.format(video_url))
 
-                # please be nice to the host - take pauses and avoid spamming
-                time.sleep(random.uniform(1.0, 1.5))
+                    # please be nice to the host - take pauses and avoid spamming
+                    time.sleep(random.uniform(1.0, 1.5))
+                
+                except Exception as e:
+                    logging.error('Unsuccessful downloading - video {}'.format(video_id))
 
 
 def remove_unwanted_files():
@@ -374,7 +381,8 @@ def remove_unwanted_files():
 if __name__ == '__main__':
 
     logging.info('Start downloading non-youtube videos.')
-    
+
+    remove_unwanted_files()
 
     check_youtube_dl_version()
     logging.info('Start downloading youtube videos.')

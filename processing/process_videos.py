@@ -7,6 +7,9 @@ import face_recognition
 from data_constants import *
 
 
+SETS = [TEST, TRAIN, VALIDATION]
+
+
 class VideoBodyParts():
     """
     This class will detect the face and the hands of the input frame and store it
@@ -213,17 +216,18 @@ def process_video(type, video_path, output_path):
     out_video.release()
 
 
-def process_video_and_store(processing_type):
-
+def process_video_and_store(processing_type, only_train=False):
+    """
+    If only_train is True, videos will only be stored in the train folder
+    """
     num_videos = 0
     dataset_content = json.load(open(DATASET_FILE))
 
     for folder in dataset_content:
 
         for label in dataset_content[folder]:
-
-            # label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, folder, label)
-            label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, "train", label)
+            folder_to_store = (folder, TRAIN)[only_train]
+            label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, folder_to_store, label)
             create_folder_if_not_exists(label_folder)
 
             for video in dataset_content[folder][label]:
@@ -241,11 +245,47 @@ def process_video_and_store(processing_type):
     print("Num videos", num_videos)
 
 
+def process_video_and_store_in_val_and_test_sets(processing_type):
+
+    val_videos = {}
+    dataset_content = json.load(open(DATASET_FILE))
+    
+    # Create folders for each label in the TEST and VALIDATION folders
+    for label in LABELS:
+        if label == "learn": continue
+        for folder in [TEST, VALIDATION]:
+            label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, folder, label)
+            create_folder_if_not_exists(label_folder)
+
+            num_val_videos = sum([len(dataset_content[set_name][label]) for set_name in SETS])
+
+            val_videos[label] = {
+                "max": num_val_videos // 2,
+                "counter": 0
+            }
+
+    # Process videos based on the {processing_type} and store them in the corresponding folder    
+    for folder in dataset_content:
+        for label in dataset_content[folder]:             
+            for video in dataset_content[folder][label]:
+
+                video_set = (VALIDATION, TEST)[num_val_videos > val_videos[label]["max"]]
+                label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, video_set, label) 
+
+                input_path = os.path.join(
+                    VIDEOS_FOLDER, video["video_id"] + FILES_EXTENSION)
+                output_path = os.path.join(
+                    label_folder, video["video_id"] + FILES_EXTENSION)
+                process_video(processing_type, input_path, output_path)
+
+                val_videos[label]["count"] += 1
+
+
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Train video classification model.")
 
-    parser.add_argument("--type", type=ProcessingType, default=ProcessingType.HANDS,
+    parser.add_argument("--type", type=ProcessingType, default=ProcessingType.ALL,
                         help="Name of the model to train: " + ", ".join([x.value for x in ProcessingType]))
 
     return parser.parse_args()
@@ -255,4 +295,5 @@ if __name__ == "__main__":
 
     args = parse_arguments()
     print("Type selected:", args.type.value)
-    process_video_and_store(args.type)
+    # process_video(args.type)
+    process_video_and_store_in_val_and_test_sets(args.type)
