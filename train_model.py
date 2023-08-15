@@ -1,6 +1,8 @@
 # https://github.com/kailliang/Lane-Change-Classification-and-Prediction-with-Action-Recognition-Networks/tree/main
 
 import os
+from torch.cuda.amp import autocast, GradScaler
+
 import math
 import torch
 import random
@@ -81,16 +83,25 @@ def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, 
     train_bar = tqdm(train_loader, total=math.ceil(
         num_videos / BATCH_SIZE), dynamic_ncols=True)
 
+    scaler = GradScaler()
+    
     for batch in train_bar:
         video, label = get_sample_batch_data(batch, model_type)
 
         optimizer.zero_grad()
-        pred = model(video)
-        loss = loss_criterion(pred, label)
+
+        with autocast():
+            pred = model(video)
+            loss = loss_criterion(pred, label)
+        
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
+
         total_loss += loss.item() * video[0].size(0)
         total_acc += (torch.eq(pred.argmax(dim=-1), label)).sum().item()
-        loss.backward()
-        optimizer.step()
+        # loss.backward()
+        # optimizer.step()
 
         train_losses += [loss.item()]
 

@@ -7,9 +7,6 @@ import face_recognition
 from data_constants import *
 
 
-SETS = [TEST, TRAIN, VALIDATION]
-
-
 class VideoBodyParts():
     """
     This class will detect the face and the hands of the input frame and store it

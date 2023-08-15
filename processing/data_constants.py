@@ -35,6 +35,8 @@ TRAIN = "train"
 VALIDATION = "val"
 FILES_EXTENSION = ".mp4"
 
+SETS = [TRAIN, TEST, VALIDATION]
+
 # Paths
 CURRENT_PATH = os.getcwd()
 CONFIG_PATH = join(CURRENT_PATH, "config")

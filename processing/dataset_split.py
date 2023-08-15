@@ -1,9 +1,7 @@
 import json
 import itertools
 from collections import Counter
-from processing.data_constants import DATASET_FILE, TRAIN, TEST, VALIDATION
-
-sets = [TRAIN, TEST, VALIDATION]
+from processing.data_constants import DATASET_FILE, TRAIN, TEST, VALIDATION, SETS
 
 
 def read_dataset():
@@ -16,7 +14,7 @@ def evaluate_dataset_split(dataset_content):
     labels = dataset_content[TRAIN]
 
     for label in labels:
-        total_samples = sum(len(dataset_content[data_set][label]) for data_set in sets)
+        total_samples = sum(len(dataset_content[data_set][label]) for data_set in SETS)
         
         train_rate += len(dataset_content[TRAIN][label]) / total_samples
         test_rate += len(dataset_content[TEST][label]) / total_samples
@@ -44,13 +42,13 @@ def evaluate_singers(content):
         signers = dict()
         total_singers = set()
 
-        for data_set in sets:
+        for data_set in SETS:
             signers[data_set] = [sign["signer_id"] for sign in content[data_set][label]]
             total_singers = total_singers.union(set(signers[data_set]))
         
         print("- Label:", label, ". Total num singers:", len(total_singers))
 
-        for set1, set2 in list(itertools.combinations(sets, 2)):
+        for set1, set2 in list(itertools.combinations(SETS, 2)):
             print("\t* Compare", set1, "(" + str(len(set1)) + ")", "-", set2, "(" + str(len(set2)) + ")", end=": ")
 
             # Count occurrences of each element in both lists
