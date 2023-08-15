@@ -27,15 +27,14 @@ class VideoBodyParts():
         self.type = type
         self.face_im = empty_image
         self.hole_im = empty_image.copy()
-        
+
         if type == ProcessingType.HANDS:
             self.left_hand_im = np.zeros(
                 (FRAME_SIZE, TARGET_SIZE, TARGET_CHANNELS), dtype=np.uint8)
             self.right_hand_im = self.left_hand_im.copy()
-        else: 
+        else:
             self.left_hand_im = empty_image.copy()
             self.right_hand_im = empty_image.copy()
-    
 
     @staticmethod
     def calculate_bounding_box(hand_landmarks, frame_width, frame_height):
@@ -66,8 +65,9 @@ class VideoBodyParts():
         """
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         results_hands = mp_hands.process(frame)
-        image_heigh = (TARGET_SIZE, FRAME_SIZE)[self.type== ProcessingType.HANDS]
-        
+        image_heigh = (TARGET_SIZE, FRAME_SIZE)[
+            self.type == ProcessingType.HANDS]
+
         if results_hands.multi_hand_landmarks:
 
             for aux, hand_landmarks in enumerate(results_hands.multi_hand_landmarks):
@@ -227,7 +227,8 @@ def process_video_and_store(processing_type, only_train=False):
 
         for label in dataset_content[folder]:
             folder_to_store = (folder, TRAIN)[only_train]
-            label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, folder_to_store, label)
+            label_folder = os.path.join(
+                PROCESSED_VIDEO_FOLDER, folder_to_store, label)
             create_folder_if_not_exists(label_folder)
 
             for video in dataset_content[folder][label]:
@@ -249,28 +250,31 @@ def process_video_and_store_in_val_and_test_sets(processing_type):
 
     val_videos = {}
     dataset_content = json.load(open(DATASET_FILE))
-    
+
     # Create folders for each label in the TEST and VALIDATION folders
     for label in LABELS:
-        if label == "learn": continue
+
         for folder in [TEST, VALIDATION]:
             label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, folder, label)
             create_folder_if_not_exists(label_folder)
 
-            num_val_videos = sum([len(dataset_content[set_name][label]) for set_name in SETS])
+            num_val_videos = sum([len(dataset_content[set_name][label])
+                                 for set_name in SETS if label in dataset_content[set_name]])
 
             val_videos[label] = {
                 "max": num_val_videos // 2,
                 "counter": 0
             }
 
-    # Process videos based on the {processing_type} and store them in the corresponding folder    
+    # Process videos based on the {processing_type} and store them in the corresponding folder
     for folder in dataset_content:
-        for label in dataset_content[folder]:             
+        for label in dataset_content[folder]:
             for video in dataset_content[folder][label]:
 
-                video_set = (VALIDATION, TEST)[num_val_videos > val_videos[label]["max"]]
-                label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, video_set, label) 
+                video_set = (VALIDATION, TEST)[
+                    val_videos[label]["counter"] > val_videos[label]["max"]]
+                label_folder = os.path.join(
+                    PROCESSED_VIDEO_FOLDER, video_set, label)
 
                 input_path = os.path.join(
                     VIDEOS_FOLDER, video["video_id"] + FILES_EXTENSION)
@@ -278,7 +282,7 @@ def process_video_and_store_in_val_and_test_sets(processing_type):
                     label_folder, video["video_id"] + FILES_EXTENSION)
                 process_video(processing_type, input_path, output_path)
 
-                val_videos[label]["count"] += 1
+                val_videos[label]["counter"] += 1
 
 
 def parse_arguments():

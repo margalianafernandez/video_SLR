@@ -1,7 +1,7 @@
 import os
 from enum import Enum
 from os.path import join
-from labels import face_motion_labels, hands_motion_labels, body_motion_labels
+from processing.labels import face_motion_labels, hands_motion_labels, body_motion_labels
 
 
 class DatasetSelected(Enum):
@@ -15,8 +15,7 @@ class ProcessingType(Enum):
     ALL = "all"
 
 
-DATASET_SELECTED = DatasetSelected.WLASL
-# MSASL 714611      WLAS (GPU) 714612
+DATASET_SELECTED = DatasetSelected.MSASL
 
 # Parameters
 MIN_SAMPLES_LABEL = 8

@@ -42,7 +42,7 @@ def get_3dcnn_data_loaders(is_eval=False):
     transformations = get_transformations()
 
     if is_eval:
-        test_data = labeled_video_dataset('{}/test'.format(DATA_PATH),
+        test_data = labeled_video_dataset('{}/test'.format(PROCESSED_VIDEO_FOLDER),
                                           make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
             transform=transformations, decode_audio=False)
@@ -52,10 +52,10 @@ def get_3dcnn_data_loaders(is_eval=False):
         return test_loader
 
     else:
-        train_data = labeled_video_dataset('{}/train'.format(DATA_PATH), make_clip_sampler('random', CLIP_DURATION),
+        train_data = labeled_video_dataset('{}/train'.format(PROCESSED_VIDEO_FOLDER), make_clip_sampler('random', CLIP_DURATION),
                                            transform=transformations, decode_audio=False)
 
-        val_data = labeled_video_dataset('{}/val'.format(DATA_PATH),
+        val_data = labeled_video_dataset('{}/val'.format(PROCESSED_VIDEO_FOLDER),
                                          make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
             transform=transformations, decode_audio=False)

@@ -1,7 +1,7 @@
 import torch
 from enum import Enum
 from os.path import join
-from processing.data_constants import DATASET_SELECTED
+from processing.data_constants import PROCESSED_VIDEO_FOLDER
 
 # Type of models
 
@@ -38,5 +38,4 @@ CURRENT_MODEL = Models.SLOWFAST
 # Paths
 
 ROOT_PATH = join("/dcs", "pg22", "u2288875", "Documents", "TFM")
-DATA_PATH = join(ROOT_PATH, "processed_data_{}".format(DATASET_SELECTED.value))
 CHECKPOINTS_PATH = join(ROOT_PATH, "check_points")
