@@ -75,8 +75,8 @@ def get_slowfast_data_loaders(is_eval=False):
             transform=transformations, decode_audio=False)
 
         train_loader = DataLoader(
-            train_data, batch_size=BATCH_SIZE, num_workers=8)
-        val_loader = DataLoader(val_data, batch_size=BATCH_SIZE, num_workers=8)
+            train_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS, pin_memory=True, drop_last=True)
+        val_loader = DataLoader(val_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS, pin_memory=True)
 
         return train_loader, val_loader
 

@@ -1,7 +1,7 @@
+import os
 import torch
 from enum import Enum
 from os.path import join
-from processing.data_constants import PROCESSED_VIDEO_FOLDER
 
 # Type of models
 
@@ -23,6 +23,7 @@ NUM_FRAMES = 32
 SAMPLING_RATE = 1
 FPS = NUM_FRAMES/5
 CLIP_DURATION = (NUM_FRAMES * SAMPLING_RATE) / FPS
+NUM_WORKERS = 3
 
 
 # MODEL PARAMETERS
@@ -30,12 +31,13 @@ CLIP_DURATION = (NUM_FRAMES * SAMPLING_RATE) / FPS
 EPOCHS = 50
 MOMENTUM = 0.9
 WEIGHT_DECAY = 0.001
-BATCH_SIZE = 10  # 10
+BATCH_SIZE = 5  # 10
 LEARNING_RATE = 0.02
 CURRENT_MODEL = Models.SLOWFAST
 
 
 # Paths
-
+CURRENT_PATH = os.getcwd()
 ROOT_PATH = join("/dcs", "pg22", "u2288875", "Documents", "TFM")
 CHECKPOINTS_PATH = join(ROOT_PATH, "check_points")
+PROCESSED_VIDEO_FOLDER = join(CURRENT_PATH, "processed_data")

@@ -42,7 +42,7 @@ CURRENT_PATH = os.getcwd()
 CONFIG_PATH = join(CURRENT_PATH, "config")
 VIDEOS_FOLDER = join(CURRENT_PATH, "videos_{}".format(DATASET_SELECTED.value))
 DATASET_FILE = join(CONFIG_PATH, "dataset_{}.json".format(DATASET_SELECTED.value))
-PROCESSED_VIDEO_FOLDER = os.path.join(CURRENT_PATH, "processed_data")
+PROCESSED_VIDEO_FOLDER = os.path.join(CURRENT_PATH, "processed_data_{}".format(DATASET_SELECTED.value))
 
 if DATASET_SELECTED == DatasetSelected.WLASL:
     DATASET_ORIGINAL_FILE = join(CONFIG_PATH, "WLASL_v0.3.json")
