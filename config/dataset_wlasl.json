@@ -476,10 +476,6 @@
     "train": {
         "book": [
             {
-                "video_id": "68011",
-                "signer_id": 110
-            },
-            {
                 "video_id": "70266",
                 "signer_id": 121
             },
