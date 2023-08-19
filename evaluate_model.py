@@ -81,7 +81,7 @@ def show_accuracy(labels, preds):
     correct_predictions = sum([int(label == pred)
                               for label, pred in zip(labels, preds)])
     accuracy = 100 * correct_predictions / len(labels)
-    print(f'Accuracy: {accuracy:.2f}%')
+    print(f'Accuracy during testing: {accuracy:.2f}%')
 
 
 def evaluate_model(model_type, model_file_name):

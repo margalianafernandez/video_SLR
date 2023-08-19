@@ -37,32 +37,33 @@ def get_transformations():
 def get_3dcnn_data_loaders(is_eval=False):
 
     if is_eval:
-        test_data = labeled_video_dataset('{}/val'.format(PROCESSED_VIDEO_FOLDER),
+        test_data = labeled_video_dataset('{}/test'.format(PROCESSED_VIDEO_FOLDER),
                                           make_clip_sampler(
-                                              'constant_clips_per_video', CLIP_DURATION, 1),
-                                          transform=get_transformations(),
-                                          decode_audio=False)
+            'constant_clips_per_video', CLIP_DURATION, 1),
+            transform=get_transformations(), decode_audio=False)
 
         test_loader = DataLoader(
-            test_data, batch_size=BATCH_SIZE, num_workers=8)
+            test_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
 
         return test_loader
 
-    train_data = labeled_video_dataset('{}/train'.format(PROCESSED_VIDEO_FOLDER),
-                                       make_clip_sampler(
-                                           'random', CLIP_DURATION),
-                                       transform=get_transformations(),
-                                       decode_audio=False)
-    test_data = labeled_video_dataset('{}/val'.format(PROCESSED_VIDEO_FOLDER),
-                                      make_clip_sampler(
-                                          'constant_clips_per_video', CLIP_DURATION, 1),
-                                      transform=get_transformations(),
-                                      decode_audio=False)
-    
-    train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, num_workers=8)
-    test_loader = DataLoader(test_data, batch_size=BATCH_SIZE, num_workers=8)
+    else:
+        train_data = labeled_video_dataset('{}/train'.format(PROCESSED_VIDEO_FOLDER),
+                                           make_clip_sampler(
+                                               'random', CLIP_DURATION),
+                                           transform=get_transformations(), decode_audio=False)
 
-    return train_loader, test_loader
+        val_data = labeled_video_dataset('{}/val'.format(PROCESSED_VIDEO_FOLDER),
+                                         make_clip_sampler(
+            'constant_clips_per_video', CLIP_DURATION, 1),
+            transform=get_transformations(), decode_audio=False)
+
+        train_loader = DataLoader(
+            train_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
+        val_loader = DataLoader(
+            val_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
+
+        return train_loader, val_loader
 
 
 def get_3dcnn_model(num_labels):

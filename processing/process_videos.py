@@ -4,6 +4,7 @@ import cv2 as cv
 import numpy as np
 import mediapipe as mp
 import face_recognition
+from os.path import join
 from data_constants import *
 
 
@@ -213,7 +214,7 @@ def process_video(type, video_path, output_path):
     out_video.release()
 
 
-def process_video_and_store(processing_type, only_train=False):
+def process_video_and_store(processing_type, only_train=False, into_sets=False):
     """
     If only_train is True, videos will only be stored in the train folder
     """
@@ -223,18 +224,21 @@ def process_video_and_store(processing_type, only_train=False):
     for folder in dataset_content:
 
         for label in dataset_content[folder]:
-            folder_to_store = (folder, TRAIN)[only_train]
-            label_folder = os.path.join(
-                PROCESSED_VIDEO_FOLDER, folder_to_store, label)
+            label_folder = PROCESSED_VIDEO_FOLDER
+            
+            if into_sets:
+                folder_to_store = (folder, TRAIN)[only_train]
+                label_folder = join(PROCESSED_VIDEO_FOLDER, folder_to_store, label)
+            
             create_folder_if_not_exists(label_folder)
 
             for video in dataset_content[folder][label]:
 
                 video_id = video["video_id"]
 
-                input_path = os.path.join(
+                input_path = join(
                     VIDEOS_FOLDER, video_id + FILES_EXTENSION)
-                output_path = os.path.join(
+                output_path = join(
                     label_folder, video_id + FILES_EXTENSION)
                 process_video(processing_type, input_path, output_path)
 
@@ -252,7 +256,7 @@ def process_video_and_store_in_val_and_test_sets(processing_type):
     for label in LABELS:
 
         for folder in [TEST, VALIDATION]:
-            label_folder = os.path.join(PROCESSED_VIDEO_FOLDER, folder, label)
+            label_folder = join(PROCESSED_VIDEO_FOLDER, folder, label)
             create_folder_if_not_exists(label_folder)
 
             num_val_videos = sum([len(dataset_content[set_name][label])
@@ -270,12 +274,12 @@ def process_video_and_store_in_val_and_test_sets(processing_type):
 
                 video_set = (VALIDATION, TEST)[
                     val_videos[label]["counter"] > val_videos[label]["max"]]
-                label_folder = os.path.join(
+                label_folder = join(
                     PROCESSED_VIDEO_FOLDER, video_set, label)
 
-                input_path = os.path.join(
+                input_path = join(
                     VIDEOS_FOLDER, video["video_id"] + FILES_EXTENSION)
-                output_path = os.path.join(
+                output_path = join(
                     label_folder, video["video_id"] + FILES_EXTENSION)
                 process_video(processing_type, input_path, output_path)
 
@@ -296,5 +300,4 @@ if __name__ == "__main__":
 
     args = parse_arguments()
     print("Type selected:", args.type.value)
-    # process_video(args.type)
     process_video_and_store_in_val_and_test_sets(args.type)

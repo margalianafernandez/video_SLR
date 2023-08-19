@@ -189,7 +189,7 @@ def train_model(train_loader, val_loader, model, model_type, loss_criterion, opt
 
     store_loss_function(train_epoch_loss, val_epoch_loss)
 
-    print("Best accuracy: {:.2f}".format(top_1 * 100))
+    print("Best accuracy while training: {:.2f}%".format(top_1 * 100))
 
 
 def parse_arguments():

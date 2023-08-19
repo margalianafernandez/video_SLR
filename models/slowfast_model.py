@@ -50,16 +50,15 @@ def get_transformations():
 
 def get_slowfast_data_loaders(is_eval=False):
 
-    transformations = get_transformations()
 
     if is_eval:
         test_data = labeled_video_dataset('{}/test'.format(PROCESSED_VIDEO_FOLDER),
                                           make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
-            transform=transformations, decode_audio=False)
+            transform=get_transformations(), decode_audio=False)
 
         test_loader = DataLoader(
-            test_data, batch_size=BATCH_SIZE, num_workers=8)
+            test_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
 
         return test_loader
 
@@ -67,16 +66,17 @@ def get_slowfast_data_loaders(is_eval=False):
         train_data = labeled_video_dataset('{}/train'.format(PROCESSED_VIDEO_FOLDER),
                                            make_clip_sampler(
                                                'random', CLIP_DURATION),
-                                           transform=transformations, decode_audio=False)
+                                           transform=get_transformations(), decode_audio=False)
 
         val_data = labeled_video_dataset('{}/val'.format(PROCESSED_VIDEO_FOLDER),
                                          make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
-            transform=transformations, decode_audio=False)
+            transform=get_transformations(), decode_audio=False)
 
         train_loader = DataLoader(
-            train_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS, pin_memory=True, drop_last=True)
-        val_loader = DataLoader(val_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS, pin_memory=True)
+            train_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
+        val_loader = DataLoader(
+            val_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
 
         return train_loader, val_loader
 
