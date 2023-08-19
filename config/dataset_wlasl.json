@@ -280,10 +280,6 @@
         ],
         "more": [
             {
-                "video_id": "36838",
-                "signer_id": 5
-            },
-            {
                 "video_id": "36840",
                 "signer_id": 12
             }
@@ -310,10 +306,6 @@
         ],
         "sister": [
             {
-                "video_id": "51893",
-                "signer_id": 5
-            },
-            {
                 "video_id": "51883",
                 "signer_id": 36
             }
@@ -326,16 +318,8 @@
         ],
         "book": [
             {
-                "video_id": "07092",
-                "signer_id": 49
-            },
-            {
-                "video_id": "07093",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07095",
-                "signer_id": 18
+                "video_id": "07099",
+                "signer_id": 12
             }
         ],
         "doctor": [
@@ -476,10 +460,6 @@
     "train": {
         "book": [
             {
-                "video_id": "70266",
-                "signer_id": 121
-            },
-            {
                 "video_id": "07075",
                 "signer_id": 5
             },
@@ -492,36 +472,8 @@
                 "signer_id": 118
             },
             {
-                "video_id": "07085",
-                "signer_id": 49
-            },
-            {
-                "video_id": "07086",
-                "signer_id": 49
-            },
-            {
-                "video_id": "07087",
-                "signer_id": 18
-            },
-            {
                 "video_id": "07069",
                 "signer_id": 31
-            },
-            {
-                "video_id": "07088",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07089",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07090",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07091",
-                "signer_id": 18
             },
             {
                 "video_id": "07068",
@@ -538,34 +490,6 @@
             {
                 "video_id": "07074",
                 "signer_id": 11
-            },
-            {
-                "video_id": "07077",
-                "signer_id": 49
-            },
-            {
-                "video_id": "07078",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07079",
-                "signer_id": 49
-            },
-            {
-                "video_id": "07080",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07081",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07082",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07084",
-                "signer_id": 18
             }
         ],
         "drink": [
@@ -616,14 +540,6 @@
             {
                 "video_id": "17720",
                 "signer_id": 11
-            },
-            {
-                "video_id": "17721",
-                "signer_id": 10
-            },
-            {
-                "video_id": "17722",
-                "signer_id": 10
             },
             {
                 "video_id": "17723",
@@ -794,10 +710,6 @@
                 "signer_id": 5
             },
             {
-                "video_id": "21955",
-                "signer_id": 5
-            },
-            {
                 "video_id": "21943",
                 "signer_id": 32
             },
@@ -837,10 +749,6 @@
             },
             {
                 "video_id": "33279",
-                "signer_id": 5
-            },
-            {
-                "video_id": "33281",
                 "signer_id": 5
             },
             {
@@ -890,10 +798,6 @@
                 "signer_id": 5
             },
             {
-                "video_id": "36942",
-                "signer_id": 5
-            },
-            {
                 "video_id": "36944",
                 "signer_id": 5
             },
@@ -940,24 +844,8 @@
                 "signer_id": 5
             },
             {
-                "video_id": "56573",
-                "signer_id": 72
-            },
-            {
-                "video_id": "56574",
-                "signer_id": 72
-            },
-            {
                 "video_id": "56557",
                 "signer_id": 4
-            },
-            {
-                "video_id": "56576",
-                "signer_id": 72
-            },
-            {
-                "video_id": "56577",
-                "signer_id": 49
             },
             {
                 "video_id": "56579",
@@ -974,18 +862,6 @@
             {
                 "video_id": "56563",
                 "signer_id": 11
-            },
-            {
-                "video_id": "56568",
-                "signer_id": 72
-            },
-            {
-                "video_id": "56569",
-                "signer_id": 72
-            },
-            {
-                "video_id": "56571",
-                "signer_id": 72
             }
         ],
         "fish": [
@@ -1136,10 +1012,6 @@
                 "signer_id": 5
             },
             {
-                "video_id": "14630",
-                "signer_id": 5
-            },
-            {
                 "video_id": "14631",
                 "signer_id": 5
             },
@@ -1180,10 +1052,6 @@
             {
                 "video_id": "70049",
                 "signer_id": 121
-            },
-            {
-                "video_id": "17015",
-                "signer_id": 36
             },
             {
                 "video_id": "17017",
@@ -1370,10 +1238,6 @@
                 "signer_id": 36
             },
             {
-                "video_id": "41028",
-                "signer_id": 31
-            },
-            {
                 "video_id": "41029",
                 "signer_id": 13
             }
@@ -1386,10 +1250,6 @@
             {
                 "video_id": "62507",
                 "signer_id": 5
-            },
-            {
-                "video_id": "62506",
-                "signer_id": 10
             },
             {
                 "video_id": "66752",
@@ -1488,14 +1348,6 @@
                 "signer_id": 36
             },
             {
-                "video_id": "07934",
-                "signer_id": 39
-            },
-            {
-                "video_id": "07935",
-                "signer_id": 39
-            },
-            {
                 "video_id": "07936",
                 "signer_id": 39
             }
@@ -1550,10 +1402,6 @@
             {
                 "video_id": "32397",
                 "signer_id": 54
-            },
-            {
-                "video_id": "32381",
-                "signer_id": 39
             },
             {
                 "video_id": "66016",
@@ -1970,10 +1818,6 @@
                 "signer_id": 64
             },
             {
-                "video_id": "36053",
-                "signer_id": 5
-            },
-            {
                 "video_id": "36054",
                 "signer_id": 5
             },
@@ -2074,10 +1918,6 @@
             {
                 "video_id": "66488",
                 "signer_id": 108
-            },
-            {
-                "video_id": "51884",
-                "signer_id": 39
             },
             {
                 "video_id": "51885",
@@ -2244,10 +2084,6 @@
                 "signer_id": 5
             },
             {
-                "video_id": "50510",
-                "signer_id": 5
-            },
-            {
                 "video_id": "66448",
                 "signer_id": 91
             },
@@ -2378,14 +2214,6 @@
         ],
         "delicious": [
             {
-                "video_id": "15363",
-                "signer_id": 39
-            },
-            {
-                "video_id": "15364",
-                "signer_id": 39
-            },
-            {
                 "video_id": "15365",
                 "signer_id": 39
             },
@@ -2396,10 +2224,6 @@
             {
                 "video_id": "65457",
                 "signer_id": 90
-            },
-            {
-                "video_id": "15370",
-                "signer_id": 10
             },
             {
                 "video_id": "15361",
@@ -2413,10 +2237,6 @@
         "fly": [
             {
                 "video_id": "22643",
-                "signer_id": 12
-            },
-            {
-                "video_id": "22645",
                 "signer_id": 12
             },
             {
@@ -2460,26 +2280,6 @@
             {
                 "video_id": "70212",
                 "signer_id": 121
-            },
-            {
-                "video_id": "07094",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07096",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07098",
-                "signer_id": 18
-            },
-            {
-                "video_id": "07099",
-                "signer_id": 12
-            },
-            {
-                "video_id": "07083",
-                "signer_id": 18
             }
         ],
         "drink": [
@@ -2564,17 +2364,9 @@
             {
                 "video_id": "70323",
                 "signer_id": 121
-            },
-            {
-                "video_id": "56578",
-                "signer_id": 49
             }
         ],
         "white": [
-            {
-                "video_id": "63211",
-                "signer_id": 5
-            },
             {
                 "video_id": "69533",
                 "signer_id": 118
@@ -2623,10 +2415,6 @@
             }
         ],
         "want": [
-            {
-                "video_id": "62254",
-                "signer_id": 5
-            },
             {
                 "video_id": "69524",
                 "signer_id": 118
@@ -2678,10 +2466,6 @@
             {
                 "video_id": "57046",
                 "signer_id": 5
-            },
-            {
-                "video_id": "57045",
-                "signer_id": 11
             }
         ],
         "friend": [
@@ -2708,10 +2492,6 @@
             {
                 "video_id": "09178",
                 "signer_id": 9
-            },
-            {
-                "video_id": "09185",
-                "signer_id": 11
             },
             {
                 "video_id": "09179",
@@ -2992,10 +2772,6 @@
             {
                 "video_id": "56341",
                 "signer_id": 6
-            },
-            {
-                "video_id": "56344",
-                "signer_id": 11
             }
         ]
     }
