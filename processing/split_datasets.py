@@ -190,5 +190,14 @@ def join_both_datasets_into_train_or_test():
 
 
 if __name__ == "__main__":
-    # divide_dataset_into_test_and_val()
+    """
+    To generate json files:
+        divide_dataset_into_test_and_val() --> Defining the dataset selecting
+        split_train_test_from_two_datasets()
+
+    To store files:
+        set_each_dataset_to_train_or_test()--> Defining the dataset selecting
+        join_both_datasets_into_train_or_test()
+    """
     set_each_dataset_to_train_or_test()
+    
