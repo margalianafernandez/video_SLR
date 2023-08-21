@@ -63,9 +63,9 @@ def get_sample_batch_data(batch, model_type):
 
     if CUDA_ACTIVATED:
         if model_type == Models.SLOWFAST:
-            video, label = [i.cuda()
-                            for i in batch['video']], batch['label'].cuda()
-        else:
+            video, label = [i.cuda() for i in batch['video']], batch['label'].cuda()
+        
+        else: 
             video, label = batch['video'].cuda(), batch['label'].cuda()
     else:
         video, label = batch['video'], batch['label']
@@ -73,8 +73,40 @@ def get_sample_batch_data(batch, model_type):
     return video, label
 
 
-def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, epoch):
+def train_one_epoch_using_autocast(video, label, loss_criterion, scaler):
+    
+    with autocast():
+        pred = model(video)
+        loss = loss_criterion(pred, label)
+    
+    scaler.scale(loss).backward()
+    scaler.step(optimizer)
+    scaler.update()
+
+    total_loss += loss.item() * video[0].size(0)
+    total_acc += (torch.eq(pred.argmax(dim=-1), label)).sum().item()
+    train_losses += [loss.item()]
+
+    return total_loss, total_acc, train_losses
+
+
+def train_one_epoch_without_autocast(video, label, loss_criterion):
+
+    pred = model(video)
+    loss = loss_criterion(pred, label)
+    total_loss += loss.item() * video[0].size(0)
+    total_acc += (torch.eq(pred.argmax(dim=-1), label)).sum().item()
+    loss.backward()
+    optimizer.step()
+    train_losses += [loss.item()]
+
+    return total_loss, total_acc, train_losses
+
+
+def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, epoch, epochs=EPOCHS):
     train_losses = []
+
+    use_autocat = CURRENT_MODEL == Models.CNN_3D
 
     model.train()
     total_loss, total_acc, total_num = 0.0, 0, 0
@@ -90,24 +122,14 @@ def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, 
 
         optimizer.zero_grad()
 
-        with autocast():
-            pred = model(video)
-            loss = loss_criterion(pred, label)
-        
-        scaler.scale(loss).backward()
-        scaler.step(optimizer)
-        scaler.update()
-
-        total_loss += loss.item() * video[0].size(0)
-        total_acc += (torch.eq(pred.argmax(dim=-1), label)).sum().item()
-        # loss.backward()
-        # optimizer.step()
-
-        train_losses += [loss.item()]
+        if use_autocat:
+            total_loss, total_acc, train_losses = train_one_epoch_using_autocast(video, label, loss_criterion, scaler)
+        else:
+            total_loss, total_acc, train_losses = train_one_epoch_without_autocast(video, label, loss_criterion)
 
         total_num += video[0].size(0)
         train_bar.set_description('Train Epoch: [{}/{}] Loss: {:.4f} Acc: {:.2f}%'
-                                  .format(epoch, EPOCHS, total_loss / total_num, total_acc * 100 / total_num))
+                                  .format(epoch, epochs, total_loss / total_num, total_acc * 100 / total_num))
 
     loss = total_loss / total_num
     acc = total_acc / total_num
@@ -115,7 +137,7 @@ def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, 
     return loss, acc, np.array(train_losses).mean()
 
 
-def validate_one_epoch(model, model_type, val_loader, loss_criterion, epoch):
+def validate_one_epoch(model, model_type, val_loader, loss_criterion, epoch, epochs=EPOCHS):
     val_losses = []
 
     model.eval()
@@ -141,7 +163,7 @@ def validate_one_epoch(model, model_type, val_loader, loss_criterion, epoch):
             total_num += video[0].size(0)
 
             test_bar.set_description('Test Epoch: [{}/{}] | Top-1:{:.2f}% | Top-5:{:.2f}%'
-                                     .format(epoch, EPOCHS, total_top_1 * 100 / total_num,
+                                     .format(epoch, epochs, total_top_1 * 100 / total_num,
                                              total_top_5 * 100 / total_num))
 
     top_1, top_5 = total_top_1 / total_num, total_top_5 / total_num
@@ -149,8 +171,8 @@ def validate_one_epoch(model, model_type, val_loader, loss_criterion, epoch):
     return top_1, top_5, np.array(val_losses).mean()
 
 
-def train_model(train_loader, val_loader, model, model_type, loss_criterion, optimizer):
-
+def train_model(train_loader, val_loader, model, model_type, loss_criterion, optimizer, epochs=EPOCHS, store_files=True):
+    
     # training loop
     results = {'loss': [], 'acc': [], 'top-1': [], 'top-5': []}
 
@@ -160,23 +182,23 @@ def train_model(train_loader, val_loader, model, model_type, loss_criterion, opt
     best_acc, best_model = 0.0, None
     train_epoch_loss, val_epoch_loss = [], []
 
-    for epoch in range(1, EPOCHS + 1):
+    for epoch in range(1, epochs + 1):
 
         loss, acc, train_losses = train_one_epoch(
-            model, model_type, train_loader, optimizer, loss_criterion, epoch)
-
-        results['loss'].append(loss)
-        results['acc'].append(acc * 100)
+            model, model_type, train_loader, optimizer, loss_criterion, epoch, epochs=epochs)
 
         top_1, top_5, val_losses = validate_one_epoch(
-            model, model_type, val_loader, loss_criterion, epoch)
+            model, model_type, val_loader, loss_criterion, epoch, epochs=epochs)
 
-        results['top-1'].append(top_1 * 100)
-        results['top-5'].append(top_5 * 100)
+        if store_files:
+            results['loss'].append(loss)
+            results['acc'].append(acc * 100)
+            results['top-1'].append(top_1 * 100)
+            results['top-5'].append(top_5 * 100)
 
-        # save statistics
-        data_frame = pd.DataFrame(data=results, index=range(1, epoch + 1))
-        data_frame.to_csv(METRICS_FILENAME, index_label='epoch')
+            # save statistics
+            data_frame = pd.DataFrame(data=results, index=range(1, epoch + 1))
+            data_frame.to_csv(METRICS_FILENAME, index_label='epoch')
 
         train_epoch_loss += [train_losses]
         val_epoch_loss += [val_losses]
@@ -185,11 +207,13 @@ def train_model(train_loader, val_loader, model, model_type, loss_criterion, opt
             best_acc = top_1
             best_model = model
 
-    torch.save(best_model, MODEL_FILENAME)
+    if store_files:
+        torch.save(best_model, MODEL_FILENAME)
+        store_loss_function(train_epoch_loss, val_epoch_loss)
 
-    store_loss_function(train_epoch_loss, val_epoch_loss)
+    print("Best accuracy while training: {:.2f}%".format(best_acc * 100))
 
-    print("Best accuracy while training: {:.2f}%".format(top_1 * 100))
+    return best_acc
 
 
 def parse_arguments():

@@ -1,8 +1,7 @@
 import torch
 from torch import nn
-from torch.optim import SGD
+from torch import optim
 from models.model_constants import *
-from torch.nn import CrossEntropyLoss
 from torch.utils.data import DataLoader
 from torchvision.transforms import Compose, Lambda
 from pytorchvideo.data import make_clip_sampler, labeled_video_dataset
@@ -50,7 +49,6 @@ def get_transformations():
 
 def get_slowfast_data_loaders(is_eval=False):
 
-
     if is_eval:
         test_data = labeled_video_dataset('{}/test'.format(PROCESSED_VIDEO_FOLDER),
                                           make_clip_sampler(
@@ -81,7 +79,8 @@ def get_slowfast_data_loaders(is_eval=False):
         return train_loader, val_loader
 
 
-def get_slowfast_model(num_labels):
+def get_slowfast_model(num_labels, adam_optimizer=False, cross_entropy=True, lr=LEARNING_RATE, 
+                       momentum=MOMENTUM, weight_decay=WEIGHT_DECAY):
 
     # model define, loss setup and optimizer config
     if CUDA_ACTIVATED:
@@ -95,8 +94,16 @@ def get_slowfast_model(num_labels):
         model.blocks[6].proj = torch.nn.Linear(
             in_features=2304, out_features=num_labels, bias=True)
 
-    loss_criterion = CrossEntropyLoss()
-    optimizer = SGD(model.parameters(), lr=LEARNING_RATE,
-                    momentum=MOMENTUM, weight_decay=WEIGHT_DECAY)
+    if cross_entropy:
+        loss_criterion = nn.CrossEntropyLoss()
+    else:
+        loss_criterion = nn.NLLLoss()
+
+    if adam_optimizer:
+        optimizer = optim.Adam(model.parameters(), lr=lr,
+                               weight_decay=weight_decay)
+    else:
+        optimizer = optim.SGD(model.parameters(), lr=lr,
+                              momentum=momentum, weight_decay=weight_decay)
 
     return model, loss_criterion, optimizer

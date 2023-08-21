@@ -66,7 +66,8 @@ def get_3dcnn_data_loaders(is_eval=False):
         return train_loader, val_loader
 
 
-def get_3dcnn_model(num_labels):
+def get_3dcnn_model(num_labels, adam_optimizer=False, cross_entropy=True, 
+                    lr=LEARNING_RATE, momentum=MOMENTUM, weight_decay=WEIGHT_DECAY):
     # model define, loss setup and optimizer config
     model_name = 'i3d_r50'
 
@@ -83,9 +84,16 @@ def get_3dcnn_model(num_labels):
         model.blocks[6].proj = torch.nn.Linear(
             in_features=2048, out_features=num_labels, bias=True)
 
-    loss_criterion = nn.CrossEntropyLoss()
-    # optimizer = Adam(slow_fast.parameters(), lr=1e-1)
-    optimizer = optim.SGD(model.parameters(), lr=0.02,
-                          momentum=0.9, weight_decay=0.001)
+    if cross_entropy:
+        loss_criterion = nn.CrossEntropyLoss()
+    else:
+        loss_criterion = nn.NLLLoss()
+
+    if adam_optimizer:
+        optimizer = optim.Adam(model.parameters(), lr=lr,
+                               weight_decay=weight_decay)
+    else:
+        optimizer = optim.SGD(model.parameters(), lr=lr,
+                              momentum=momentum, weight_decay=weight_decay)
 
     return model, loss_criterion, optimizer
