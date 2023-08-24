@@ -10,11 +10,10 @@ class Models(Enum):
     CNN_3D = "3dcnn"
 
 
-# Environent parameters
+# ENVIRONMMENT PARAMETERS
 CUDA_ACTIVATED = torch.cuda.is_available()
 
-# Data processing parameters
-SIDE_SIZE = 336
+# DATA PROCESSING PARAMMETERS
 MAX_SIZE = 368
 MEAN = [0.45, 0.45, 0.45]
 STD = [0.225, 0.225, 0.225]
@@ -25,18 +24,17 @@ FPS = NUM_FRAMES/5
 CLIP_DURATION = (NUM_FRAMES * SAMPLING_RATE) / FPS
 NUM_WORKERS = 3
 
-
 # MODEL PARAMETERS
-
-EPOCHS = 50
-MOMENTUM = 0.9
-WEIGHT_DECAY = 0.001
-BATCH_SIZE = 5  # 10
-LEARNING_RATE = 0.02
 CURRENT_MODEL = Models.SLOWFAST
+BATCH_SIZE = 5 
+SIDE_SIZE =  336
+EPOCHS = 30
+MOMENTUM = 0.3
+WEIGHT_DECAY = 0.01
+BATCH_SIZE = 5
+LEARNING_RATE = 0.1
 
-
-# Paths
+# PATHS
 CURRENT_PATH = os.getcwd()
 ROOT_PATH = join("/dcs", "pg22", "u2288875", "Documents", "TFM")
 CHECKPOINTS_PATH = join(ROOT_PATH, "check_points")

@@ -2,6 +2,8 @@
 from train_model import *
 from itertools import product
 
+CURRENT_MODEL = Models.SLOWFAST
+
 print("Tunning", CURRENT_MODEL.value)
 
 # Define ranges for hyperparameters

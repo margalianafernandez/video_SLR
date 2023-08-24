@@ -1,0 +1,793 @@
+Tunning slowfast
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 4.76%
+At the moment best hyperparameters: (0.001, 0.4, 0.01, 10, False, False)
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 21.16%
+At the moment best hyperparameters: (0.001, 0.4, 0.01, 10, False, True)
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 7.41%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 44.97%
+At the moment best hyperparameters: (0.001, 0.4, 0.01, 20, False, True)
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 11.64%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 3.70%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 42.33%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 13.76%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 5.29%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 50.26%
+At the moment best hyperparameters: (0.001, 0.4, 0.01, 50, False, True)
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 17.46%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 17.99%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 12.17%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 4.76%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 41.27%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 11.64%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 4.76%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 49.21%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 15.87%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 3.70%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 51.32%
+At the moment best hyperparameters: (0.001, 0.4, 0.0001, 50, False, True)
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.0001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 19.58%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 5.82%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 21.16%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 10
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 8.99%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 4.23%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 39.15%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 2.65%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 11.11%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 3.70%
+NEW TEST:
+	LR: 0.001
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 1e-05
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+At the moment best hyperparameters: (0.2, 0.3, 0.01, 20, False, False)
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 48.68%
+At the moment best hyperparameters: (0.2, 0.3, 0.01, 20, False, True)
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 51.85%
+At the moment best hyperparameters: (0.2, 0.3, 0.01, 30, False, True)
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 46.56%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 40.21%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 20
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 48.15%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.01
+		EPOCHS RANGE: 30
+		USING ADAM OPTIMIZER: False
+		USING CE LOSS FUNCTION: False
+	Best accuracy while training: 2.65%
+	At the moment best hyperparameters: (0.01, 0.3, 0.01, 30, False, False)
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.01
+		EPOCHS RANGE: 30
+		USING ADAM OPTIMIZER: False
+		USING CE LOSS FUNCTION: True
+	Best accuracy while training: 58.73%
+	At the moment best hyperparameters: (0.01, 0.3, 0.01, 30, False, True)
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.01
+		EPOCHS RANGE: 30
+		USING ADAM OPTIMIZER: True
+		USING CE LOSS FUNCTION: False
+	Best accuracy while training: 2.65%
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.01
+		EPOCHS RANGE: 30
+		USING ADAM OPTIMIZER: True
+		USING CE LOSS FUNCTION: True
+	Best accuracy while training: 3.70%
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.01
+		EPOCHS RANGE: 50
+		USING ADAM OPTIMIZER: False
+		USING CE LOSS FUNCTION: False
+	Best accuracy while training: 2.12%
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.01
+		EPOCHS RANGE: 50
+		USING ADAM OPTIMIZER: False
+		USING CE LOSS FUNCTION: True
+	Best accuracy while training: 60.85%
+	At the moment best hyperparameters: (0.01, 0.3, 0.01, 50, False, True)
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.01
+		EPOCHS RANGE: 50
+		USING ADAM OPTIMIZER: True
+		USING CE LOSS FUNCTION: False
+	Best accuracy while training: 3.17%
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.01
+		EPOCHS RANGE: 50
+		USING ADAM OPTIMIZER: True
+		USING CE LOSS FUNCTION: True
+	Best accuracy while training: 3.70%
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.001
+		EPOCHS RANGE: 30
+		USING ADAM OPTIMIZER: False
+		USING CE LOSS FUNCTION: False
+	Best accuracy while training: 3.17%
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.001
+		EPOCHS RANGE: 30
+		USING ADAM OPTIMIZER: False
+		USING CE LOSS FUNCTION: True
+	Best accuracy while training: 61.38%
+	At the moment best hyperparameters: (0.01, 0.3, 0.001, 30, False, True)
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.001
+		EPOCHS RANGE: 30
+		USING ADAM OPTIMIZER: True
+		USING CE LOSS FUNCTION: False
+	Best accuracy while training: 3.17%
+	NEW TEST:
+		LR: 0.01
+		MOMENTUM: 0.3
+		WEIGHT DECAY: 0.001
+		EPOCHS RANGE: 30
+		USING ADAM OPTIMIZER: True
+		USING CE LOSS FUNCTION: True
+	Best accuracy while training: 3.70%
+	NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+At the moment best hyperparameters: (0.1, 0.3, 0.01, 30, False, False)
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 66.67%
+At the moment best hyperparameters: (0.1, 0.3, 0.01, 30, False, True)
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 63.49%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 3.17%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 64.02%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+Best accuracy while training: 1.59%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 3.70%
+NEW TEST:
+	LR: 0.2
+	MOMENTUM: 0.3
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: True
+	USING CE LOSS FUNCTION: False
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 60.85%
+At the moment best hyperparameters: (0.1, 0.4, 0.01, 30, False, True)
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 65.08%
+At the moment best hyperparameters: (0.1, 0.4, 0.01, 50, False, True)
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 59.79%
+NEW TEST:
+	LR: 0.1
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 59.26%
+NEW TEST:
+	LR: 0.01
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 62.43%
+At the moment best hyperparameters: (0.01, 0.4, 0.01, 30, False, True)
+NEW TEST:
+	LR: 0.01
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.01
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 63.49%
+At the moment best hyperparameters: (0.01, 0.4, 0.01, 50, False, True)
+NEW TEST:
+	LR: 0.01
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 30
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 61.90%
+NEW TEST:
+	LR: 0.01
+	MOMENTUM: 0.4
+	WEIGHT DECAY: 0.001
+	EPOCHS RANGE: 50
+	USING ADAM OPTIMIZER: False
+	USING CE LOSS FUNCTION: True
+Best accuracy while training: 64.02%
+At the moment best hyperparameters: (0.01, 0.4, 0.001, 50, False, True)

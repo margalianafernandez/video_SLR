@@ -1,10 +1,10 @@
-# https://github.com/kailliang/Lane-Change-Classification-and-Prediction-with-Action-Recognition-Networks/tree/main
-
 import os
+import torch
+torch.cuda.empty_cache()
+
 from torch.cuda.amp import autocast, GradScaler
 
 import math
-import torch
 import random
 import argparse
 import datetime
@@ -73,7 +73,7 @@ def get_sample_batch_data(batch, model_type):
     return video, label
 
 
-def train_one_epoch_using_autocast(video, label, loss_criterion, scaler):
+def train_one_epoch_using_autocast(model, video, label, loss_criterion, optimizer, scaler):
     
     with autocast():
         pred = model(video)
@@ -90,7 +90,7 @@ def train_one_epoch_using_autocast(video, label, loss_criterion, scaler):
     return total_loss, total_acc, train_losses
 
 
-def train_one_epoch_without_autocast(video, label, loss_criterion):
+def train_one_epoch_without_autocast(model, video, label, loss_criterion, optimizer):
 
     pred = model(video)
     loss = loss_criterion(pred, label)
@@ -106,7 +106,7 @@ def train_one_epoch_without_autocast(video, label, loss_criterion):
 def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, epoch, epochs=EPOCHS):
     train_losses = []
 
-    use_autocat = CURRENT_MODEL == Models.CNN_3D
+    # use_autocat = True # CURRENT_MODEL == Models.CNN_3D
 
     model.train()
     total_loss, total_acc, total_num = 0.0, 0, 0
@@ -122,11 +122,18 @@ def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, 
 
         optimizer.zero_grad()
 
-        if use_autocat:
-            total_loss, total_acc, train_losses = train_one_epoch_using_autocast(video, label, loss_criterion, scaler)
-        else:
-            total_loss, total_acc, train_losses = train_one_epoch_without_autocast(video, label, loss_criterion)
+        with autocast():
+            pred = model(video)
+            loss = loss_criterion(pred, label)
+        
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
 
+        total_loss += loss.item() * video[0].size(0)
+        total_acc += (torch.eq(pred.argmax(dim=-1), label)).sum().item()
+        train_losses += [loss.item()]
+        
         total_num += video[0].size(0)
         train_bar.set_description('Train Epoch: [{}/{}] Loss: {:.4f} Acc: {:.2f}%'
                                   .format(epoch, epochs, total_loss / total_num, total_acc * 100 / total_num))
@@ -227,7 +234,7 @@ def parse_arguments():
 
     return parser.parse_args()
 
-
+ 
 if __name__ == "__main__":
 
     if CUDA_ACTIVATED:
