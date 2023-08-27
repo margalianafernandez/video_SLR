@@ -37,7 +37,7 @@ def get_transformations():
         UniformTemporalSubsample(NUM_FRAMES),
         Lambda(lambda x: x / 255.0),
         Normalize(MEAN, STD),
-        ShortSideScale(size=SIDE_SIZE),
+        ShortSideScale(size=SIDE_SIZE_SLOWFAST),
         PackPathway()
     ]
 
@@ -47,10 +47,11 @@ def get_transformations():
     )
 
 
-def get_slowfast_data_loaders(is_eval=False):
+def get_slowfast_data_loaders(is_eval=False, data_folder=PROCESSED_VIDEO_FOLDER, use_test_data=True):
 
     if is_eval:
-        test_data = labeled_video_dataset('{}/test'.format(PROCESSED_VIDEO_FOLDER),
+        set_name = ("val", "test")[use_test_data]
+        test_data = labeled_video_dataset('{}/{}'.format(data_folder, set_name),
                                           make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
             transform=get_transformations(), decode_audio=False)
@@ -61,12 +62,12 @@ def get_slowfast_data_loaders(is_eval=False):
         return test_loader
 
     else:
-        train_data = labeled_video_dataset('{}/train'.format(PROCESSED_VIDEO_FOLDER),
+        train_data = labeled_video_dataset('{}/train'.format(data_folder),
                                            make_clip_sampler(
                                                'random', CLIP_DURATION),
                                            transform=get_transformations(), decode_audio=False)
 
-        val_data = labeled_video_dataset('{}/val'.format(PROCESSED_VIDEO_FOLDER),
+        val_data = labeled_video_dataset('{}/val'.format(data_folder),
                                          make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
             transform=get_transformations(), decode_audio=False)
@@ -79,8 +80,8 @@ def get_slowfast_data_loaders(is_eval=False):
         return train_loader, val_loader
 
 
-def get_slowfast_model(num_labels, adam_optimizer=False, cross_entropy=True, lr=LEARNING_RATE, 
-                       momentum=MOMENTUM, weight_decay=WEIGHT_DECAY):
+def get_slowfast_model(num_labels, lr=LEARNING_RATE_SLOWFAST, momentum=MOMENTUM_SLOWFAST,
+                       weight_decay=WEIGHT_DECAY_SLOWFAST, adam_optimizer=False, cross_entropy=True):
 
     # model define, loss setup and optimizer config
     if CUDA_ACTIVATED:

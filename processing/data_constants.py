@@ -28,10 +28,13 @@ TRAIN_RATE = 0.6
 VALIDATION_RATE = 0.2
 TEST_RATE = 0.2
 
+# Labels
+LABELS = face_motion_labels + hands_motion_labels + body_motion_labels
+NUM_LABELS = len(LABELS)
+
 # Parameters
 MIN_SAMPLES_LABEL = 8
 MAX_SAMPLES_LABEL = 15
-NUM_LABELS = 50
 TARGET_SIZE = 256
 FRAME_SIZE = TARGET_SIZE*2
 TARGET_CHANNELS = 3
@@ -64,5 +67,3 @@ else:
 START_SPLIT_DATASET_FILE_PATH = join(CONFIG_PATH, "{}_test_val_dataset_split.json")
 SPLIT_DATASET_FILE_PATH = START_SPLIT_DATASET_FILE_PATH.format(DATASET_SELECTED.value)
 JOIN_DATASET_FILE_PATH = join(CONFIG_PATH, "join_dataset_split.json")
-
-LABELS = face_motion_labels + hands_motion_labels + body_motion_labels

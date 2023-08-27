@@ -6,25 +6,19 @@ import argparse
 import seaborn as sns
 import matplotlib.pyplot as plt
 from models.model_constants import *
+from processing.data_constants import LABELS
 from sklearn.metrics import confusion_matrix
 from models.cnn3d_model import get_3dcnn_data_loaders
-from processing.data_constants import DATASET_FILE, TRAIN
 from models.slowfast_model import get_slowfast_data_loaders
 
 
-def define_file_names(model_name):
+def define_file_names(model_name, checkpoint=CHECKPOINTS_PATH):
     global CONF_MATRIX_FILENAME
 
     current_datetime = datetime.datetime.now()
     current_datetime_str = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
-    CONF_MATRIX_FILENAME = f"{CHECKPOINTS_PATH}/{model_name}_conf_matrix_{current_datetime_str}.png"
-
-
-def get_labels():
-    content = json.load(open(DATASET_FILE))
-    labels = content[TRAIN].keys()
-    return list(labels)
+    CONF_MATRIX_FILENAME = f"{checkpoint}/{model_name}_conf_matrix_{current_datetime_str}.png"
 
 
 def get_mapping_labels(test_loader):
@@ -41,12 +35,12 @@ def get_mapping_labels(test_loader):
     return mapping
 
 
-def get_data_loaders(model_type):
+def get_data_loaders(model_type, data_folder=PROCESSED_VIDEO_FOLDER,  use_test_data=True):
 
     if model_type == Models.SLOWFAST:
-        test_loader = get_slowfast_data_loaders(is_eval=True)
+        test_loader = get_slowfast_data_loaders(is_eval=True, data_folder=data_folder, use_test_data=use_test_data)
     else:
-        test_loader = get_3dcnn_data_loaders(is_eval=True)
+        test_loader = get_3dcnn_data_loaders(is_eval=True, data_folder=data_folder, use_test_data=use_test_data)
 
     return test_loader
 
@@ -60,7 +54,6 @@ def load_model(model_file_name):
 
 
 def store_confussion_matrix(labels, preds):
-    labels_name = get_labels()
 
     # Calculate confusion matrix
     conf_matrix = confusion_matrix(labels, preds)
@@ -68,7 +61,7 @@ def store_confussion_matrix(labels, preds):
     # Plot confusion matrix as an image
     plt.figure(figsize=(10, 8))
     sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues',
-                xticklabels=labels_name, yticklabels=labels_name)
+                xticklabels=LABELS, yticklabels=LABELS)
     plt.xlabel('Predicted')
     plt.ylabel('True')
     plt.title('Confusion Matrix')
@@ -83,14 +76,15 @@ def show_accuracy(labels, preds):
     accuracy = 100 * correct_predictions / len(labels)
     print(f'Accuracy during testing: {accuracy:.2f}%')
 
+    return  accuracy
 
-def evaluate_model(model_type, model_file_name):
+def evaluate_model(model_type, model_file_name, checkpoint_path=CHECKPOINTS_PATH, data_folder=PROCESSED_VIDEO_FOLDER, use_test_data=True):
 
     labels, predictions = [], []
 
-    define_file_names(model_type.value)
+    define_file_names(model_type.value, checkpoint=checkpoint_path)
 
-    test_loader = get_data_loaders(model_type)
+    test_loader = get_data_loaders(model_type, data_folder=data_folder, use_test_data=use_test_data)
     model = load_model(model_file_name)
 
     # Set the model in evaluation mode
@@ -111,7 +105,7 @@ def evaluate_model(model_type, model_file_name):
     labels_name = [mapping[num_label] for num_label in labels]
 
     store_confussion_matrix(labels_name, preds_name)
-    show_accuracy(labels, predictions)
+    return show_accuracy(labels, predictions)
 
 
 def parse_arguments():
@@ -121,13 +115,17 @@ def parse_arguments():
                         help="Name of the model to train: SLOWFAST or CNN_3D")
     parser.add_argument("--file", type=str, default="model.pth",
                         help="Name of the file containing the trained model")
-
+    parser.add_argument("--data", type=str, default=PROCESSED_VIDEO_FOLDER,
+                        help="Path to the dataset folder tousee for testing, training and validation.")
+    parser.add_argument("--checkpoint", type=str, default=CHECKPOINTS_PATH,
+                        help="Path to the checkpoint to store the output files.")
     return parser.parse_args()
 
 
 if __name__ == "__main__":
 
     args = parse_arguments()
+    print(args.checkpoint)
 
     print("EVALUATING MODEL", args.model.value.upper())
-    evaluate_model(args.model, args.file)
+    evaluate_model(args.model, args.file, checkpoint_path=args.checkpoint, data_folder=args.data)

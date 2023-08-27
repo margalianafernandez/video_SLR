@@ -1,6 +1,7 @@
 check_points*/
 processed_data*/
 videos*/
+data*/
 *.err
 *.out
 *.sbatch

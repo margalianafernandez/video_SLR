@@ -20,16 +20,20 @@ from models.cnn3d_model import get_3dcnn_model, get_3dcnn_data_loaders
 from models.slowfast_model import get_slowfast_model, get_slowfast_data_loaders
 
 
-def define_file_names(model_name):
+def define_file_names(model_name, checkpoint_path=CHECKPOINTS_PATH, model_filename=None):
     global METRICS_FILENAME, LOSS_FUNC_FILENAME, MODEL_FILENAME
 
-    current_datetime = datetime.datetime.now()
-    current_datetime_str = current_datetime.strftime(
-        '%Y-%m-%d %H:%M:%S').replace(" ", "_")
+    if model_filename == None:
+        current_datetime = datetime.datetime.now()
+        current_datetime_str = current_datetime.strftime(
+            '%Y-%m-%d %H:%M:%S').replace(" ", "_")
 
-    METRICS_FILENAME = f"{CHECKPOINTS_PATH}/{model_name}_metrics_{current_datetime_str}.csv"
-    LOSS_FUNC_FILENAME = f"{CHECKPOINTS_PATH}/{model_name}_loss_func_{current_datetime_str}.png"
-    MODEL_FILENAME = f"{CHECKPOINTS_PATH}/{model_name}_model_{current_datetime_str}.pth"
+        METRICS_FILENAME = f"{checkpoint_path}/{model_name}_metrics_{current_datetime_str}.csv"
+        LOSS_FUNC_FILENAME = f"{checkpoint_path}/{model_name}_loss_func_{current_datetime_str}.png"
+        MODEL_FILENAME = f"{checkpoint_path}/{model_name}_model_{current_datetime_str}.pth"
+
+    else:
+        MODEL_FILENAME = model_filename
 
 
 def enable_cuda_launch_blocking():
@@ -71,36 +75,6 @@ def get_sample_batch_data(batch, model_type):
         video, label = batch['video'], batch['label']
 
     return video, label
-
-
-def train_one_epoch_using_autocast(model, video, label, loss_criterion, optimizer, scaler):
-    
-    with autocast():
-        pred = model(video)
-        loss = loss_criterion(pred, label)
-    
-    scaler.scale(loss).backward()
-    scaler.step(optimizer)
-    scaler.update()
-
-    total_loss += loss.item() * video[0].size(0)
-    total_acc += (torch.eq(pred.argmax(dim=-1), label)).sum().item()
-    train_losses += [loss.item()]
-
-    return total_loss, total_acc, train_losses
-
-
-def train_one_epoch_without_autocast(model, video, label, loss_criterion, optimizer):
-
-    pred = model(video)
-    loss = loss_criterion(pred, label)
-    total_loss += loss.item() * video[0].size(0)
-    total_acc += (torch.eq(pred.argmax(dim=-1), label)).sum().item()
-    loss.backward()
-    optimizer.step()
-    train_losses += [loss.item()]
-
-    return total_loss, total_acc, train_losses
 
 
 def train_one_epoch(model, model_type, train_loader, optimizer, loss_criterion, epoch, epochs=EPOCHS):
@@ -214,13 +188,12 @@ def train_model(train_loader, val_loader, model, model_type, loss_criterion, opt
             best_acc = top_1
             best_model = model
 
-    if store_files:
-        torch.save(best_model, MODEL_FILENAME)
+    torch.save(best_model, MODEL_FILENAME)
+
+    if store_files: 
         store_loss_function(train_epoch_loss, val_epoch_loss)
 
-    print("Best accuracy while training: {:.2f}%".format(best_acc * 100))
-
-    return best_acc
+    return best_model
 
 
 def parse_arguments():
@@ -231,7 +204,10 @@ def parse_arguments():
                         Models.CNN_3D.value)
     parser.add_argument("--eval", type=bool, default=False,
                         help="True if the evaluate_model script also needs to be executed, otherwise False.")
-
+    parser.add_argument("--data", type=str, default=PROCESSED_VIDEO_FOLDER,
+                        help="Path to the dataset folder tousee for testing, training and validation.")
+    parser.add_argument("--checkpoint", type=str, default=CHECKPOINTS_PATH,
+                        help="Path to the checkpoint to store the output files.")
     return parser.parse_args()
 
  
@@ -242,20 +218,20 @@ if __name__ == "__main__":
         torch.cuda.empty_cache()
 
     args = parse_arguments()
-
-    define_file_names(args.model.value)
+    CHECKPOINTS_PATH = args.checkpoint
+    define_file_names(args.model.value, checkpoint_path=args.checkpoint)
 
     print("TRAINING MODEL", args.model.value.upper())
 
     if args.model == Models.SLOWFAST:
-        train_loader, val_loader = get_slowfast_data_loaders()
+        train_loader, val_loader = get_slowfast_data_loaders(data_folder=args.data)
         model, loss_criterion, optimizer = get_slowfast_model(NUM_LABELS)
     else:
-        train_loader, val_loader = get_3dcnn_data_loaders()
+        train_loader, val_loader = get_3dcnn_data_loaders(data_folder=args.data)
         model, loss_criterion, optimizer = get_3dcnn_model(NUM_LABELS)
 
     train_model(train_loader, val_loader, model,
                 args.model, loss_criterion, optimizer)
 
     if args.eval:
-        evaluate_model(args.model, MODEL_FILENAME)
+        evaluate_model(args.model, MODEL_FILENAME, checkpoint_path=args.checkpoint, data_folder=args.data)
