@@ -9,7 +9,7 @@ from pytorchvideo.transforms import ApplyTransformToKey, UniformTemporalSubsampl
     ShortSideScale, Normalize
 
 
-class PackPathway(nn.Module):
+class PackPathwaySlowFast(nn.Module):
     """
     Transform for converting video frames as a list of tensors.
     """
@@ -31,14 +31,14 @@ class PackPathway(nn.Module):
         return frame_list
 
 
-def get_transformations():
+def get_slowfast_transformations():
 
     transformations = [
         UniformTemporalSubsample(NUM_FRAMES),
         Lambda(lambda x: x / 255.0),
         Normalize(MEAN, STD),
         ShortSideScale(size=SIDE_SIZE_SLOWFAST),
-        PackPathway()
+        PackPathwaySlowFast()
     ]
 
     return ApplyTransformToKey(
@@ -54,7 +54,7 @@ def get_slowfast_data_loaders(is_eval=False, data_folder=PROCESSED_VIDEO_FOLDER,
         test_data = labeled_video_dataset('{}/{}'.format(data_folder, set_name),
                                           make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
-            transform=get_transformations(), decode_audio=False)
+            transform=get_slowfast_transformations(), decode_audio=False)
 
         test_loader = DataLoader(
             test_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
@@ -65,12 +65,12 @@ def get_slowfast_data_loaders(is_eval=False, data_folder=PROCESSED_VIDEO_FOLDER,
         train_data = labeled_video_dataset('{}/train'.format(data_folder),
                                            make_clip_sampler(
                                                'random', CLIP_DURATION),
-                                           transform=get_transformations(), decode_audio=False)
+                                           transform=get_slowfast_transformations(), decode_audio=False)
 
         val_data = labeled_video_dataset('{}/val'.format(data_folder),
                                          make_clip_sampler(
             'constant_clips_per_video', CLIP_DURATION, 1),
-            transform=get_transformations(), decode_audio=False)
+            transform=get_slowfast_transformations(), decode_audio=False)
 
         train_loader = DataLoader(
             train_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)

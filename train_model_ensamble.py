@@ -24,14 +24,18 @@ LOSS_FUNC_FILENAME = f"{CHECKPOINTS_PATH}/ensamble_loss_func_{current_datetime_s
 MODEL_FILENAME = f"{CHECKPOINTS_PATH}/ensamble_model_{current_datetime_str}.pth"
 
 
-def get_3dcnn_models():
+def get_prev_models(prev_model_type):
     # Load the pre-trained 3DCNN models
-    # model_1 = torch.load(join(ROOT_PATH, "models_3dcnn/3dcnn_model_all.pth"), map_location=torch.device('cpu'))
-    # model_2 = torch.load(join(ROOT_PATH, "models_3dcnn/3dcnn_model_body_and_hands.pth"), map_location=torch.device('cpu'))
-    # model_3 = torch.load(join(ROOT_PATH, "models_3dcnn/3dcnn_model_face_and_hands.pth"), map_location=torch.device('cpu'))
-    model_1_file = "check_points_all__all_opt/3dcnn_model_2023-08-30_14:44:21.pth"
-    model_2_file = "check_points_bah_opt/3dcnn_model_2023-08-30_17:33:47.pth"
-    model_3_file = "check_points_fah_opt/3dcnn_model_2023-08-30_19:48:25.pth"
+    
+    if prev_model_type == Models.SLOWFAST:
+        model_1_file = "check_points_all__all_opt/slowfast_model_2023-08-30_12:14:49.pth"
+        model_2_file = "check_points_bah_opt/slowfast_model_2023-08-30_21:41:28.pth"
+        model_3_file = "check_points_fah_opt/slowfast_model_2023-08-31_00:03:33.pth"
+
+    else:
+        model_1_file = "models_3dcnn/3dcnn_model_all.pth"
+        model_2_file = "models_3dcnn/3dcnn_model_body_and_hands.pth"
+        model_3_file = "models_3dcnn/3dcnn_model_face_and_hands.pth"
 
     model_1 = torch.load(join(ROOT_PATH, model_1_file), map_location=torch.device('cpu'))
     model_2 = torch.load(join(ROOT_PATH, model_2_file), map_location=torch.device('cpu'))
@@ -69,17 +73,7 @@ def store_loss_function(train_losses, val_losses):
     plt.savefig(LOSS_FUNC_FILENAME)
 
 
-def get_sample_batch_data(batch):
-
-    if CUDA_ACTIVATED:
-        video, label = batch['video'].cuda(), batch['label'].cuda()
-    else:
-        video, label = batch['video'], batch['label']
-
-    return video, label
-
-
-def train_one_epoch(model, models_3dcnn, train_loaders, optimizer, loss_criterion, epoch, epochs=EPOCHS):
+def train_one_epoch(model, prev_models, train_loaders, optimizer, loss_criterion, epoch, epochs=EPOCHS):
     train_losses = []
 
     model.train()
@@ -89,7 +83,7 @@ def train_one_epoch(model, models_3dcnn, train_loaders, optimizer, loss_criterio
     total = math.ceil(num_videos / BATCH_SIZE)
     train_bars_all = tqdm(train_loaders[ProcessingType.ALL], total=total, dynamic_ncols=False)
 
-    iterator = zip(train_bars_all, train_loaders[ProcessingType.FACE_HANDS], train_loaders[ProcessingType.BODY_HANDS])
+    iterator = zip(train_bars_all, train_loaders[ProcessingType.BODY_HANDS], train_loaders[ProcessingType.FACE_HANDS])
 
     for batches_all, batches_fah, batches_bah in iterator:
    
@@ -97,12 +91,15 @@ def train_one_epoch(model, models_3dcnn, train_loaders, optimizer, loss_criterio
         outputs_3dcnn = []
         labels = batches_all['label']
         
-        for loader_batch, model_3dcnn in zip(batches, models_3dcnn):
-            video, label = get_sample_batch_data(loader_batch)
-            out = model_3dcnn(video)
+        for loader_batch, model_3dcnn in zip(batches, prev_models):
+            out = model_3dcnn(loader_batch['video'])
             outputs_3dcnn += [out.argmax(dim=-1)]
         
         outputs_3dcnn = torch.stack(outputs_3dcnn, dim=1)
+
+        if CUDA_ACTIVATED:
+            outputs_3dcnn = outputs_3dcnn.cuda()
+            labels = labels.cuda()
 
         optimizer.zero_grad()
 
@@ -115,7 +112,7 @@ def train_one_epoch(model, models_3dcnn, train_loaders, optimizer, loss_criterio
         total_num += len(labels)
 
         total_loss += loss.item() * total_num
-        total_acc += (torch.eq(pred.argmax(dim=-1), label)).sum().item()
+        total_acc += (torch.eq(pred.argmax(dim=-1), labels)).sum().item()
         train_losses += [loss.item()]
         
         train_bars_all.set_description('Train Epoch: [{}/{}] Loss: {:.4f} Acc: {:.2f}%'
@@ -128,7 +125,7 @@ def train_one_epoch(model, models_3dcnn, train_loaders, optimizer, loss_criterio
     return acc, np.array(train_losses).mean()
 
 
-def validate_one_epoch(model, models_3dcnn, val_loader, loss_criterion, epoch, epochs=EPOCHS):
+def validate_one_epoch(model, prev_models, val_loader, loss_criterion, epoch, epochs=EPOCHS):
     val_losses = []
     total_acc, total_num = 0, 0
 
@@ -147,12 +144,15 @@ def validate_one_epoch(model, models_3dcnn, val_loader, loss_criterion, epoch, e
             outputs_3dcnn = []
             labels = batches_all['label']
 
-            for loader_batch, model_3dcnn in zip(batches, models_3dcnn):
-                video, __ = get_sample_batch_data(loader_batch)
-                out = model_3dcnn(video)
+            for loader_batch, model_3dcnn in zip(batches, prev_models):
+                out = model_3dcnn(loader_batch['video'])
                 outputs_3dcnn += [out.argmax(dim=-1)]
 
             outputs_3dcnn = torch.stack(outputs_3dcnn, dim=1)
+
+            if CUDA_ACTIVATED:
+                outputs_3dcnn = outputs_3dcnn.cuda()
+                labels = labels.cuda()
 
             preds = model(outputs_3dcnn)
             loss = loss_criterion(preds, labels)
@@ -171,22 +171,23 @@ def validate_one_epoch(model, models_3dcnn, val_loader, loss_criterion, epoch, e
 
 
 
-def train_model(train_loader, val_loader, model, loss_criterion, optimizer, epochs=EPOCHS, store_files=True):
+def train_model(train_loader, val_loader, prev_model_type, model, loss_criterion, \
+                optimizer, epochs=EPOCHS, store_files=True):
 
     if not os.path.exists(CHECKPOINTS_PATH):
         os.makedirs(CHECKPOINTS_PATH)
 
-    models_3dcnn = get_3dcnn_models()
+    prev_models = get_prev_models(prev_model_type)
     best_acc, best_model = 0.0, None
     train_epoch_loss, val_epoch_loss = [], []
 
     for epoch in range(1, epochs + 1):
 
         train_acc, train_losses = train_one_epoch(
-            model, models_3dcnn, train_loader, optimizer, loss_criterion, epoch, epochs=epochs)
+            model, prev_models, train_loader, optimizer, loss_criterion, epoch, epochs=epochs)
 
         val_acc, val_losses = validate_one_epoch(
-            model, models_3dcnn, val_loader, loss_criterion, epoch, epochs=epochs)            
+            model, prev_models, val_loader, loss_criterion, epoch, epochs=epochs)            
 
         train_epoch_loss += [train_losses]
         val_epoch_loss += [val_losses]
@@ -207,8 +208,11 @@ def train_model(train_loader, val_loader, model, loss_criterion, optimizer, epoc
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Train video classification model.")
-    parser.add_argument("--eval", type=bool, default=False,
+    parser.add_argument("--eval", type=bool, default=True,
                         help="True if the evaluate_model script also needs to be executed, otherwise False.")
+    parser.add_argument("--model", type=Models, default=Models.SLOWFAST,
+                        help="Name of the model to train: " + Models.SLOWFAST.value + " or " +
+                        Models.CNN_3D.value)
     return parser.parse_args()
 
  
@@ -221,12 +225,12 @@ if __name__ == "__main__":
 
     args = parse_arguments()
 
-    print("TRAINING MODEL ENSAMBLE")
+    print("TRAINING MODEL ENSAMBLE:",  args.model.value, "+ MLP")
 
-    train_loaders, val_loaders = get_train_val_data_loaders()
+    train_loaders, val_loaders = get_train_val_data_loaders(args.model)
     model, loss_criterion, optimizer = get_ensemble_model(NUM_LABELS)
 
-    train_model(train_loaders, val_loaders, model, loss_criterion, optimizer)
+    train_model(train_loaders, val_loaders, args.model, model, loss_criterion, optimizer)
 
     if args.eval:
-        evaluate_model(MODEL_FILENAME)
+        evaluate_model(MODEL_FILENAME, args.model)
