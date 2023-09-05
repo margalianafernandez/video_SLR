@@ -8,28 +8,57 @@ from processing.data_constants import *
 LABELS = face_motion_labels + hands_motion_labels + body_motion_labels
 NUM_LABELS = len(LABELS)
 
-def plot_hyperparameters_summary():
-    
-    # Extract individual hyperparameter values for the graph
-    learning_rates = [params[0] for params in hyperparameter_values]
-    momentums = [params[1] for params in hyperparameter_values]
-    weight_decays = [params[2] for params in hyperparameter_values]
 
+def plot_hyperparameters_summary(logs):
     
-    # List of hyperparameter names and their corresponding values
-    hyperparameter_names = ["Learning Rate", "Momentum", "Weight Decay"]
-    hyperparameter_ranges = [learning_rates, momentums, weight_decays]
+    # Separate data into two lists: slowfast_logs and cnn_logs
+    logs_acc = [entry['acc'] for entry in logs]
 
-    # Loop through hyperparameters
-    for i, (hyperparam_name, hyperparam_range) in enumerate(zip(hyperparameter_names, hyperparameter_ranges)):
-        plt.figure(figsize=(8, 6))
-        plt.scatter(hyperparam_range, accuracies)
-        plt.xlabel(hyperparam_name)
+    # Create a dictionary to map parameter names to their values in the logs
+    param_names = {
+        0: 'Learning Rate',
+        1: 'Momentum',
+        2: 'Weight Decay',
+        3: 'Optimizer',
+        4: 'Loss Function',
+    }
+
+    # Iterate through each parameter and create a plot
+    for param_idx, param_name in param_names.items():
+        
+        param_values = [entry['param'][param_idx] for entry in logs]
+
+        if param_idx == 3:
+            param_values = ["Adam" if value else "SDG" for value in param_values]
+        
+        if param_idx == 4:
+            param_values = ["Cross Entropy" if value else "Log-Likelihood" for value in param_values]        
+
+        # Get the corresponding parameter value for the highest accuracy
+        idx_max = logs_acc.index(max(logs_acc))
+        highest_param_value = param_values[idx_max]
+
+        # Create a new figure and axis for each parameter
+        plt.figure()
+        plt.title(f'Effect of {param_name} on Accuracy')
+        plt.xlabel(param_name)
         plt.ylabel('Accuracy')
-        plt.title(f'{hyperparam_name} vs Accuracy')
+
+        # Plot slowfast and cnn data points separately
+        plt.scatter(param_values, logs_acc, label=CURRENT_MODEL.label, marker='o')
+
+        # Mark the highest accuracy values with red points
+        plt.scatter(highest_param_value, logs_acc[idx_max], c='m', marker='x', s=100, label='Highest')
+
+        # Add legend
+        plt.legend()
+
+        # Show or save the plot (you can modify this part based on your preference)
+        plt.grid(True)
         plt.tight_layout()
-        plt.savefig(f"{hyperparam_name.lower().replace(' ', '_')}_accuracy.png")
-        plt.close()
+        plt.savefig("plots/plot_{}.png".format(param_name))
+        plt.show()
+
 
 
 CURRENT_MODEL = Models.CNN_3D
@@ -41,7 +70,6 @@ print("Tunning", CURRENT_MODEL.value)
 learning_rate_range = [0.001, 0.01, 0.1]
 momentum_range = [0.4, 0.6, 0.9]
 weight_decay_range = [0.0001, 0.001, 0.01]
-epochs_range = [50]
 cross_entropy_lf = [False, True]
 adam_optimizer = [False, True]
 
@@ -64,17 +92,13 @@ hyperparam_comb = product(
     learning_rate_range,
     momentum_range,
     weight_decay_range,
-    epochs_range,
     adam_optimizer,
     cross_entropy_lf,
 )
 
-hyperparameter_values = []
-accuracies = []
-DATA_FOLDER = "/dcs/pg22/u2288875/Documents/TFM/processed_data_all__all"
+logs = []
 
-
-for lr, momentum, weight_decay, epochs, use_adam, use_ce in hyperparam_comb:
+for lr, momentum, weight_decay, use_adam, use_ce in hyperparam_comb:
 
     print("NEW TEST:")
     print("\tLR:", lr)
@@ -86,35 +110,34 @@ for lr, momentum, weight_decay, epochs, use_adam, use_ce in hyperparam_comb:
 
 
     # Train the model using the current hyperparameters
-    train_loader, val_loader = get_data_loaders(data_folder=DATA_FOLDER)
+    train_loader, val_loader = get_data_loaders(data_folder=PROCESSED_VIDEO_FOLDER)
     model, loss_criterion, optimizer = get_model(
         NUM_LABELS, lr=lr, momentum=momentum, adam_optimizer=use_adam, cross_entropy=use_ce)
 
     model=train_model(train_loader, val_loader, model, CURRENT_MODEL,
-                loss_criterion, optimizer, epochs=epochs, store_files=False)
+                loss_criterion, optimizer, store_files=False)
     
-    top_1 = evaluate_model(CURRENT_MODEL, MODEL_FILENAME, data_folder=DATA_FOLDER, use_test_data=False)
+    top_1 = evaluate_model(CURRENT_MODEL, MODEL_FILENAME, data_folder=PROCESSED_VIDEO_FOLDER, use_test_data=False)
     top_1 = float(top_1)
 
     os.remove(MODEL_FILENAME)
 
-    hyperparameter_values += [(lr, momentum, weight_decay)]
-    accuracies += [top_1]
+    logs += [{
+        'param': [lr, momentum, weight_decay],
+        'acc': top_1
+    }]
 
     # Check if current model is better than the previous best
     if top_1 > best_accuracy:
         best_accuracy = top_1
-        best_hyperparameters = (
-            lr, momentum, weight_decay, epochs)
+        best_hyperparameters = (lr, momentum, weight_decay, use_adam, use_ce)
         print("At the moment best hyperparameters:", best_hyperparameters)
 
 
-print(hyperparameter_values)
-print(accuracies)
 
 # Print the best hyperparameters and accuracy
 print("Best Hyperparameters:", best_hyperparameters)
 print("Best Accuracy:", best_accuracy)
 
 
-plot_hyperparameters_summary()
+plot_hyperparameters_summary(logs)
