@@ -3,27 +3,24 @@ import torch.nn as nn
 from models.cnn3d_model import *
 from models.slowfast_model import *
 from processing.data_constants import ProcessingType, TRAIN, TEST, VALIDATION
-
+from sklearn.utils.class_weight import compute_class_weight
+import numpy as np
 
 class EnsembleMLP(nn.Module):
     def __init__(self, num_labels):
         super(EnsembleMLP, self).__init__()
-
-        # Create the MLP for combining outputs
-        self.mlp = nn.Sequential(
-            nn.Linear(3, 512),
-            nn.ReLU(),
-            nn.Linear(512, num_labels)
-        )
-
-    def forward(self, prev_out):
+        self.hidden = nn.Linear(3*num_labels, 25)
+        self.act = nn.ReLU()
+        self.output = nn.Linear(25, num_labels)
+    def forward(self, x):
         # Combine the outputs from the three 3DCNN or SlowFast models
-        input = prev_out.to(self.mlp[0].weight.dtype)
-        output = self.mlp(input)
-        return output
+        input = x.to(self.hidden.weight.dtype)
+        a = self.act(self.hidden(input))
+        y = self.output(a)
+        return y
 
 
-def get_ensamble_data_loaders(model=Models.SLOWFAST, set=TRAIN, data_folder=PROCESSED_VIDEO_FOLDER):
+def get_ensemble_data_loaders(model=Models.SLOWFAST, set=TRAIN, data_folder=PROCESSED_VIDEO_FOLDER):
     folder_path = '{}/{}'.format(data_folder, set)
 
     if set == TRAIN:
@@ -40,15 +37,15 @@ def get_ensamble_data_loaders(model=Models.SLOWFAST, set=TRAIN, data_folder=PROC
 
 def get_train_val_data_loaders(model=Models.SLOWFAST):
     train_loaders = {
-        ProcessingType.ALL: get_ensamble_data_loaders(model, TRAIN, PROCESSED_VIDEO_FOLDER_ALL),
-        ProcessingType.BODY_HANDS: get_ensamble_data_loaders(model, TRAIN, PROCESSED_VIDEO_FOLDER_BODY_AND_HANDS),
-        ProcessingType.FACE_HANDS: get_ensamble_data_loaders(model, TRAIN, PROCESSED_VIDEO_FOLDER_FACE_AND_HANDS)
+        ProcessingType.ALL: get_ensemble_data_loaders(model, TRAIN, PROCESSED_VIDEO_FOLDER_ALL),
+        ProcessingType.BODY_HANDS: get_ensemble_data_loaders(model, TRAIN, PROCESSED_VIDEO_FOLDER_BODY_AND_HANDS),
+        ProcessingType.FACE_HANDS: get_ensemble_data_loaders(model, TRAIN, PROCESSED_VIDEO_FOLDER_FACE_AND_HANDS)
     }
 
     val_loaders = {
-        ProcessingType.ALL: get_ensamble_data_loaders(model, VALIDATION, PROCESSED_VIDEO_FOLDER_ALL),
-        ProcessingType.BODY_HANDS: get_ensamble_data_loaders(model, VALIDATION, PROCESSED_VIDEO_FOLDER_BODY_AND_HANDS),
-        ProcessingType.FACE_HANDS: get_ensamble_data_loaders(model, VALIDATION, PROCESSED_VIDEO_FOLDER_FACE_AND_HANDS)
+        ProcessingType.ALL: get_ensemble_data_loaders(model, VALIDATION, PROCESSED_VIDEO_FOLDER_ALL),
+        ProcessingType.BODY_HANDS: get_ensemble_data_loaders(model, VALIDATION, PROCESSED_VIDEO_FOLDER_BODY_AND_HANDS),
+        ProcessingType.FACE_HANDS: get_ensemble_data_loaders(model, VALIDATION, PROCESSED_VIDEO_FOLDER_FACE_AND_HANDS)
     }
 
     return train_loaders, val_loaders
@@ -57,21 +54,27 @@ def get_train_val_data_loaders(model=Models.SLOWFAST):
 def get_test_loaders(model=Models.SLOWFAST):
     
     return {
-        ProcessingType.ALL: get_ensamble_data_loaders(model, TEST, PROCESSED_VIDEO_FOLDER_ALL),
-        ProcessingType.BODY_HANDS: get_ensamble_data_loaders(model, TEST, PROCESSED_VIDEO_FOLDER_BODY_AND_HANDS),
-        ProcessingType.FACE_HANDS: get_ensamble_data_loaders(model, TEST, PROCESSED_VIDEO_FOLDER_FACE_AND_HANDS)
+        ProcessingType.ALL: get_ensemble_data_loaders(model, TEST, PROCESSED_VIDEO_FOLDER_ALL),
+        ProcessingType.BODY_HANDS: get_ensemble_data_loaders(model, TEST, PROCESSED_VIDEO_FOLDER_BODY_AND_HANDS),
+        ProcessingType.FACE_HANDS: get_ensemble_data_loaders(model, TEST, PROCESSED_VIDEO_FOLDER_FACE_AND_HANDS)
     }
 
 
-def get_ensemble_model(num_labels):
+def get_ensemble_model(num_labels, train_loader):
 
     model = EnsembleMLP(num_labels)
 
+    
+
+    labels = [int(label) for batch in train_loader for  label in batch['label']]
+    class_weights = compute_class_weight('balanced', classes=np.unique(labels), y=labels)
+    class_weights = torch.tensor(class_weights, dtype=torch.float32)  # Convert to a PyTorch tensor
+
     if CUDA_ACTIVATED:
         model = model.cuda()
+        class_weights = class_weights.cuda()
 
-    loss_criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(model.parameters(), lr=LEARNING_RATE_MLP,
-                          momentum=MOMENTUM_MLP, weight_decay=WEIGHT_DECAY_MLP)
+    loss_criterion = nn.CrossEntropyLoss(weight=class_weights)
+    optimizer =  optim.Adam(model.parameters(), lr=0.001)
 
     return model, loss_criterion, optimizer

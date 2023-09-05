@@ -1,7 +1,6 @@
 import os
 import torch
 torch.cuda.empty_cache()
-from torch.utils.data import DataLoader
 
 import math
 import random
@@ -9,19 +8,19 @@ import argparse
 import datetime
 import numpy as np
 from tqdm import tqdm
-from models.ensamble import *
+from models.ensemble import *
 import matplotlib.pyplot as plt
 from torch.backends import cudnn
 from models.model_constants import *
-from evaluate_ensamble_model import evaluate_model
+from evaluate_ensemble_model import evaluate_model
 from processing.data_constants import NUM_LABELS, ProcessingType
 
 current_datetime = datetime.datetime.now()
 current_datetime_str = current_datetime.strftime('%Y-%m-%d %H:%M:%S').replace(" ", "_")
 
-METRICS_FILENAME = f"{CHECKPOINTS_PATH}/ensamble_metrics_{current_datetime_str}.csv"
-LOSS_FUNC_FILENAME = f"{CHECKPOINTS_PATH}/ensamble_loss_func_{current_datetime_str}.png"
-MODEL_FILENAME = f"{CHECKPOINTS_PATH}/ensamble_model_{current_datetime_str}.pth"
+METRICS_FILENAME = f"{CHECKPOINTS_PATH}/ensemble_metrics_{current_datetime_str}.csv"
+LOSS_FUNC_FILENAME = f"{CHECKPOINTS_PATH}/ensemble_loss_func_{current_datetime_str}.png"
+MODEL_FILENAME = f"{CHECKPOINTS_PATH}/ensemble_model_{current_datetime_str}.pth"
 
 
 def get_prev_models(prev_model_type):
@@ -85,6 +84,7 @@ def train_one_epoch(model, prev_models, train_loaders, optimizer, loss_criterion
 
     iterator = zip(train_bars_all, train_loaders[ProcessingType.BODY_HANDS], train_loaders[ProcessingType.FACE_HANDS])
 
+    predictions = torch.Tensor()
     for batches_all, batches_fah, batches_bah in iterator:
    
         batches = [batches_all, batches_bah, batches_fah]
@@ -93,13 +93,18 @@ def train_one_epoch(model, prev_models, train_loaders, optimizer, loss_criterion
         
         for loader_batch, model_3dcnn in zip(batches, prev_models):
             out = model_3dcnn(loader_batch['video'])
-            outputs_3dcnn += [out.argmax(dim=-1)]
+            outputs_3dcnn += [out]
+            # outputs_3dcnn += [out.argmax(dim=-1)]
         
         outputs_3dcnn = torch.stack(outputs_3dcnn, dim=1)
-
+        outputs_3dcnn = outputs_3dcnn.reshape(outputs_3dcnn.shape[0], outputs_3dcnn.shape[1]*outputs_3dcnn.shape[2]) 
+        
+        predictions = torch.cat((predictions, outputs_3dcnn), dim=0)
+        
         if CUDA_ACTIVATED:
             outputs_3dcnn = outputs_3dcnn.cuda()
             labels = labels.cuda()
+            model = model.cuda()  # Move the model to the GPU
 
         optimizer.zero_grad()
 
@@ -118,6 +123,10 @@ def train_one_epoch(model, prev_models, train_loaders, optimizer, loss_criterion
         train_bars_all.set_description('Train Epoch: [{}/{}] Loss: {:.4f} Acc: {:.2f}%'
                                 .format(epoch, epochs, total_loss / total_num, total_acc * 100 / total_num))
 
+        # Debugging prints
+        print(f"Labels: {labels}")
+        print(f"Predictions: {pred.argmax(dim=-1)}")
+
     # Calculate and print the average loss and accuracy for the epoch
     loss = total_loss / total_num
     acc = total_acc / total_num
@@ -134,6 +143,8 @@ def validate_one_epoch(model, prev_models, val_loader, loss_criterion, epoch, ep
     total = math.ceil(num_videos / BATCH_SIZE)
     val_bars_all = tqdm(val_loader[ProcessingType.ALL], total=total, dynamic_ncols=False)
 
+    predictions = torch.Tensor()
+    
     with torch.no_grad():
 
         iterator = zip(val_bars_all, val_loader[ProcessingType.FACE_HANDS], val_loader[ProcessingType.BODY_HANDS])
@@ -146,13 +157,18 @@ def validate_one_epoch(model, prev_models, val_loader, loss_criterion, epoch, ep
 
             for loader_batch, model_3dcnn in zip(batches, prev_models):
                 out = model_3dcnn(loader_batch['video'])
-                outputs_3dcnn += [out.argmax(dim=-1)]
+                outputs_3dcnn += [out]
+                # outputs_3dcnn += [out.argmax(dim=-1)]
 
             outputs_3dcnn = torch.stack(outputs_3dcnn, dim=1)
+            outputs_3dcnn = outputs_3dcnn.reshape(outputs_3dcnn.shape[0], outputs_3dcnn.shape[1]*outputs_3dcnn.shape[2]) 
+            
+            predictions = torch.cat((predictions, outputs_3dcnn), dim=0)
 
             if CUDA_ACTIVATED:
                 outputs_3dcnn = outputs_3dcnn.cuda()
                 labels = labels.cuda()
+                model = model.cuda()
 
             preds = model(outputs_3dcnn)
             loss = loss_criterion(preds, labels)
@@ -163,6 +179,7 @@ def validate_one_epoch(model, prev_models, val_loader, loss_criterion, epoch, ep
             val_bars_all.set_description('Test Epoch: [{}/{}] | Top-1:{:.2f}%'
                                      .format(epoch, epochs, total_acc * 100 / total_num))
     
+
     # Calculate and print the average loss and accuracy for the epoch
     acc = total_acc / total_num
     
@@ -210,9 +227,9 @@ def parse_arguments():
         description="Train video classification model.")
     parser.add_argument("--eval", type=bool, default=True,
                         help="True if the evaluate_model script also needs to be executed, otherwise False.")
-    parser.add_argument("--model", type=Models, default=Models.SLOWFAST,
+    """parser.add_argument("--model", type=Models, default=Models.CNN_3D,
                         help="Name of the model to train: " + Models.SLOWFAST.value + " or " +
-                        Models.CNN_3D.value)
+                        Models.CNN_3D.value)"""
     return parser.parse_args()
 
  
@@ -223,14 +240,14 @@ if __name__ == "__main__":
     
     enable_cuda_launch_blocking()
 
-    args = parse_arguments()
+    # args = parse_arguments()
+    model_name = Models.CNN_3D
+    print("TRAINING MODEL ENSEMBLE:",  model_name.value, "+ MLP")
 
-    print("TRAINING MODEL ENSAMBLE:",  args.model.value, "+ MLP")
+    train_loaders, val_loaders = get_train_val_data_loaders(model_name)
+    model, loss_criterion, optimizer = get_ensemble_model(NUM_LABELS, train_loaders[ProcessingType.ALL])
 
-    train_loaders, val_loaders = get_train_val_data_loaders(args.model)
-    model, loss_criterion, optimizer = get_ensemble_model(NUM_LABELS)
+    train_model(train_loaders, val_loaders, model_name, model, loss_criterion, optimizer)
 
-    train_model(train_loaders, val_loaders, args.model, model, loss_criterion, optimizer)
-
-    if args.eval:
-        evaluate_model(MODEL_FILENAME, args.model)
+    if True:
+        evaluate_model(MODEL_FILENAME, model_name)

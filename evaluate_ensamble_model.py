@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 from models.model_constants import *
 from processing.data_constants import LABELS
 from sklearn.metrics import confusion_matrix
-from models.ensamble import get_test_loaders
+from models.ensemble import get_test_loaders
 from processing.data_constants import ProcessingType
 
 current_datetime = datetime.datetime.now()
 current_datetime_str = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
-CONF_MATRIX_FILENAME = f"{CHECKPOINTS_PATH}/ensamble_conf_matrix_{current_datetime_str}.png"
+CONF_MATRIX_FILENAME = f"{CHECKPOINTS_PATH}/ensemble_conf_matrix_{current_datetime_str}.png"
 
 
 def get_mapping_labels(test_loader):
@@ -43,16 +43,19 @@ def load_model(model_file_name, prev_model_type):
         model_2_file = "models_3dcnn/3dcnn_model_body_and_hands.pth"
         model_3_file = "models_3dcnn/3dcnn_model_face_and_hands.pth"
 
-    model_1 = torch.load(join(ROOT_PATH, model_1_file), map_location=torch.device('cpu'))
-    model_2 = torch.load(join(ROOT_PATH, model_2_file), map_location=torch.device('cpu'))
-    model_3 = torch.load(join(ROOT_PATH, model_3_file), map_location=torch.device('cpu'))
+    model_1 = torch.load(join(ROOT_PATH, model_1_file),
+                         map_location=torch.device('cpu'))
+    model_2 = torch.load(join(ROOT_PATH, model_2_file),
+                         map_location=torch.device('cpu'))
+    model_3 = torch.load(join(ROOT_PATH, model_3_file),
+                         map_location=torch.device('cpu'))
 
     # Load the saved model
     if CUDA_ACTIVATED:
         model_mlp = torch.load(model_file_name).cuda()
     else:
-        model_mlp = torch.load(model_file_name, map_location=torch.device('cpu'))
-        
+        model_mlp = torch.load(
+            model_file_name, map_location=torch.device('cpu'))
 
     return [model_1, model_2, model_3], model_mlp
 
@@ -80,7 +83,8 @@ def show_accuracy(labels, preds):
     accuracy = 100 * correct_predictions / len(labels)
     print(f'Accuracy during testing: {accuracy:.2f}%')
 
-    return  accuracy
+    return accuracy
+
 
 def evaluate_model(model_file_name, prev_model_type):
 
@@ -92,31 +96,39 @@ def evaluate_model(model_file_name, prev_model_type):
 
     # Set the model in evaluation mode
     model_mlp.eval()
-    done = False
+    
+    predictions = torch.Tensor()
+
     with torch.no_grad():
-        
-        iterator = zip(val_loader[ProcessingType.ALL], val_loader[ProcessingType.BODY_HANDS], val_loader[ProcessingType.FACE_HANDS])
+
+        iterator = zip(val_loader[ProcessingType.ALL],
+                       val_loader[ProcessingType.BODY_HANDS], val_loader[ProcessingType.FACE_HANDS])
 
         for batches_all, batches_fah, batches_bah in iterator:
-            
+
             batches = [batches_all, batches_bah, batches_fah]
             labels = batches_all['label']
             outputs_3dcnn = []
 
             for loader_batch, model_3dcnn in zip(batches, models_3dcnn):
                 out = model_3dcnn(loader_batch['video'])
-                outputs_3dcnn += [out.argmax(dim=-1)]
+                outputs_3dcnn += [out]
+                # outputs_3dcnn += [out.argmax(dim=-1)]
 
             outputs_3dcnn = torch.stack(outputs_3dcnn, dim=1)
-            
+            outputs_3dcnn = outputs_3dcnn.reshape(
+                outputs_3dcnn.shape[0], outputs_3dcnn.shape[1]*outputs_3dcnn.shape[2])
+
+            predictions = torch.cat((predictions, outputs_3dcnn), dim=0)
+        
             if CUDA_ACTIVATED:
                 outputs_3dcnn = outputs_3dcnn.cuda()
                 labels = labels.cuda()
+                model = model.cuda()
 
             pred = model_mlp(outputs_3dcnn)
             all_labels += labels.tolist()  # Convert tensor to a list of integers
             predictions += pred.argmax(dim=-1).tolist()
-
 
     # Mapping numeric labels to their origin name
     mapping = get_mapping_labels(val_loader[ProcessingType.ALL])
@@ -128,8 +140,9 @@ def evaluate_model(model_file_name, prev_model_type):
 
 
 def parse_arguments():
-    default_file = join(CHECKPOINTS_PATH, "ensamble_model_2023-08-31_17:28:51.pth")
-    
+    default_file = join(
+        CHECKPOINTS_PATH, "ensemble_model_2023-08-31_17:28:51.pth")
+
     parser = argparse.ArgumentParser(
         description="Evaluate video classification model.")
     parser.add_argument("--file", type=str, default=default_file,
@@ -144,5 +157,5 @@ if __name__ == "__main__":
 
     args = parse_arguments()
 
-    print("EVALUATING MODEL ENSAMBLE")
+    print("EVALUATING MODEL ENSEMBLE")
     evaluate_model(args.file, args.model)
