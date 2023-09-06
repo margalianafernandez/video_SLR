@@ -6,8 +6,8 @@ import ffmpeg
 import random
 import logging
 import urllib.request
-from data_constants import *
 from os.path import join
+from data_constants import *
 from moviepy.editor import *
 
 

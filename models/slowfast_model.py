@@ -1,14 +1,18 @@
+# Import necessary libraries and modules
 import torch
 from torch import nn
 from torch import optim
-from models.model_constants import *
+from models.model_constants import *  # Import constants from a custom module
 from torch.utils.data import DataLoader
 from torchvision.transforms import Compose, Lambda
 from pytorchvideo.data import make_clip_sampler, labeled_video_dataset
 from pytorchvideo.transforms import ApplyTransformToKey, UniformTemporalSubsample, \
     ShortSideScale, Normalize
 
+# Custom module for model constants (e.g., NUM_FRAMES, MEAN, STD)
+# and other relevant constants used in the code
 
+# Define a custom module named "PackPathwaySlowFast" which inherits from nn.Module
 class PackPathwaySlowFast(nn.Module):
     """
     Transform for converting video frames as a list of tensors.
@@ -20,7 +24,7 @@ class PackPathwaySlowFast(nn.Module):
 
     def forward(self, frames):
         fast_pathway = frames
-        # perform temporal sampling from the fast pathway.
+        # Perform temporal sampling from the fast pathway.
         slow_pathway = torch.index_select(
             frames,
             1,
@@ -30,7 +34,7 @@ class PackPathwaySlowFast(nn.Module):
         frame_list = [slow_pathway, fast_pathway]
         return frame_list
 
-
+# Define a function to get the transformation pipeline for SlowFast models
 def get_slowfast_transformations():
 
     transformations = [
@@ -46,7 +50,7 @@ def get_slowfast_transformations():
         transform=Compose(transformations),
     )
 
-
+# Define a function to get data loaders for SlowFast models
 def get_slowfast_data_loaders(is_eval=False, data_folder=PROCESSED_VIDEO_FOLDER, use_test_data=True):
 
     if is_eval:
@@ -79,11 +83,11 @@ def get_slowfast_data_loaders(is_eval=False, data_folder=PROCESSED_VIDEO_FOLDER,
 
         return train_loader, val_loader
 
-
+# Define a function to get the SlowFast model along with loss criterion and optimizer
 def get_slowfast_model(num_labels, lr=LEARNING_RATE_SLOWFAST, momentum=MOMENTUM_SLOWFAST,
                        weight_decay=WEIGHT_DECAY_SLOWFAST, adam_optimizer=False, cross_entropy=True):
 
-    # model define, loss setup and optimizer config
+    # Model definition and setup
     if CUDA_ACTIVATED:
         model = torch.hub.load('facebookresearch/pytorchvideo:main',
                                model='slowfast_r50', pretrained=True).cuda()
@@ -95,11 +99,13 @@ def get_slowfast_model(num_labels, lr=LEARNING_RATE_SLOWFAST, momentum=MOMENTUM_
         model.blocks[6].proj = torch.nn.Linear(
             in_features=2304, out_features=num_labels, bias=True)
 
+    # Choose the appropriate loss criterion (CrossEntropyLoss or NLLLoss)
     if cross_entropy:
         loss_criterion = nn.CrossEntropyLoss()
     else:
         loss_criterion = nn.NLLLoss()
 
+    # Choose the optimizer (Adam or SGD)
     if adam_optimizer:
         optimizer = optim.Adam(model.parameters(), lr=lr,
                                weight_decay=weight_decay)

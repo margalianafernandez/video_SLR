@@ -1,20 +1,16 @@
-"""
-This script converts MSASL dataset information into the format of the WLASL dataset.
-It prepares the data for processing in the video_downloader file.
-"""
-
+# Import necessary libraries
 import json
-from data_constants import LABELS
+from data_constants import LABELS  # Import labels from a data_constants module
 
-# Output file path
+# Output file path for the converted dataset
 OUTPUT_FILE = "config/MSASL.json"
 
-# Input files for different sets
+# Input files for different sets from MSASL dataset
 MSASL_TEST_JSON_FILE = "config/MSASL_test.json"
 MSASL_TRAIN_JSON_FILE = "config/MSASL_train.json"
 MSASL_VAL_JSON_FILE = "config/MSASL_val.json"
 
-# List of input files and corresponding set names
+# List of input files and their corresponding set names
 FILES = [
     (MSASL_TEST_JSON_FILE, "test"),
     (MSASL_TRAIN_JSON_FILE, "train"),
@@ -22,30 +18,33 @@ FILES = [
 ]
 
 # MSASL dataset field names
-MSASL_LABEL = "clean_text"
-MSASL_FRAME_START = "start"
-MSASL_FRAME_END = "end"
-START_TIME = "start_time"
-END_TIME = "end_time"
-FPS = "fps"
-SIGNER_ID = "signer_id"
-URL = "url"
+MSASL_LABEL = "clean_text"  # Label for sign language gestures in MSASL dataset
+MSASL_FRAME_START = "start"  # Start frame of the sign gesture
+MSASL_FRAME_END = "end"  # End frame of the sign gesture
+START_TIME = "start_time"  # Start time of the sign gesture
+END_TIME = "end_time"  # End time of the sign gesture
+FPS = "fps"  # Frames per second
+SIGNER_ID = "signer_id"  # ID of the signer
+URL = "url"  # URL of the video
 
-# WLASL dataset field names
-WLASL_LABEL = "gloss"
-WLASL_VIDEO_ID = "video_id"
-WLASL_FRAME_START = "frame_start"
-WLASL_FRAME_END = "frame_end"
-WLASL_DATA_SET = "split"
-WLASL_INSTANCES = "instances"
+# WLASL dataset field names (desired format after conversion)
+WLASL_LABEL = "gloss"  # Gloss for sign language gestures in WLASL dataset
+WLASL_VIDEO_ID = "video_id"  # ID of the video
+WLASL_FRAME_START = "frame_start"  # Start frame of the gesture in the video
+WLASL_FRAME_END = "frame_end"  # End frame of the gesture in the video
+WLASL_DATA_SET = "split"  # Dataset set name (e.g., "train", "val")
+WLASL_INSTANCES = "instances"  # List of instances for each label in WLASL dataset
+
+# Define a custom sorting function based on END_TIME
 
 
-# Define a custom sorting function
 def sort_by_end_time(entry):
     return entry[END_TIME]
 
+# Function to process MSASL dataset content and convert it to WLASL format
 
-def get_content(output, input, set_name, start_id = 0):
+
+def get_content(output, input, set_name, start_id=0):
     """
     Process the MSASL dataset content and convert it to the WLASL format.
 
@@ -58,7 +57,7 @@ def get_content(output, input, set_name, start_id = 0):
         dict: Updated dictionary with converted data.
     """
     video_id = start_id + 1
-    
+
     for sign in input:
         label = sign[MSASL_LABEL]
 
@@ -79,7 +78,7 @@ def get_content(output, input, set_name, start_id = 0):
 
         if label not in output:
             output[label] = []
-        
+
         output[label] += [entry]
         video_id += 1
 
@@ -87,15 +86,17 @@ def get_content(output, input, set_name, start_id = 0):
 
 
 if __name__ == "__main__":
+    # Initialize an empty dictionary to store the converted dataset
     content = {}
     last_video_id = 0
-    
+
     # Loop through input files and their corresponding set names
     for file_name, set_name in FILES:
         with open(file_name, "r") as json_file:
             msasl_content = json.load(json_file)
 
-        content, last_video_id = get_content(content, msasl_content, set_name, last_video_id)
+        content, last_video_id = get_content(
+            content, msasl_content, set_name, last_video_id)
 
     # Sort the dictionaries in the list based on END_TIME
     for label in content:
@@ -108,7 +109,7 @@ if __name__ == "__main__":
     print("Labels missing:", [
           element for element in LABELS if element not in content.keys()])
 
-    # Organize data into final format and write to output file
+    # Organize data into final format and write to the output file
     for label, instances in content.items():
         final_content += [{
             WLASL_LABEL: label,

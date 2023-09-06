@@ -3,8 +3,9 @@ import sys
 import json
 import shutil
 import random
+from os.path import join
 from data_constants import *
-from os.path import join, splitext
+from models.model_constants import *
 
 
 # Get the directory of the current script
@@ -13,14 +14,13 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 # Calculate the parent directory and add it to sys.path
 parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
 sys.path.append(parent_dir)
-from models.model_constants import PROCESSED_VIDEO_FOLDER
 
 
 def divide_dataset_into_test_and_val():
     """
-    The dataset that will be divided is assigned in the data_constants file in the 
-    variable called DATASET_FILE. This function will read all the videos in the dataset 
-    and write a json file called START_SPLIT_DATASET_FILE_PATH.
+    This function divides a dataset into test and validation sets based on some criteria.
+    It reads the dataset from DATASET_FILE and creates a JSON file called SPLIT_DATASET_FILE_PATH
+    to store the split information.
     """
     # Initialize a dictionary to keep track of validation video counts
     val_videos = {}
@@ -60,6 +60,11 @@ def divide_dataset_into_test_and_val():
 
 
 def split_train_test_from_two_datasets():
+    """
+    This function splits two datasets, MSASL and WLASL, into test, validation, and train sets.
+    It shuffles and assigns videos to these sets based on specified ratios and saves the split information
+    in a JSON file called JOIN_DATASET_FILE_PATH.
+    """
     msasl_content = json.load(
         open(START_SPLIT_DATASET_FILE_PATH.format(DatasetSelected.MSASL.value)))
     wlasl_content = json.load(
@@ -76,13 +81,13 @@ def split_train_test_from_two_datasets():
             all_files = content[TEST][label] + content[VALIDATION][label]
             random.shuffle(all_files)
             num_files = len(all_files)
-            test_num = int(num_files*TEST_RATE)
-            val_num = int(num_files*VALIDATION_RATE)
+            test_num = int(num_files * TEST_RATE)
+            val_num = int(num_files * VALIDATION_RATE)
             train_num = num_files - test_num - val_num
 
             dts_split[VALIDATION][label] = all_files[:val_num]
-            dts_split[TRAIN][label] = all_files[val_num:val_num+train_num]
-            dts_split[TEST][label] = all_files[val_num+train_num:]
+            dts_split[TRAIN][label] = all_files[val_num:val_num + train_num]
+            dts_split[TEST][label] = all_files[val_num + train_num:]
 
     content = {
         DatasetSelected.WLASL.value: wlasl_split,
@@ -94,12 +99,16 @@ def split_train_test_from_two_datasets():
 
 
 def validate_dataset_swap(test_val_content, train_content):
-
+    """
+    This function checks if the dataset assignments are correct after a swap operation.
+    It compares the actual files in the dataset folders with the expected assignments and prints any discrepancies.
+    """
     # Move videos from test/val to train folders based on updated assignments
     for label in LABELS:
 
         # Check new TRAIN content
-        correct_files = train_content[TEST][label] + train_content[VALIDATION][label] 
+        correct_files = train_content[TEST][label] + \
+            train_content[VALIDATION][label]
 
         directory_path = join(PROCESSED_VIDEO_FOLDER, TRAIN, label)
         directory_files = os.listdir(directory_path)
@@ -124,13 +133,14 @@ def validate_dataset_swap(test_val_content, train_content):
 
 def set_each_dataset_to_train_or_test():
     """
-    Flip the assignment of videos between train and validation/test sets.
+    This function swaps the assignments of videos between train and validation/test sets for a dataset.
+    It also validates the correctness of the dataset assignments.
     """
     # Load split dataset information
     train_content = json.load(
-        open(START_SPLIT_DATASET_FILE_PATH.format(TRAIN_DATASET.value)))
+        open(START_SPLIT_DATASET_FILE_PATH.format(TRAIN.value)))
     test_val_content = json.load(
-        open(START_SPLIT_DATASET_FILE_PATH.format(VAL_TEST_DATASET.value)))
+        open(START_SPLIT_DATASET_FILE_PATH.format(TEST.value)))
 
     # Rename the old processed video folder and create a new one
     if os.path.exists(PROCESSED_VIDEO_FOLDER):
@@ -143,8 +153,8 @@ def set_each_dataset_to_train_or_test():
         for label in LABELS:
             os.mkdir(join(PROCESSED_VIDEO_FOLDER, set_name, label))
 
-    iterate = [(train_content, TRAIN_DATASET, True),
-               (test_val_content, VAL_TEST_DATASET, False)]
+    iterate = [(train_content, TRAIN, True),
+               (test_val_content, TEST, False)]
 
     for content, dataset, is_train in iterate:
         for set_name, labels in content.items():
@@ -152,7 +162,7 @@ def set_each_dataset_to_train_or_test():
             for label, files in labels.items():
                 for file_name in files:
                     source_path = join(START_PROCESSED_VIDEO_FOLDER.format(
-                        dataset.value), file_name+FILES_EXTENSION)
+                        dataset.value), file_name + FILES_EXTENSION)
                     dest_path = join(
                         PROCESSED_VIDEO_FOLDER, set_name, label)
                     shutil.copy(source_path, dest_path)
@@ -162,7 +172,7 @@ def set_each_dataset_to_train_or_test():
 
 def join_both_datasets_into_train_or_test():
     """
-    Flip the assignment of videos between train and validation/test sets.
+    This function swaps the assignments of videos between train and validation/test sets for both datasets.
     """
     # Load split dataset information
     join_dataset_content = json.load(open(JOIN_DATASET_FILE_PATH))
@@ -183,7 +193,7 @@ def join_both_datasets_into_train_or_test():
             for label, files in labels.items():
                 for file_name in files:
                     source_path = join(START_PROCESSED_VIDEO_FOLDER.format(
-                        dataset_name), file_name+FILES_EXTENSION)
+                        dataset_name), file_name + FILES_EXTENSION)
                     dest_path = join(
                         PROCESSED_VIDEO_FOLDER, set_name, label)
                     shutil.copy(source_path, dest_path)
@@ -200,4 +210,3 @@ if __name__ == "__main__":
         join_both_datasets_into_train_or_test()
     """
     set_each_dataset_to_train_or_test()
-    

@@ -2,16 +2,20 @@
 from train_model import *
 from itertools import product
 import matplotlib.pyplot as plt
-from evaluate_model import evaluate_model
 from processing.data_constants import *
+from evaluate_model import evaluate_model
 
+# Define the labels and the number of labels
 LABELS = face_motion_labels + hands_motion_labels + body_motion_labels
 NUM_LABELS = len(LABELS)
 
-
 def plot_hyperparameters_summary(logs):
-    
-    # Separate data into two lists: slowfast_logs and cnn_logs
+    """
+    Plot the summary of hyperparameter tuning.
+    Args:
+        logs: List of dictionaries containing hyperparameters and accuracy values.
+    """
+    # Separate data into two lists: logs_acc
     logs_acc = [entry['acc'] for entry in logs]
 
     # Create a dictionary to map parameter names to their values in the logs
@@ -44,7 +48,7 @@ def plot_hyperparameters_summary(logs):
         plt.xlabel(param_name)
         plt.ylabel('Accuracy')
 
-        # Plot slowfast and cnn data points separately
+        # Plot data points
         plt.scatter(param_values, logs_acc, label=CURRENT_MODEL.label, marker='o')
 
         # Mark the highest accuracy values with red points
@@ -59,27 +63,27 @@ def plot_hyperparameters_summary(logs):
         plt.savefig("plots/plot_{}.png".format(param_name))
         plt.show()
 
-
-
+# Define the current model
 CURRENT_MODEL = Models.CNN_3D
 
-print("Tunning", CURRENT_MODEL.value)
+print("Tuning", CURRENT_MODEL.value)
 
 # Define ranges for hyperparameters
-
 learning_rate_range = [0.001, 0.01, 0.1]
 momentum_range = [0.4, 0.6, 0.9]
 weight_decay_range = [0.0001, 0.001, 0.01]
 cross_entropy_lf = [False, True]
 adam_optimizer = [False, True]
 
+# Define the model filename and configure file names
 MODEL_FILENAME = os.path.join(CHECKPOINTS_PATH, CURRENT_MODEL.value + "_tmp_model.pth")
-
 define_file_names(CURRENT_MODEL.value, model_filename=MODEL_FILENAME)
 
+# Initialize best accuracy and best hyperparameters
 best_accuracy = 0.0
 best_hyperparameters = None
 
+# Define data loaders and model type based on the current model
 if CURRENT_MODEL == Models.SLOWFAST:
     get_data_loaders = get_slowfast_data_loaders
     get_model = get_slowfast_model
@@ -104,18 +108,16 @@ for lr, momentum, weight_decay, use_adam, use_ce in hyperparam_comb:
     print("\tLR:", lr)
     print("\tMOMENTUM:", momentum)
     print("\tWEIGHT DECAY:", weight_decay)
-    print("\tWEIGHT DECAY:", weight_decay)
     print("\tADAM OPTIMIZER:", use_adam)
-    print("\CROSS ENTROPY LOSS FUNCTION:", use_ce)
-
+    print("\tCROSS ENTROPY LOSS FUNCTION:", use_ce)
 
     # Train the model using the current hyperparameters
     train_loader, val_loader = get_data_loaders(data_folder=PROCESSED_VIDEO_FOLDER)
     model, loss_criterion, optimizer = get_model(
         NUM_LABELS, lr=lr, momentum=momentum, adam_optimizer=use_adam, cross_entropy=use_ce)
 
-    model=train_model(train_loader, val_loader, model, CURRENT_MODEL,
-                loss_criterion, optimizer, store_files=False)
+    model = train_model(train_loader, val_loader, model, CURRENT_MODEL,
+                        loss_criterion, optimizer, store_files=False)
     
     top_1 = evaluate_model(CURRENT_MODEL, MODEL_FILENAME, data_folder=PROCESSED_VIDEO_FOLDER, use_test_data=False)
     top_1 = float(top_1)
@@ -133,11 +135,9 @@ for lr, momentum, weight_decay, use_adam, use_ce in hyperparam_comb:
         best_hyperparameters = (lr, momentum, weight_decay, use_adam, use_ce)
         print("At the moment best hyperparameters:", best_hyperparameters)
 
-
-
 # Print the best hyperparameters and accuracy
 print("Best Hyperparameters:", best_hyperparameters)
 print("Best Accuracy:", best_accuracy)
 
-
+# Plot hyperparameters summary
 plot_hyperparameters_summary(logs)
