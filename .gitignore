@@ -5,7 +5,7 @@ data*/
 *.err
 *.out
 *.sbatch
-
+models_3dcnn/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
